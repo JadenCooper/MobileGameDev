@@ -11,26 +11,33 @@ public class VillagerController : MonoBehaviour
     public VillagerState CurrentState;
     public Vector2 CurrentGoal;
     private int CurrentTimeGoal;
-    void Start()
-    {
-        
-    }
     void Update()
     {
         if (CurrentState == VillagerState.Travelling)
         {
-            OnMovementInput?.Invoke(DetermineMovement());
+            if (CurrentGoal == (Vector2)transform.position)
+            {
+                ReachedLocation();
+            }
+            else
+            {
+                OnMovementInput?.Invoke(DetermineMovement());
+            }
         }
     }
     public Vector2 DetermineMovement()
     {
-        return
+        // Gets Direction For Movement Based On Current Goal
+        return (CurrentGoal - (Vector2)transform.position).normalized;
     }
     public void CheckForLocation(int CurrentTime)
     {
+        // Will Be Triggered By Villager Manager Every Hour
         if (schedule.LocationNames[CurrentTime] != CurrentLocation)
         {
             CurrentTimeGoal = CurrentTime;
+            CurrentGoal = schedule.Locations[CurrentTime];
+            CurrentState = schedule.VillagerStates[CurrentTime];
         }
     }
 

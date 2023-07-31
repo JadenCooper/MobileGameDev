@@ -7960,6 +7960,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8366260563272473375, guid: b660b1a5c2454b14a92b7a3643775475, type: 3}
   m_PrefabInstance: {fileID: 1058886155}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1058886157 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8366260563272473371, guid: b660b1a5c2454b14a92b7a3643775475, type: 3}
+  m_PrefabInstance: {fileID: 1058886155}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3a765b404727f340a6233efe8501d32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1512673082 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6068908678381332392, guid: a92d8be2d4b75ea46bcee9c508db93df, type: 3}
@@ -7977,6 +7988,8 @@ GameObject:
   - component: {fileID: 1724419794}
   - component: {fileID: 1724419793}
   - component: {fileID: 1724419792}
+  - component: {fileID: 1724419797}
+  - component: {fileID: 1724419796}
   m_Layer: 0
   m_Name: Villager Test
   m_TagString: Intractable
@@ -8099,6 +8112,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1724419796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724419791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f355f704b817b94a9e1099cde6718ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnMovementInput:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1058886157}
+        m_TargetAssemblyTypeName: Agent, Assembly-CSharp
+        m_MethodName: set_MovementInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  schedule: {fileID: 0}
+  CurrentLocation: 
+  CurrentState: 1
+  CurrentGoal: {x: -1.06, y: 0}
+--- !u!114 &1724419797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724419791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f355f704b817b94a9e1099cde6718ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnMovementInput:
+    m_PersistentCalls:
+      m_Calls: []
+  schedule: {fileID: 0}
+  CurrentLocation: 
+  CurrentState: 0
+  CurrentGoal: {x: 0, y: 0}
 --- !u!1001 &1762553369
 PrefabInstance:
   m_ObjectHideFlags: 0
