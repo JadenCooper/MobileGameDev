@@ -7708,6 +7708,52 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &552203548
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 552203550}
+  - component: {fileID: 552203549}
+  m_Layer: 0
+  m_Name: Villager Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &552203549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552203548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70492e84e480d5c4b8a61d99c03b99bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Villagers:
+  - {fileID: 1724419796}
+--- !u!4 &552203550
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552203548}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.63492775, y: 0.6971145, z: 0.05019065}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &710922177
 GameObject:
   m_ObjectHideFlags: 0
@@ -7976,6 +8022,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6068908678381332392, guid: a92d8be2d4b75ea46bcee9c508db93df, type: 3}
   m_PrefabInstance: {fileID: 1868365751}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1624121009
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1624121011}
+  - component: {fileID: 1624121010}
+  m_Layer: 0
+  m_Name: Day Night Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1624121010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624121009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fba10765a4604147af4347be8283f82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  villagerManager: {fileID: 552203549}
+  fullDayLength: 600
+--- !u!4 &1624121011
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624121009}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.63492775, y: 0.6971145, z: 0.05019065}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1724419791
 GameObject:
   m_ObjectHideFlags: 0
@@ -7988,7 +8080,6 @@ GameObject:
   - component: {fileID: 1724419794}
   - component: {fileID: 1724419793}
   - component: {fileID: 1724419792}
-  - component: {fileID: 1724419797}
   - component: {fileID: 1724419796}
   m_Layer: 0
   m_Name: Villager Test
@@ -8143,25 +8234,6 @@ MonoBehaviour:
   CurrentLocation: 
   CurrentState: 1
   CurrentGoal: {x: -1.06, y: 0}
---- !u!114 &1724419797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1724419791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f355f704b817b94a9e1099cde6718ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnMovementInput:
-    m_PersistentCalls:
-      m_Calls: []
-  schedule: {fileID: 0}
-  CurrentLocation: 
-  CurrentState: 0
-  CurrentGoal: {x: 0, y: 0}
 --- !u!1001 &1762553369
 PrefabInstance:
   m_ObjectHideFlags: 0

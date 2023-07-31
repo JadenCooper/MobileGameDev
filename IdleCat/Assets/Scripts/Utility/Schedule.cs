@@ -14,5 +14,6 @@ public enum VillagerState
     Idle,
     Travelling,
     Working,
-    Sleeping
+    Sleeping,
+    Petitioning
 }
