@@ -47,7 +47,7 @@ public class VillagerController : Intractable
         CurrentState = schedule.VillagerStates[CurrentTimeGoal];
     }
 
-    public override void Interact()
+    public override void InteractAction()
     {
         throw new System.NotImplementedException();
     }

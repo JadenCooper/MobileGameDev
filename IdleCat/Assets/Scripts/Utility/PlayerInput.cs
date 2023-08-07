@@ -31,7 +31,7 @@ public class PlayerInput : MonoBehaviour
         Collider2D collider = raycastHit.collider;
         if (collider != null && collider.CompareTag("Intractable"))
         {
-            raycastHit.collider.GetComponent<Intractable>().Interact(); // Activates Object's Interaction
+            raycastHit.collider.GetComponent<Intractable>().Interact(gameObject.transform); // Activates Object's Interaction
         }
     }
 }

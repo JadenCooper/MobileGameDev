@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Test : Intractable
 {
-    public override void Interact()
+    public override void InteractAction()
     {
-        Destroy(gameObject);
+        throw new System.NotImplementedException();
     }
 }
