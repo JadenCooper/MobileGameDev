@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class VillagerController : MonoBehaviour
+public class VillagerController : Intractable
 {
     public UnityEvent<Vector2> OnMovementInput;
     public Schedule schedule;
@@ -45,5 +45,10 @@ public class VillagerController : MonoBehaviour
     {
         CurrentLocation = schedule.LocationNames[CurrentTimeGoal];
         CurrentState = schedule.VillagerStates[CurrentTimeGoal];
+    }
+
+    public override void Interact()
+    {
+        throw new System.NotImplementedException();
     }
 }

@@ -1,7 +1,5 @@
-using Mono.Cecil;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
@@ -22,7 +20,7 @@ public class DayNightManager : MonoBehaviour
     private float LightIncreaceRate;
     private float LightDecreaceRate;
 
-
+    public UIManager uiManager;
     public Light2D Sun;
     private void Start()
     {
@@ -56,13 +54,13 @@ public class DayNightManager : MonoBehaviour
             }
             // Change Sunlight Every Hour
             UpdateLight();
+            uiManager.UpdateClock(CurrentTime.x);
         }
 
     }
 
     private void UpdateLight()
     {
-        Debug.Log("Update Light");
         if (CurrentTime.x == 6)
         {
             // Start Of Day
