@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,6 +12,13 @@ public class VillagerController : Intractable
     public VillagerState CurrentState;
     public Vector2 CurrentGoal;
     private int CurrentTimeGoal;
+
+    private VillagerManager villagerManager;
+    private float CurrentLevel = 0;
+    public void Initialize(VillagerManager vM)
+    {
+        villagerManager = vM;
+    }
     void Update()
     {
         if (CurrentState == VillagerState.Travelling)
@@ -28,7 +36,14 @@ public class VillagerController : Intractable
     public Vector2 DetermineMovement()
     {
         // Gets Direction For Movement Based On Current Goal
-        return (CurrentGoal - (Vector2)transform.position).normalized;
+        Vector2 direction;
+        if (CurrentGoal.y != CurrentLevel)
+        {
+            // Need To Find Elevator
+            CurrentGoal = villagerManager.GetClosestElevator(CurrentLevel, CurrentGoal.y, (Vector2)transform.position);
+        }
+        direction = (CurrentGoal - (Vector2)transform.position).normalized;
+        return direction;
     }
     public void CheckForLocation(int CurrentTime)
     {
@@ -37,7 +52,7 @@ public class VillagerController : Intractable
         {
             CurrentTimeGoal = CurrentTime;
             CurrentGoal = schedule.Locations[CurrentTime];
-            CurrentState = schedule.VillagerStates[CurrentTime];
+            CurrentState = VillagerState.Travelling;
         }
     }
 
