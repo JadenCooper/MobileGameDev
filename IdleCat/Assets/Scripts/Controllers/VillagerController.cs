@@ -16,6 +16,7 @@ public class VillagerController : Intractable
     private VillagerManager villagerManager;
     private float CurrentLevel = 0;
     public Elevator currentElevator;
+    public int goalFloor;
     public void Initialize(VillagerManager vM)
     {
         villagerManager = vM;
@@ -26,16 +27,7 @@ public class VillagerController : Intractable
         {
             if (CurrentGoal.x == transform.position.x)
             {
-                if (currentElevator != null)
-                {
-                    // At Elevator
-                    currentElevator.Transport();
-                    CurrentGoal = schedule.Locations[CurrentTimeGoal];
-                }
-                else
-                {
-                    ReachedLocation();
-                }
+                ReachedLocation();
             }
             else
             {
@@ -81,9 +73,12 @@ public class VillagerController : Intractable
         throw new System.NotImplementedException();
     }
 
-    public void SetElevator(Elevator elevator, float newX)
+    public void SetElevator(Elevator elevator, float newX, int newGoalFloor)
     {
         currentElevator = elevator;
         CurrentGoal = new Vector2(newX, 0);
+        goalFloor = newGoalFloor;
     }
+
+    
 }

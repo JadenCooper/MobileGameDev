@@ -83,6 +83,6 @@ public class VillagerManager : MonoBehaviour
             }
         }
 
-        villager.SetElevator(finalElevator, finalElevator.x);
+        villager.SetElevator(finalElevator, finalElevator.x, (int)currentGoal);
     }
 }
