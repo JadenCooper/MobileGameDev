@@ -15,6 +15,7 @@ public class VillagerController : Intractable
 
     private VillagerManager villagerManager;
     private float CurrentLevel = 0;
+    public Elevator currentElevator;
     public void Initialize(VillagerManager vM)
     {
         villagerManager = vM;
@@ -23,9 +24,18 @@ public class VillagerController : Intractable
     {
         if (CurrentState == VillagerState.Travelling)
         {
-            if (CurrentGoal == (Vector2)transform.position)
+            if (CurrentGoal.x == transform.position.x)
             {
-                ReachedLocation();
+                if (currentElevator != null)
+                {
+                    // At Elevator
+                    currentElevator.Transport();
+                    CurrentGoal = schedule.Locations[CurrentTimeGoal];
+                }
+                else
+                {
+                    ReachedLocation();
+                }
             }
             else
             {
@@ -40,9 +50,13 @@ public class VillagerController : Intractable
         if (CurrentGoal.y != CurrentLevel)
         {
             // Need To Find Elevator
-            CurrentGoal = villagerManager.GetClosestElevator(CurrentLevel, CurrentGoal.y, (Vector2)transform.position);
+            villagerManager.GetClosestElevator(this, CurrentLevel);
+            direction = Vector2.zero;
         }
-        direction = (CurrentGoal - (Vector2)transform.position).normalized;
+        else
+        {
+            direction = (CurrentGoal - (Vector2)transform.position).normalized;
+        }
         return direction;
     }
     public void CheckForLocation(int CurrentTime)
@@ -65,5 +79,11 @@ public class VillagerController : Intractable
     public override void InteractAction()
     {
         throw new System.NotImplementedException();
+    }
+
+    public void SetElevator(Elevator elevator, float newX)
+    {
+        currentElevator = elevator;
+        CurrentGoal = new Vector2(newX, 0);
     }
 }

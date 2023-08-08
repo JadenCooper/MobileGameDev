@@ -23,58 +23,66 @@ public class VillagerManager : MonoBehaviour
         }
     }
 
-    public Vector2 GetClosestElevator(float CurrentLevel, float GoalLevel, Vector2 CurrentLocation)
+    public void GetClosestElevator(VillagerController villager, float currentLevel)
     {
-        Debug.Log("CurrentLevel " + CurrentLevel);
-        Debug.Log("GoalLevel " + GoalLevel);
-        bool CurrentLevelEntranceFound = false;
-        bool GoalLevelEntranceFound = false;
-        List<Vector2> PossibleElevators = new List<Vector2>();
+        ////                                                                                          /////
+        //  This Method Gets The Closest Elevator That Goes At least One Floor Closer To The Goal Floor ///
+        ////                                                                                          /////
+        float currentGoal = villager.CurrentGoal.y;
 
-        for (int e = 0; e < Elevators.Count; e++)
+        if (currentGoal > currentLevel)
         {
-            Debug.Log("Elevator");
-            for (int f = 0; f < Elevators[e].Floors.Count; f++)
-            {
-                if (Elevators[e].Floors[f] == CurrentLevel)
-                {
-                    Debug.Log("Current Level Found");
-                    CurrentLevelEntranceFound = true;
-                }
-                else if(Elevators[e].Floors[f] == GoalLevel)
-                {
-                    Debug.Log("Goal Level Found");
-                    GoalLevelEntranceFound = true;
-                }
-            }
-
-            if (CurrentLevelEntranceFound && GoalLevelEntranceFound)
-            {
-                PossibleElevators.Add(Elevators[e].ElevatorLocations[e]);
-
-            }
-
-            CurrentLevelEntranceFound = false;
-            GoalLevelEntranceFound = false;
-        }
-
-        if (PossibleElevators.Count == 0)
-        {
-            Debug.Log("No Elevators Found");
-            return Vector2.zero;
+            // Going Up
+            currentGoal = currentLevel += 1;
         }
         else
         {
-            Vector2 currentChoice = PossibleElevators[0];
-            for (int i = 1; i < PossibleElevators.Count; i++)
+            //Going Down
+            currentGoal = currentLevel -= 1;
+        }
+
+        List<Elevator> CanGetToElevators = new List<Elevator>();
+        for (int e = 0; e < Elevators.Count; e++)
+        {
+            for (int l = 0; l < Elevators[e].Levels.Count; l++)
             {
-                if (Vector2.Distance(CurrentLocation, currentChoice) > Vector2.Distance(PossibleElevators[i], currentChoice))
+                if (Elevators[e].Levels[l] == currentLevel)
                 {
-                    currentChoice = PossibleElevators[i];
+                    // Can Get To
+                    CanGetToElevators.Add(Elevators[e]);
+                    break;
                 }
             }
-
-            return currentChoice;
         }
+
+        List<Elevator> CanGetOutOffElevators = new List<Elevator>();
+
+        for (int e = 0; e < CanGetToElevators.Count; e++)
+        {
+            for (int l = 0; l < CanGetToElevators[e].Levels.Count; l++)
+            {
+                if (CanGetToElevators[e].Levels[l] == currentGoal)
+                {
+                    // Can Get Off
+                    CanGetOutOffElevators.Add(Elevators[e]);
+                    break;
+                }
+            }
+        }
+
+        Elevator finalElevator = CanGetOutOffElevators[0];
+        Vector2 currentLocation = new Vector2(villager.transform.position.x, 0);
+        for (int i = 1; i < CanGetOutOffElevators.Count; i++)
+        {
+            Vector2 current = new Vector2(finalElevator.x, 0);
+            Vector2 check = new Vector2(CanGetOutOffElevators[i].x, 0);
+
+            if (Vector2.Distance(current, currentLocation) > Vector2.Distance(check, currentLocation))
+            {
+                finalElevator = CanGetOutOffElevators[i];
+            }
+        }
+
+        villager.SetElevator(finalElevator, finalElevator.x);
     }
 }
