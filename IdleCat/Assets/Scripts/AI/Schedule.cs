@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "NewSchedule", menuName = "Data/Schedule")]
 public class Schedule : ScriptableObject
 {
     public Vector2[] Locations;
@@ -11,9 +12,9 @@ public class Schedule : ScriptableObject
 
 public enum VillagerState
 {
-    Idle,
-    Travelling,
-    Working,
-    Sleeping,
+    Home,
+    Work,
+    Recreation, // EG Parks, Market, Inn 
+    Traveling, // Is An Inbetween State
     Petitioning
 }

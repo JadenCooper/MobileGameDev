@@ -6,6 +6,8 @@ using UnityEngine.UIElements;
 
 public class DayNightManager : MonoBehaviour
 {
+    public static DayNightManager Instance { get; private set; }
+
     private const int HOURSINDAY = 18;
     private const int STARTTIME = 6;
     private const int ENDTIME = 24;
@@ -15,13 +17,28 @@ public class DayNightManager : MonoBehaviour
     public float fullDayLength;
 
     // X = Current Hour, Y = Inbettween
-    private Vector2 CurrentTime;
+    public Vector2 CurrentTime;
+
     private float TimeRate;
     private float LightIncreaceRate;
     private float LightDecreaceRate;
 
     public UIManager uiManager;
     public Light2D Sun;
+
+    private void Awake()
+    {
+        // If there is an instance, and it's not me, delete myself.
+
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
     private void Start()
     {
         // Day Starts At 6am Ends At 12am
