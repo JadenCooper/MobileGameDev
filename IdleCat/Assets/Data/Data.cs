@@ -9,4 +9,6 @@ public static class Data
         {0, 0 },
         {1, 7 }
     };
+
+    public static int TimeIndexIncrement = 6;
 }

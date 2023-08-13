@@ -29,8 +29,9 @@ public class VillagerManager : MonoBehaviour
     {
         GameObject NewVillager = Instantiate(villagerPrefab, VillagerSpawnPoint.transform);
         NewVillager.transform.parent = null;
-        VillagerController VC = NewVillager.GetComponent<VillagerController>();
+        VillagerController VC = NewVillager.GetComponentInChildren<VillagerController>();
         VC.villagerInfo = defaultVillagerInfo;
+        Villagers.Add(VC);
     }
     //public void GetClosestElevator(VillagerController villager, float currentLevel)
     //{

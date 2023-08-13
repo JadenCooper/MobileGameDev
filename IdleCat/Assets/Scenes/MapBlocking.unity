@@ -7958,11 +7958,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70492e84e480d5c4b8a61d99c03b99bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Villagers:
-  - {fileID: 0}
-  Elevators:
-  - {fileID: 1823069552}
-  villagerPrefab: {fileID: 3115484888845915421, guid: d153c0621b5df334a902ac0909d5859d, type: 3}
+  Villagers: []
+  Elevators: []
+  villagerPrefab: {fileID: 2738389094612232789, guid: 8735b687e8d67d6459a112c87070496b, type: 3}
   defaultVillagerInfo: {fileID: 11400000, guid: f142517bcb7cd7d408a0de61b26e010b, type: 2}
   VillagerSpawnPoint: {fileID: 963395702}
   Inn: {fileID: 1829308502}
@@ -8823,6 +8821,7 @@ GameObject:
   - component: {fileID: 1829308504}
   - component: {fileID: 1829308503}
   - component: {fileID: 1829308502}
+  - component: {fileID: 1829308505}
   m_Layer: 0
   m_Name: Inn
   m_TagString: Untagged
@@ -8911,6 +8910,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1829308505
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829308501}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0028421879, y: -0.05015996}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.28866667}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.18709707, y: 1.5229864}
+  m_EdgeRadius: 0
 --- !u!1001 &1868365751
 PrefabInstance:
   m_ObjectHideFlags: 0

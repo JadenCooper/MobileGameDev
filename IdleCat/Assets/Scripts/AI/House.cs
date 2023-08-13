@@ -12,4 +12,16 @@ public class House : MonoBehaviour
     {
         return Location;
     }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        VillagerController vc = collision.gameObject.GetComponent<VillagerController>();
+        if (vc != null)
+        {
+            if (vc.villagerInfo.currentState == VillagerState.Home && vc.villagerInfo.house == this)
+            {
+                vc.ReachedLocation();
+            }
+        }
+    }
 }

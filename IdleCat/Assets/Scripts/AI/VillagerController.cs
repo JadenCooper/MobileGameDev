@@ -11,6 +11,7 @@ public class VillagerController : Intractable
     public UnityEvent<Vector2> OnMovementInput;
     private int CurrentLevel = 0;
     public bool moving = true;
+    public TimeOut timeOut;
     public void Initialize(VillagerInfo villagerInfo)
     {
         this.villagerInfo = villagerInfo;
@@ -32,7 +33,6 @@ public class VillagerController : Intractable
 
     public void GetNewLocationGoal()
     {
-        Debug.Log("New Location");
         navigation.GetLocationGoal(villagerInfo, CurrentLevel);
     }
     public Vector2 DetermineMovement()
@@ -44,26 +44,54 @@ public class VillagerController : Intractable
 
     public void ReachedLocation()
     {
-        Debug.Log("Reached");
+        villagerInfo.currentState = villagerInfo.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x - Data.TimeIndexIncrement];
+        moving = false;
+        OnMovementInput?.Invoke(Vector2.zero);
+        DayNightManager.Instance.NewHour -= GetNewLocationGoal;
 
-        villagerInfo.currentState = villagerInfo.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x];
-
+        bool StillCurrentState = true;
+        int i = 0;
         switch (villagerInfo.currentState)
         {
             case VillagerState.Home:
+                while (StillCurrentState)
+                {
+                    if (villagerInfo.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x - Data.TimeIndexIncrement + i] == villagerInfo.currentState)
+                    {
+                        i++;
+                    }
+                    else
+                    {
+                        StillCurrentState = false;
+                    }
+                }
+                timeOut.Disable(i);
                 break;
+
             case VillagerState.Work:
+                while (StillCurrentState)
+                {
+                    if (villagerInfo.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x - Data.TimeIndexIncrement + i] == villagerInfo.currentState)
+                    {
+                        i++;
+                    }
+                    else
+                    {
+                        StillCurrentState = false;
+                    }
+                }
+                timeOut.Disable(i);
                 break;
+
             //case VillagerState.Recreation:
             //    break;
+
             //case VillagerState.Petitioning:
             //    break;
+
             default:
                 break;
         }
-
-        moving = false;
-        OnMovementInput?.Invoke(Vector2.zero);
     }
 
     public override void InteractAction()
@@ -71,4 +99,10 @@ public class VillagerController : Intractable
         throw new System.NotImplementedException();
     }
 
+    public void OutOfTimeOut()
+    {
+        moving = true;
+        DayNightManager.Instance.NewHour += GetNewLocationGoal;
+        GetNewLocationGoal();
+    }
 }
