@@ -14,4 +14,5 @@ public class VillagerInfo : ScriptableObject
     public string LastName;
 
     public VillagerState currentState;
+    public float CurrentGoal;
 }

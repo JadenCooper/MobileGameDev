@@ -4,44 +4,57 @@ using UnityEngine;
 
 public class Navigation : MonoBehaviour
 {
-    public float GetLocationGoal(VillagerInfo villagerInfo, float currentLevel)
+    public void GetLocationGoal(VillagerInfo villagerInfo, float currentLevel)
     {
         int currentTime = (int)DayNightManager.Instance.CurrentTime.x;
-        Vector2 Location;
-        switch (villagerInfo.schedule.VillagerStates[currentTime])
+        Vector2 Location = new Vector3(villagerInfo.CurrentGoal, 0); // Default To Current Goal / Current Floor
+        if (villagerInfo.currentState != VillagerState.Traveling) // If Not Already Traveling To Elevator
         {
-            case VillagerState.Home:
-                Location = villagerInfo.house.GetLocation();
-                villagerInfo.currentState = VillagerState.Home;
-                break;
-            case VillagerState.Work:
-                Location = villagerInfo.job.GetLocation();
-                villagerInfo.currentState = VillagerState.Work;
-                break;
-            //case VillagerState.Recreation:
-            //    break;
-            //case VillagerState.Petitioning:
-            //    break;
-            default:
-                Debug.Log("Navigation Broke");
-                return 0;
-        }
-
-        if (currentLevel != Location.y)
-        {
-            // Get Nearest Elevator
-            villagerInfo.currentState = VillagerState.Traveling;
-
-            if (Location.y > currentLevel)
+            switch (villagerInfo.schedule.VillagerStates[currentTime])
             {
-                // Needs To Go Up
-            }
-            else
-            {
-                // Needs To Go Down
-            }
-        }
+                case VillagerState.Home:
+                    if (villagerInfo.currentState != VillagerState.Home)
+                    {
+                        Location = villagerInfo.house.GetLocation();
+                        villagerInfo.currentState = VillagerState.Home;
+                    }
+                    break;
 
-        return Location.x;
+                case VillagerState.Work:
+                    if (villagerInfo.currentState != VillagerState.Work)
+                    {
+                        Location = villagerInfo.job.GetLocation();
+                        villagerInfo.currentState = VillagerState.Work;
+                    }
+                    break;
+
+                //case VillagerState.Recreation:
+                //    break;
+
+                //case VillagerState.Petitioning:
+                //    break;
+
+                default:
+                    Debug.Log("Navigation Broke");
+                    break;
+            }
+
+            if (currentLevel != Location.y)
+            {
+                // Get Nearest Elevator
+                villagerInfo.currentState = VillagerState.Traveling;
+
+                if (Location.y > currentLevel)
+                {
+                    // Needs To Go Up
+                }
+                else
+                {
+                    // Needs To Go Down
+                }
+            }
+
+            villagerInfo.CurrentGoal = Location.x;
+        }
     }
 }

@@ -7,22 +7,31 @@ public class VillagerManager : MonoBehaviour
 {
     public List<VillagerController> Villagers = new List<VillagerController>();
     public List<Elevator> Elevators = new List<Elevator>();
+
+    [SerializeField]
+    private GameObject villagerPrefab;
+    [SerializeField]
+    private VillagerInfo defaultVillagerInfo;
+    public GameObject VillagerSpawnPoint;
+    public House Inn;
+    public Job Mason;
     private void Start()
     {
-        foreach (VillagerController Villager in Villagers)
-        {
-            Villager.Initialize(this);
-        }
-    }
-    public void TriggerVillagerSchedules(int CurrentTime)
-    {
-        //// Triggers All Villager Schedule Changes Each Hour
+        defaultVillagerInfo.house = Inn;
+        defaultVillagerInfo.job = Mason;
         //foreach (VillagerController Villager in Villagers)
         //{
-        //    Villager.CheckForLocation(CurrentTime);
+        //    Villager.Initialize(this);
         //}
     }
-
+    [ContextMenu("Generate Villager")]
+    public void GenerateVillager()
+    {
+        GameObject NewVillager = Instantiate(villagerPrefab, VillagerSpawnPoint.transform);
+        NewVillager.transform.parent = null;
+        VillagerController VC = NewVillager.GetComponent<VillagerController>();
+        VC.villagerInfo = defaultVillagerInfo;
+    }
     //public void GetClosestElevator(VillagerController villager, float currentLevel)
     //{
     //    ////                                                                                          /////

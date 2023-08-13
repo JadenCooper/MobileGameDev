@@ -5,8 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewSchedule", menuName = "Data/Schedule")]
 public class Schedule : ScriptableObject
 {
-    public Vector2[] Locations;
-    public string[] LocationNames;
     public VillagerState[] VillagerStates;
 }
 

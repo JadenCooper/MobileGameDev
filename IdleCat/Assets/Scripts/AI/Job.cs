@@ -4,12 +4,9 @@ using UnityEngine;
 
 public abstract class Job : MonoBehaviour
 {
-    [SerializeField]
-    private string JobName;
-    [SerializeField]
-    private Vector2 Location; // X is X / Y Is Level
-    [SerializeField]
-    private Vector2 WorkTimes; // Start Time / End Time
+    public string JobName;
+    public Vector2 Location; // X is X / Y Is Level
+    public Vector2 WorkTimes; // Start Time / End Time
 
     public List<VillagerController> Employees = new List<VillagerController>();
     public abstract void Initialize(); // Activated When Built
@@ -17,5 +14,7 @@ public abstract class Job : MonoBehaviour
     public abstract void Work();
 
     public abstract Vector2 GetLocation();
+
+    public abstract void OnTriggerEnter2D(Collider2D collision);
 
 }
