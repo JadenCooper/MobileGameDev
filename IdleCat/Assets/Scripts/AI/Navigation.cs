@@ -6,8 +6,10 @@ public class Navigation : MonoBehaviour
 {
     public void GetLocationGoal(VillagerInfo villagerInfo, float currentLevel)
     {
-        int currentTime = (int)DayNightManager.Instance.CurrentTime.x;
-        Vector2 Location = new Vector3(villagerInfo.CurrentGoal, 0); // Default To Current Goal / Current Floor
+        Debug.Log(villagerInfo.job);
+        Debug.Log(villagerInfo.house);
+        int currentTime = (int)DayNightManager.Instance.CurrentTime.x - 6;
+        Vector2 Location = new Vector3(villagerInfo.CurrentGoal.x, 0); // Default To Current Goal / Current Floor
         if (villagerInfo.currentState != VillagerState.Traveling) // If Not Already Traveling To Elevator
         {
             switch (villagerInfo.schedule.VillagerStates[currentTime])
@@ -47,14 +49,17 @@ public class Navigation : MonoBehaviour
                 if (Location.y > currentLevel)
                 {
                     // Needs To Go Up
+                    villagerInfo.CurrentGoal.y = 1;
                 }
                 else
                 {
                     // Needs To Go Down
+                    villagerInfo.CurrentGoal.y = -1;
                 }
             }
 
-            villagerInfo.CurrentGoal = Location.x;
+            Debug.Log(Location.x);
+            villagerInfo.CurrentGoal.x = Location.x;
         }
     }
 }

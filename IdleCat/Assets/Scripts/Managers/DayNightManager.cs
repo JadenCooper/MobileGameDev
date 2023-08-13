@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ using UnityEngine.UIElements;
 public class DayNightManager : MonoBehaviour
 {
     public static DayNightManager Instance { get; private set; }
+
+    public event Action NewHour;
 
     private const int HOURSINDAY = 18;
     private const int STARTTIME = 6;
@@ -72,6 +75,11 @@ public class DayNightManager : MonoBehaviour
             // Change Sunlight Every Hour
             UpdateLight();
             uiManager.UpdateClock(CurrentTime.x);
+
+            if (NewHour != null)
+            {
+                NewHour();
+            }
         }
 
     }

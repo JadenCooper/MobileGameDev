@@ -10,7 +10,7 @@ public class VillagerController : Intractable
 
     public UnityEvent<Vector2> OnMovementInput;
     private int CurrentLevel = 0;
-    private bool moving = true;
+    public bool moving = true;
     public void Initialize(VillagerInfo villagerInfo)
     {
         this.villagerInfo = villagerInfo;
@@ -18,7 +18,8 @@ public class VillagerController : Intractable
     private void Start()
     {
         navigation = GetComponent<Navigation>();
-        navigation.GetLocationGoal(villagerInfo, CurrentLevel);
+        DayNightManager.Instance.NewHour += GetNewLocationGoal;
+        GetNewLocationGoal();
     }
 
     private void Update()
@@ -29,10 +30,15 @@ public class VillagerController : Intractable
         }
     }
 
+    public void GetNewLocationGoal()
+    {
+        Debug.Log("New Location");
+        navigation.GetLocationGoal(villagerInfo, CurrentLevel);
+    }
     public Vector2 DetermineMovement()
     {
         // Gets Direction For Movement Based On Current Goal
-        Vector2 Goal = new Vector2(villagerInfo.CurrentGoal, transform.position.y);
+        Vector2 Goal = new Vector2(villagerInfo.CurrentGoal.x, transform.position.y);
         return (Goal - (Vector2)transform.position).normalized;
     }
 
@@ -64,4 +70,5 @@ public class VillagerController : Intractable
     {
         throw new System.NotImplementedException();
     }
+
 }
