@@ -20,7 +20,6 @@ public class ElevatorChain : MonoBehaviour
         VC.gameObject.transform.position = new Vector2(VC.gameObject.transform.position.x, Data.FloorHeights[newFloor]);
         VC.CurrentLevel = newFloor;
         VC.currentElevatorGoal = null;
-        Debug.Log(VC.CurrentLevel);
         VC.ChangeState();
         VC.GetNewLocationGoal();
     }

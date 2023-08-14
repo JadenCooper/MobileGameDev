@@ -207,6 +207,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameObjectToDisable: {fileID: 2468018628509557508}
   VC: {fileID: 2468018628509557535}
+  TimeOutDelayTime: 0.5
+  ComingBackDelayRange: {x: 0, y: 1}
 --- !u!50 &947270508308940161
 Rigidbody2D:
   serializedVersion: 4

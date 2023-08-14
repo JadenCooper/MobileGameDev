@@ -7,7 +7,10 @@ public class TimeOut : MonoBehaviour
     public GameObject GameObjectToDisable;
     private int HoursToEnable = 0;
     public VillagerController VC;
+    [SerializeField]
     private float TimeOutDelayTime = 0.5f;
+    [SerializeField]
+    private Vector2 ComingBackDelayRange;
     public void Disable(int HoursToEnable)
     {
         this.HoursToEnable = HoursToEnable;
@@ -20,8 +23,7 @@ public class TimeOut : MonoBehaviour
         if (HoursToEnable <= 0)
         {
             DayNightManager.Instance.NewHour -= Decrement;
-            GameObjectToDisable.SetActive(true);
-            VC.OutOfTimeOut();
+            StartCoroutine(ComingBackDelay());
         }
     }
 
@@ -31,5 +33,13 @@ public class TimeOut : MonoBehaviour
         yield return new WaitForSeconds(TimeOutDelayTime);
         DayNightManager.Instance.NewHour += Decrement;
         GameObjectToDisable.SetActive(false);
+    }
+
+    private IEnumerator ComingBackDelay()
+    {
+        // Play Building Exit Animation Here At Somepoint
+        yield return new WaitForSeconds(Random.Range(ComingBackDelayRange.x, ComingBackDelayRange.y));
+        GameObjectToDisable.SetActive(true);
+        VC.OutOfTimeOut();
     }
 }
