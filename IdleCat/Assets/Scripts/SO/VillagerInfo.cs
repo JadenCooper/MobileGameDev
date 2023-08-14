@@ -13,6 +13,6 @@ public class VillagerInfo : ScriptableObject
     public string FirstName;
     public string LastName;
 
-    public VillagerState currentState;
+    public VillagerState currentState = VillagerState.Home;
     public Vector2 CurrentGoal;
 }

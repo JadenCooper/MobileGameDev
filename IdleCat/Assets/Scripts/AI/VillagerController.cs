@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,9 +10,10 @@ public class VillagerController : Intractable
     private Navigation navigation;
 
     public UnityEvent<Vector2> OnMovementInput;
-    private int CurrentLevel = 0;
+    public int CurrentLevel = 0;
     public bool moving = true;
     public TimeOut timeOut;
+    public Elevator currentElevatorGoal;
     public void Initialize(VillagerInfo villagerInfo)
     {
         this.villagerInfo = villagerInfo;
@@ -30,10 +32,13 @@ public class VillagerController : Intractable
             OnMovementInput?.Invoke(DetermineMovement());
         }
     }
-
+    public void ChangeState()
+    {
+        villagerInfo.currentState = villagerInfo.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x - 6];
+    }
     public void GetNewLocationGoal()
     {
-        navigation.GetLocationGoal(villagerInfo, CurrentLevel);
+        navigation.GetLocationGoal(this, villagerInfo);
     }
     public Vector2 DetermineMovement()
     {

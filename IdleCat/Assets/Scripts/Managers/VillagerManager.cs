@@ -6,7 +6,6 @@ using UnityEngine;
 public class VillagerManager : MonoBehaviour
 {
     public List<VillagerController> Villagers = new List<VillagerController>();
-    public List<Elevator> Elevators = new List<Elevator>();
 
     [SerializeField]
     private GameObject villagerPrefab;
@@ -17,8 +16,6 @@ public class VillagerManager : MonoBehaviour
     public Job Mason;
     private void Start()
     {
-        defaultVillagerInfo.house = Inn;
-        defaultVillagerInfo.job = Mason;
         //foreach (VillagerController Villager in Villagers)
         //{
         //    Villager.Initialize(this);
@@ -30,7 +27,10 @@ public class VillagerManager : MonoBehaviour
         GameObject NewVillager = Instantiate(villagerPrefab, VillagerSpawnPoint.transform);
         NewVillager.transform.parent = null;
         VillagerController VC = NewVillager.GetComponentInChildren<VillagerController>();
-        VC.villagerInfo = defaultVillagerInfo;
+        VillagerInfo tempVI = Instantiate(defaultVillagerInfo);
+        tempVI.house = Inn;
+        tempVI.job = Mason;
+        VC.Initialize(tempVI);
         Villagers.Add(VC);
     }
     //public void GetClosestElevator(VillagerController villager, float currentLevel)

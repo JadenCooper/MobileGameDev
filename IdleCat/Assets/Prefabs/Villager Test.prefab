@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2468018628509557528}
   - component: {fileID: 2468018628509557529}
-  - component: {fileID: 2468018628509557530}
   - component: {fileID: 2468018628509557531}
   - component: {fileID: 2468018628509557535}
   - component: {fileID: 161862949687524195}
@@ -89,27 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &2468018628509557530
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2468018628509557508}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 4
 --- !u!61 &2468018628509557531
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -165,8 +143,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  CurrentLevel: 0
   moving: 1
   timeOut: {fileID: 7419883371828481749}
+  currentElevatorGoal: {fileID: 0}
 --- !u!114 &161862949687524195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,6 +169,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5619417758936161329}
   - component: {fileID: 7419883371828481749}
+  - component: {fileID: 947270508308940161}
   m_Layer: 0
   m_Name: Villager Test
   m_TagString: Untagged
@@ -226,6 +207,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameObjectToDisable: {fileID: 2468018628509557508}
   VC: {fileID: 2468018628509557535}
+--- !u!50 &947270508308940161
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2738389094612232789}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!1001 &2468018627288121280
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -236,7 +238,7 @@ PrefabInstance:
     - target: {fileID: 8366260563272473368, guid: b660b1a5c2454b14a92b7a3643775475, type: 3}
       propertyPath: rb2d
       value: 
-      objectReference: {fileID: 2468018628509557530}
+      objectReference: {fileID: 947270508308940161}
     - target: {fileID: 8366260563272473370, guid: b660b1a5c2454b14a92b7a3643775475, type: 3}
       propertyPath: m_Name
       value: Agent

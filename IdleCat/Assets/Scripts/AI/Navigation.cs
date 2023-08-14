@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Navigation : MonoBehaviour
 {
-    public void GetLocationGoal(VillagerInfo villagerInfo, float currentLevel)
+    public void GetLocationGoal(VillagerController VC ,VillagerInfo villagerInfo)
     {
         int currentTime = (int)DayNightManager.Instance.CurrentTime.x - 6;
         Vector2 Location = new Vector3(villagerInfo.CurrentGoal.x, 0); // Default To Current Goal / Current Floor
@@ -13,19 +15,13 @@ public class Navigation : MonoBehaviour
             switch (villagerInfo.schedule.VillagerStates[currentTime])
             {
                 case VillagerState.Home:
-                    if (villagerInfo.currentState != VillagerState.Home)
-                    {
-                        Location = villagerInfo.house.GetLocation();
-                        villagerInfo.currentState = VillagerState.Home;
-                    }
+                    Location = villagerInfo.house.GetLocation();
+                    villagerInfo.currentState = VillagerState.Home;
                     break;
 
                 case VillagerState.Work:
-                    if (villagerInfo.currentState != VillagerState.Work)
-                    {
-                        Location = villagerInfo.job.GetLocation();
-                        villagerInfo.currentState = VillagerState.Work;
-                    }
+                    Location = villagerInfo.job.GetLocation();
+                    villagerInfo.currentState = VillagerState.Work;
                     break;
 
                 //case VillagerState.Recreation:
@@ -39,12 +35,12 @@ public class Navigation : MonoBehaviour
                     break;
             }
 
-            if (currentLevel != Location.y)
+            if (VC.CurrentLevel != Location.y)
             {
                 // Get Nearest Elevator
                 villagerInfo.currentState = VillagerState.Traveling;
 
-                if (Location.y > currentLevel)
+                if (Location.y > VC.CurrentLevel)
                 {
                     // Needs To Go Up
                     villagerInfo.CurrentGoal.y = 1;
@@ -54,6 +50,9 @@ public class Navigation : MonoBehaviour
                     // Needs To Go Down
                     villagerInfo.CurrentGoal.y = -1;
                 }
+
+                VC.currentElevatorGoal = ElevatorManager.Instance.GetClosestElevator((int)VC.CurrentLevel, (int)villagerInfo.CurrentGoal.y, VC.gameObject.transform.position.x);
+                Location.x = VC.currentElevatorGoal.elevatorChain.X;
             }
 
             villagerInfo.CurrentGoal.x = Location.x;
