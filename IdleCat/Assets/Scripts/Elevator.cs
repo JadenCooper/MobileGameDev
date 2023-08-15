@@ -11,6 +11,7 @@ public class Elevator : Intractable
 
     public ElevatorChain elevatorChain;
     public int Level;
+    public GameObject MovementCanvas;
     public void Initialize(ElevatorChain elevatorChain)
     {
         this.elevatorChain = elevatorChain;
@@ -30,6 +31,15 @@ public class Elevator : Intractable
     public override void InteractAction()
     {
         // Activate Canvas - Buttons To Go Up And Down - Used For Player
-        throw new System.NotImplementedException();
+        MovementCanvas.SetActive(!MovementCanvas.activeSelf);
+    }
+
+    public void TransportUp()
+    {
+
+    }
+    public void TransportDown()
+    {
+
     }
 }

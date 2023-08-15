@@ -9,8 +9,10 @@ public abstract class Intractable : MonoBehaviour
     public void Interact(Transform agent)
     {
         // If Player Is Within Interaction Distance Then Interaction Can Take Place
+        Debug.Log("Check");
         if ((Vector2.Distance(agent.position, gameObject.transform.position) < InteractionDistance))
         {
+            Debug.Log("Check2");
             InteractAction();
         }
     }
