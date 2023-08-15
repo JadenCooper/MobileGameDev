@@ -6,6 +6,10 @@ using UnityEngine.Events;
 
 public class VillagerController : Intractable
 {
+    /// <summary>
+    /// This Script Handles The Functionality Of The Villager From Moment To Interactions
+    /// </summary>
+
     public VillagerInfo villagerInfo;
     private Navigation navigation;
 

@@ -7,6 +7,10 @@ using UnityEngine.UIElements;
 
 public class DayNightManager : MonoBehaviour
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    
     public static DayNightManager Instance { get; private set; }
 
     public event Action NewHour;

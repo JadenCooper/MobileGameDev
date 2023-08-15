@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class TimeOut : MonoBehaviour
 {
+    /// <summary>
+    /// This Script Handles And Disable And Enabling The  Villager When They Enter And Leave A Building
+    /// </summary>
+
     public GameObject GameObjectToDisable;
     private int HoursToEnable = 0;
     public VillagerController VC;

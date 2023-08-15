@@ -6,6 +6,12 @@ using UnityEngine.UI;
 
 public class Navigation : MonoBehaviour
 {
+    /// <summary>
+    /// This Script Handles Navigation Of The Villagers Based On Their Schedules And The Current Time
+    /// </summary>
+
+    /// <param name="VC"></param>
+    /// <param name="villagerInfo"></param>
     public void GetLocationGoal(VillagerController VC ,VillagerInfo villagerInfo)
     {
         int currentTime = (int)DayNightManager.Instance.CurrentTime.x - 6;

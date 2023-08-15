@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class ElevatorChain : MonoBehaviour
 {
+    /// <summary>
+    /// This Script Handles The Overhead Of A Chain Of Elevators
+    /// </summary>
+    
     public List<Elevator> Elevators;
     public float X;
     private void Start()
@@ -26,6 +30,7 @@ public class ElevatorChain : MonoBehaviour
 
     public bool CheckForLevel(int LevelToCheck)
     {
+        // Checks To See If The Level Is Present In The Chain
         for (int i = 0; i < Elevators.Count; i++)
         {
             if (LevelToCheck == Elevators[i].Level)
@@ -39,6 +44,7 @@ public class ElevatorChain : MonoBehaviour
 
     public Elevator GetElevator(int LevelToCheck)
     {
+        // Gets The Specific Elevator Based On The Level
         for (int i = 0; i < Elevators.Count; i++)
         {
             if (LevelToCheck == Elevators[i].Level)

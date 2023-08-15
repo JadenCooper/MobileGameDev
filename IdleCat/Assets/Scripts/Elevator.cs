@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Elevator : MonoBehaviour
+public class Elevator : Intractable
 {
+    /// <summary>
+    /// This Script Handles The On The Ground Functions Of An Elevator EG Entering
+    /// </summary>
+
     public ElevatorChain elevatorChain;
     public int Level;
     public void Initialize(ElevatorChain elevatorChain)
@@ -21,5 +25,11 @@ public class Elevator : MonoBehaviour
                 elevatorChain.Transport(VC);
             }
         }
+    }
+
+    public override void InteractAction()
+    {
+        // Activate Canvas - Buttons To Go Up And Down - Used For Player
+        throw new System.NotImplementedException();
     }
 }
