@@ -11,7 +11,7 @@ public class Elevator : Intractable
 
     public ElevatorChain elevatorChain;
     public int Level;
-    public GameObject MovementCanvas;
+    public GameObject UpButton, DownButton;
     public void Initialize(ElevatorChain elevatorChain)
     {
         this.elevatorChain = elevatorChain;
@@ -31,15 +31,49 @@ public class Elevator : Intractable
     public override void InteractAction()
     {
         // Activate Canvas - Buttons To Go Up And Down - Used For Player
-        MovementCanvas.SetActive(!MovementCanvas.activeSelf);
-    }
 
+        if (elevatorChain.CheckForLevel(Level + 1))
+        {
+            Debug.Log("Check");
+            // Can Go Up
+            if (UpButton.activeSelf)
+            {
+                UpButton.SetActive(false);
+            }
+            else
+            {
+                UpButton.SetActive(true);
+            }
+        }
+
+        if (elevatorChain.CheckForLevel(Level - 1))
+        {
+            // Can Go Down
+            if (UpButton.activeSelf)
+            {
+                DownButton.SetActive(false);
+            }
+            else
+            {
+                DownButton.SetActive(true);
+            }
+        }
+    }
     public void TransportUp()
     {
-
+        Elevator elevator = elevatorChain.GetElevator(Level + 1);
+        elevator.Transport(GameObject.FindGameObjectWithTag("Player"));
+        InteractAction(); // To Disable Current Elevator Buttons
     }
     public void TransportDown()
     {
+        Elevator elevator = elevatorChain.GetElevator(Level - 1);
+        elevator.Transport(GameObject.FindGameObjectWithTag("Player")) ;
+        InteractAction(); // To Disable Current Elevator Buttons
+    }
 
+    public void Transport(GameObject gameObject)
+    {
+        gameObject.transform.position = new Vector2(gameObject.transform.position.x, Data.FloorHeights[Level]);
     }
 }
