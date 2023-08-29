@@ -7,7 +7,6 @@ public class ElevatorChain : MonoBehaviour
     /// <summary>
     /// This Script Handles The Overhead Of A Chain Of Elevators
     /// </summary>
-    
     public List<Elevator> Elevators;
     public float X;
     private void Start()
