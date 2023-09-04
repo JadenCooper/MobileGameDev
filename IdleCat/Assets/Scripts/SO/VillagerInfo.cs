@@ -12,7 +12,7 @@ public class VillagerInfo : ScriptableObject
     public float Speed;
     public string FirstName;
     public string LastName;
-
+    public SpeciesData Species;
     public VillagerState currentState = VillagerState.Home;
     public Vector2 CurrentGoal;
 }

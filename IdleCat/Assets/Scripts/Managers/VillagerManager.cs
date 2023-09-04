@@ -6,6 +6,8 @@ using UnityEngine;
 public class VillagerManager : MonoBehaviour
 {
     public List<VillagerController> Villagers = new List<VillagerController>();
+    public List<SpeciesData> UnlockedSpecies = new List<SpeciesData>();
+    public List<SpeciesData> AllSpecies = new List<SpeciesData>();
 
     [SerializeField]
     private GameObject villagerPrefab;
@@ -25,14 +27,49 @@ public class VillagerManager : MonoBehaviour
     public void GenerateVillager()
     {
         GameObject NewVillager = Instantiate(villagerPrefab, VillagerSpawnPoint.transform);
-        NewVillager.transform.parent = null;
+        NewVillager.transform.parent = this.transform;
         VillagerController VC = NewVillager.GetComponentInChildren<VillagerController>();
         VillagerInfo tempVI = Instantiate(defaultVillagerInfo);
         tempVI.house = Inn;
-        tempVI.job = Mason;
+        tempVI.Species = UnlockedSpecies[Random.Range(0, UnlockedSpecies.Count)];
+        tempVI.schedule = GenerateSchedule(tempVI);
         VC.Initialize(tempVI);
         Villagers.Add(VC);
     }
+    public Schedule GenerateSchedule(VillagerInfo VI)
+    {
+        Schedule schedule = VI.schedule;
+
+        bool WorkDone = false;
+        if (VI.job == null)
+        {
+            WorkDone = true;
+        }
+        for (int i = 0; i < 18; i++)
+        {
+
+            if (!WorkDone)
+            {
+                if (i == VI.job.WorkTimes.x)
+                {
+                    do
+                    {
+                        schedule.VillagerStates[i] = VillagerState.Work;
+                        i++;
+                    } while (i != VI.job.WorkTimes.y);
+                    WorkDone = true;
+                }
+
+            }
+            else
+            {
+                schedule.VillagerStates[i] = VillagerState.Home;
+            }
+        }
+
+        return schedule;
+    }
+
     //public void GetClosestElevator(VillagerController villager, float currentLevel)
     //{
     //    ////                                                                                          /////
