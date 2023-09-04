@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7449c575d782bb4d9591727a407e946, type: 3}
   m_Name: Crocodile
   m_EditorClassIdentifier: 
-  Species: 
+  Species: Crocodile
   sprite: {fileID: 21300000, guid: c492f11b9a26b7741be1a99b74b6b44a, type: 3}
+  FoodUsage: 0

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7449c575d782bb4d9591727a407e946, type: 3}
   m_Name: Cow
   m_EditorClassIdentifier: 
-  Species: 
-  sprite: {fileID: 0}
+  Species: Cow
+  sprite: {fileID: 21300000, guid: ec749e6bd1efe9d459b7632cf5907a83, type: 3}
+  FoodUsage: 0

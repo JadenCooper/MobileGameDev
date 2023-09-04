@@ -94,8 +94,20 @@ public class VillagerController : Intractable
                 timeOut.Disable(i);
                 break;
 
-            //case VillagerState.Recreation:
-            //    break;
+            case VillagerState.Recreation:
+                while (StillCurrentState)
+                {
+                    if (villagerInfo.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x - Data.TimeIndexIncrement + i] == villagerInfo.currentState)
+                    {
+                        i++;
+                    }
+                    else
+                    {
+                        StillCurrentState = false;
+                    }
+                }
+                timeOut.Disable(i);
+                break;
 
             //case VillagerState.Petitioning:
             //    break;

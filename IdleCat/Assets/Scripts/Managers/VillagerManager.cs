@@ -13,6 +13,8 @@ public class VillagerManager : MonoBehaviour
     private GameObject villagerPrefab;
     [SerializeField]
     private VillagerInfo defaultVillagerInfo;
+    [SerializeField]
+    private Schedule defaultSchedule;
     public GameObject VillagerSpawnPoint;
     public House Inn;
     public Job Mason;
@@ -27,11 +29,13 @@ public class VillagerManager : MonoBehaviour
     public void GenerateVillager()
     {
         GameObject NewVillager = Instantiate(villagerPrefab, VillagerSpawnPoint.transform);
+        NewVillager.transform.parent = null;
         NewVillager.transform.parent = this.transform;
         VillagerController VC = NewVillager.GetComponentInChildren<VillagerController>();
         VillagerInfo tempVI = Instantiate(defaultVillagerInfo);
         tempVI.house = Inn;
         tempVI.Species = UnlockedSpecies[Random.Range(0, UnlockedSpecies.Count)];
+        tempVI.schedule = Instantiate(defaultSchedule);
         tempVI.schedule = GenerateSchedule(tempVI);
         VC.Initialize(tempVI);
         Villagers.Add(VC);
@@ -63,7 +67,15 @@ public class VillagerManager : MonoBehaviour
             }
             else
             {
-                schedule.VillagerStates[i] = VillagerState.Home;
+                int temp = Random.Range(0, 2);
+                if (temp == 1)
+                {
+                    schedule.VillagerStates[i] = VillagerState.Home;
+                }
+                else
+                {
+                    schedule.VillagerStates[i] = VillagerState.Recreation;
+                }
             }
         }
 

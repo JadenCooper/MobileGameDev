@@ -9090,9 +9090,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 276682379}
-        m_TargetAssemblyTypeName: DialogueTrigger, Assembly-CSharp
-        m_MethodName: TriggerDialogue
+      - m_Target: {fileID: 552203549}
+        m_TargetAssemblyTypeName: VillagerManager, Assembly-CSharp
+        m_MethodName: GenerateVillager
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9285,8 +9285,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Villagers: []
+  UnlockedSpecies:
+  - {fileID: 11400000, guid: d49783ec2f5b7f64a858f825bafd663b, type: 2}
+  - {fileID: 11400000, guid: a1906b256ac0aed45afbb3a7f00499a0, type: 2}
+  - {fileID: 11400000, guid: e86e159a15365da4b8d9896b5d1e9f7d, type: 2}
+  AllSpecies: []
   villagerPrefab: {fileID: 2738389094612232789, guid: 8735b687e8d67d6459a112c87070496b, type: 3}
   defaultVillagerInfo: {fileID: 11400000, guid: f142517bcb7cd7d408a0de61b26e010b, type: 2}
+  defaultSchedule: {fileID: 11400000, guid: 97366879c6284f8478ea05bb631f1a62, type: 2}
   VillagerSpawnPoint: {fileID: 963395702}
   Inn: {fileID: 1829308502}
   Mason: {fileID: 2143738669}

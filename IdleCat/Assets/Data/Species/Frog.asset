@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7449c575d782bb4d9591727a407e946, type: 3}
   m_Name: Frog
   m_EditorClassIdentifier: 
-  Species: 
-  sprite: {fileID: 0}
+  Species: Frog
+  sprite: {fileID: 21300000, guid: 82444da48d3516c468c7efd21f15f48f, type: 3}
+  FoodUsage: 0
