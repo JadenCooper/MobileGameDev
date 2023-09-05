@@ -20,7 +20,7 @@ public class DayNightManager : MonoBehaviour
     private const int ENDTIME = 24;
     public VillagerManager villagerManager;
 
-    [Header("Length of Full Day In Seconds.")]
+    [Header("Length of Full Day In Seconds")]
     public float fullDayLength;
 
     // X = Current Hour, Y = Inbettween
@@ -75,6 +75,7 @@ public class DayNightManager : MonoBehaviour
                 // New Day
                 CurrentTime.x = STARTTIME;
                 CurrentTime.y = 0;
+                Time.timeScale = 0f;
             }
             // Change Sunlight Every Hour
             UpdateLight();
