@@ -22,16 +22,31 @@ public class SpellCheckWindow : EditorWindow
         spellCheck = new Spelling();
     }
 
+    private bool showSuggestions;
+    Vector2 scroll;
     private void OnGUI()
     {
         EditorGUILayout.PropertyField(obj.FindProperty("text"));
         obj.ApplyModifiedProperties();
 
+        spellCheck.ShowDialog = false;
 
         if (GUILayout.Button("Check Spelling"))
         {
             spellCheck.SpellCheck(text);
-            spellCheck.Suggest(text);
+            spellCheck.Suggest(spellCheck.CurrentWord);
+            showSuggestions = true;
+        }
+
+        if (showSuggestions)
+        {
+            EditorGUILayout.LabelField("Suggestions", EditorStyles.boldLabel);
+            scroll = EditorGUILayout.BeginScrollView(scroll);
+            foreach (string suggestion in spellCheck.Suggestions)
+            {
+                EditorGUILayout.LabelField(suggestion);
+            }
+            EditorGUILayout.EndScrollView();
         }
     }
 }
