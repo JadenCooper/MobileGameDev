@@ -28,4 +28,10 @@ public class UIManager : MonoBehaviour
         }
         clockText.text = hour.ToString() + backEnd;
     }
+
+    public void UpdateResources(List<float> Resources)
+    {
+        // Change Resource Displays
+
+    }
 }

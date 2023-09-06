@@ -28,6 +28,11 @@ public  class Job : Building
     {
         currentUser.happiness -= happinessLoss;
         currentUser.happiness = Mathf.Clamp(currentUser.happiness, 0, 100);
+        VillagerManager.Instance.CalculateVillageHappiness();
+
+
+        ResourceManager.Instance.ResourceChange(resourceToGain, resourceGain);
+        ResourceManager.Instance.ResourceChange(resourceToCost, resourceCost);
 
 
     }

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class VillagerManager : MonoBehaviour
 {
+    public static VillagerManager Instance { get; private set; }
+
     public List<VillagerController> Villagers = new List<VillagerController>();
     public List<SpeciesData> UnlockedSpecies = new List<SpeciesData>();
     public List<SpeciesData> AllSpecies = new List<SpeciesData>();
@@ -33,46 +35,21 @@ public class VillagerManager : MonoBehaviour
         //tempVI.schedule = GenerateSchedule(tempVI);
         VC.Initialize(tempVI);
         Villagers.Add(VC);
+        ResourceManager.Instance.ResourceChange(Resource.Villagers, 1);
     }
-    //public Schedule GenerateSchedule(VillagerInfo VI)
-    //{
-    //    Schedule schedule = VI.schedule;
 
-    //    bool WorkDone = false;
-    //    if (VI.job == null)
-    //    {
-    //        WorkDone = true;
-    //    }
-    //    for (int i = 0; i < 18; i++)
-    //    {
+    public void CalculateVillageHappiness()
+    {
+        float happinessTotal = 0;
 
-    //        if (!WorkDone)
-    //        {
-    //            if (i == VI.job.WorkTimes.x)
-    //            {
-    //                do
-    //                {
-    //                    schedule.VillagerStates[i] = VillagerState.Work;
-    //                    i++;
-    //                } while (i != VI.job.WorkTimes.y);
-    //                WorkDone = true;
-    //            }
+        foreach (VillagerController vc in Villagers)
+        {
+            happinessTotal += vc.villagerInfo.happiness;
+        }
 
-    //        }
-    //        else
-    //        {
-    //            int temp = Random.Range(0, 2);
-    //            if (temp == 1)
-    //            {
-    //                schedule.VillagerStates[i] = VillagerState.Home;
-    //            }
-    //            else
-    //            {
-    //                schedule.VillagerStates[i] = VillagerState.Recreation;
-    //            }
-    //        }
-    //    }
+        happinessTotal = happinessTotal / Villagers.Count;
+        happinessTotal = Mathf.Clamp(happinessTotal, 0, 100);
 
-    //    return schedule;
-    //}
+        ResourceManager.Instance.UpdateVillageHappiness(happinessTotal);
+    }
 }

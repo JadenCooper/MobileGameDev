@@ -9,7 +9,8 @@ public class House : Building
     public float restValue;
     public override void BuildingAction(VillagerInfo currentUser)
     {
-
+        currentUser.rest += restValue;
+        currentUser.rest = Mathf.Clamp(currentUser.rest, 0, 100);
     }
 
     public override void InteractAction()

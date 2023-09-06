@@ -17,7 +17,8 @@ public enum Resource
 {
     Wood,
     Stone,
-    Money,
+    Gold,
     Food,
-    Happiness
+    Happiness,
+    Villagers
 }
