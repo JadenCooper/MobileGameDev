@@ -12,32 +12,36 @@ public class ResourceManager : MonoBehaviour
     private UIManager uiManager;
     public void ResourceChange(Resource resourceToChange, float amountToChange)
     {
+        int ResourceIndex;
         switch (resourceToChange)
         {
             case Resource.Wood:
-                Resources[1] += amountToChange;
+                ResourceIndex = 1;
                 break;
 
             case Resource.Stone:
-                Resources[2] += amountToChange;
+                ResourceIndex = 2;
                 break;
 
             case Resource.Food:
-                Resources[3] += amountToChange;
+                ResourceIndex = 3;
                 break;
 
             case Resource.Gold:
-                Resources[4] += amountToChange;
+                ResourceIndex = 4;
                 break;
 
             case Resource.Villagers:
-                Resources[5] += amountToChange;
+                ResourceIndex = 5;
                 break;
 
             default:
-                Debug.Log("Resource Change Broke In Resource Change Method");
+                Debug.Log("Resource Manager Broke In Resource Change Method");
                 return;
         }
+
+        Resources[ResourceIndex] += amountToChange;
+        Resources[ResourceIndex] = Mathf.Ceil(Resources[ResourceIndex]);
 
         uiManager.UpdateResources(Resources);
     }
@@ -46,6 +50,54 @@ public class ResourceManager : MonoBehaviour
     {
         // Given And Activated By VillagerManager
         Resources[0] = VillageHappiness;
+        Resources[0] = Mathf.Ceil(Resources[0]);
         uiManager.UpdateResources(Resources);
+    }
+
+    public bool ResourceCheck(Resource resourceToCheck, float requiredAmount)
+    {
+        switch (resourceToCheck)
+        {
+            case Resource.Wood:
+                if (Resources[1] >= requiredAmount)
+                {
+                    return true;
+                }
+                break;
+
+            case Resource.Stone:
+                if (Resources[2] >= requiredAmount)
+                {
+                    return true;
+                }
+                break;
+
+            case Resource.Food:
+                if (Resources[3] >= requiredAmount)
+                {
+                    return true;
+                }
+                break;
+
+            case Resource.Gold:
+                if (Resources[4] >= requiredAmount)
+                {
+                    return true;
+                }
+                break;
+
+            case Resource.Villagers:
+                if (Resources[5] >= requiredAmount)
+                {
+                    return true;
+                }
+                break;
+
+            default:
+                Debug.Log("Resource Manager Broke In Resource Check Method");
+                break;
+        }
+
+        return false;
     }
 }

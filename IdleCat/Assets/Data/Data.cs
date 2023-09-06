@@ -10,6 +10,30 @@ public static class Data
         {1, 7.3f }
     };
 
+    public static Happiness CalculateHappinessState(float happiness)
+    {
+        if (happiness >= 90)
+        {
+            return Happiness.Ecstatic;
+        }
+        else if (happiness >= 60)
+        {
+            return Happiness.Happy;
+        }
+        else if(happiness >= 40)
+        {
+            return Happiness.Netural;
+        }
+        else if (happiness >= 11)
+        {
+            return Happiness.Sad;
+        }
+        else
+        {
+            return Happiness.Miserable;
+        }
+
+    }
     public static int TimeIndexIncrement = 6;
 }
 
@@ -21,4 +45,13 @@ public enum Resource
     Food,
     Happiness,
     Villagers
+}
+
+public enum Happiness
+{
+    Ecstatic,
+    Happy,
+    Netural,
+    Sad,
+    Miserable
 }

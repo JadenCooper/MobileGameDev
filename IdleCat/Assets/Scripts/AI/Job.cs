@@ -26,15 +26,35 @@ public  class Job : Building
 
     public override void BuildingAction(VillagerInfo currentUser)
     {
-        currentUser.happiness -= happinessLoss;
-        currentUser.happiness = Mathf.Clamp(currentUser.happiness, 0, 100);
-        VillagerManager.Instance.CalculateVillageHappiness();
+        if (ResourceManager.Instance.ResourceCheck(resourceToCost, resourceCost)) // If Can Afford The Cost
+        {
+            currentUser.happiness -= happinessLoss;
+            currentUser.happiness = Mathf.Clamp(currentUser.happiness, 0, 100);
+            currentUser.happiness = Mathf.Ceil(currentUser.happiness);
 
+            VillagerManager.Instance.CalculateVillageHappiness();
+            Happiness currentUserHappiness = Data.CalculateHappinessState(currentUser.happiness);
 
-        ResourceManager.Instance.ResourceChange(resourceToGain, resourceGain);
-        ResourceManager.Instance.ResourceChange(resourceToCost, resourceCost);
+            float ResourceMultiplier = 1;
 
+            switch (currentUserHappiness)
+            {
+                case Happiness.Ecstatic:
+                    ResourceMultiplier = 1.5f;
+                    break;
 
+                case Happiness.Sad:
+                    ResourceMultiplier = 0.5f;
+                    break;
+
+                case Happiness.Miserable:
+                    ResourceMultiplier = 0;
+                    break;
+            }
+
+            ResourceManager.Instance.ResourceChange(resourceToGain, resourceGain * ResourceMultiplier);
+            ResourceManager.Instance.ResourceChange(resourceToCost, resourceCost);
+        }
     }
 
     public override void InteractAction()

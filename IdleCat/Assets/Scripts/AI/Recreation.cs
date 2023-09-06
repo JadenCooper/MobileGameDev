@@ -10,6 +10,7 @@ public class Recreation : Building
     {
         currentUser.happiness += happinessGain;
         currentUser.happiness = Mathf.Clamp(currentUser.happiness, 0, 100);
+        currentUser.happiness = Mathf.Ceil(currentUser.happiness);
         VillagerManager.Instance.CalculateVillageHappiness();
     }
 
