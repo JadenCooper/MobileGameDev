@@ -15,19 +15,25 @@ public class TimeOut : MonoBehaviour
     private float TimeOutDelayTime = 0.5f;
     [SerializeField]
     private Vector2 ComingBackDelayRange;
-    public void Disable(int HoursToEnable)
+
+    private Building building;
+    public void Disable(int HoursToEnable, Building buildingNowIn)
     {
         this.HoursToEnable = HoursToEnable;
+        building = buildingNowIn;
+        building.users.Add(VC);
         StartCoroutine(TimeOutDelay()); ;
     }
 
     public void Decrement()
     {
         HoursToEnable--;
+        building.BuildingAction(VC.villagerInfo);
         if (HoursToEnable <= 0)
         {
             DayNightManager.Instance.NewHour -= Decrement;
             StartCoroutine(ComingBackDelay());
+            building.users.Remove(VC);
         }
     }
 

@@ -2,19 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Job : MonoBehaviour
+public  class Job : Building
 {
-    public string JobName;
-    public Vector2 Location; // X is X / Y Is Level
-    public Vector2 WorkTimes; // Start Time / End Time
-
     public List<VillagerController> Employees = new List<VillagerController>();
-    public abstract void Initialize(); // Activated When Built
 
-    public abstract void Work();
+    public Resource resourceToGain;
+    public float resourceGain;
+    public Resource resourceToCost;
+    public float resourceCost;
 
-    public abstract Vector2 GetLocation();
+    public float happinessLoss;
+    public override void OnTriggerEnter2D(Collider2D collision)
+    {
+        VillagerController vc = collision.gameObject.GetComponent<VillagerController>();
+        if (vc != null)
+        {
+            if (vc.villagerInfo.currentState == VillagerState.Work && vc.villagerInfo.job == this)
+            {
+                vc.ReachedLocation();
+            }
+        }
+    }
 
-    public abstract void OnTriggerEnter2D(Collider2D collision);
+    public override void BuildingAction(VillagerInfo currentUser)
+    {
+        currentUser.happiness -= happinessLoss;
+        currentUser.happiness = Mathf.Clamp(currentUser.happiness, 0, 100);
 
+
+    }
+
+    public override void InteractAction()
+    {
+        throw new System.NotImplementedException();
+    }
 }

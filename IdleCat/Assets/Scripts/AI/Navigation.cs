@@ -21,17 +21,19 @@ public class Navigation : MonoBehaviour
             switch (villagerInfo.schedule.VillagerStates[currentTime])
             {
                 case VillagerState.Home:
-                    Location = villagerInfo.house.GetLocation();
+                    Location = villagerInfo.house.Location;
                     villagerInfo.currentState = VillagerState.Home;
                     break;
 
                 case VillagerState.Work:
-                    Location = villagerInfo.job.GetLocation();
+                    Location = villagerInfo.job.Location;
                     villagerInfo.currentState = VillagerState.Work;
                     break;
 
-                //case VillagerState.Recreation:
-                //    break;
+                case VillagerState.Recreation:
+                    Location = BuildingManager.Instance.GetRecreationBuilding().Location;
+                    villagerInfo.currentState = VillagerState.Recreation;
+                    break;
 
                 //case VillagerState.Petitioning:
                 //    break;

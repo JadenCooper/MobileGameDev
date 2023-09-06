@@ -12,3 +12,12 @@ public static class Data
 
     public static int TimeIndexIncrement = 6;
 }
+
+public enum Resource
+{
+    Wood,
+    Stone,
+    Money,
+    Food,
+    Happiness
+}

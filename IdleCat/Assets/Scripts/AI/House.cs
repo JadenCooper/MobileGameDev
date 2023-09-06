@@ -2,18 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class House : MonoBehaviour
+public class House : Building
 {
-    [SerializeField]
-    private Vector2 Location; // X is X / Y Is Level
 
     public List<VillagerController> Inhabitants = new List<VillagerController>();
-    public  Vector2 GetLocation()
+    public float restValue;
+    public override void BuildingAction(VillagerInfo currentUser)
     {
-        return Location;
+
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    public override void InteractAction()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void OnTriggerEnter2D(Collider2D collision)
     {
         VillagerController vc = collision.gameObject.GetComponent<VillagerController>();
         if (vc != null)

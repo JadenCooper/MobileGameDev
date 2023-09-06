@@ -7,12 +7,17 @@ public class VillagerInfo : ScriptableObject
 {
     public Schedule schedule;
     public Job job; // If Null Then Unemployed
-    public House house; 
+    public House house;
+    public Recreation recreationGoal;
     // Villager Stats
     public float Speed;
     public string FirstName;
     public string LastName;
-    public SpeciesData Species;
     public VillagerState currentState = VillagerState.Home;
     public Vector2 CurrentGoal;
+
+    public SpeciesData Species;
+
+    public float happiness;
+    public float rest;
 }

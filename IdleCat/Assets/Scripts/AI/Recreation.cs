@@ -2,13 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Recreation : MonoBehaviour
+public class Recreation : Building
 {
-    public string RecreationName;
-    public Vector2 Location; // X is X / Y Is Level
+    public float happinessGain;
 
-    public abstract void Initialize(); // Activated When Built
-    public abstract Vector2 GetLocation();
+    public override void BuildingAction(VillagerInfo currentUser)
+    {
+        currentUser.happiness += happinessGain;
+        currentUser.happiness = Mathf.Clamp(currentUser.happiness, 0, 100);
+    }
 
-    public abstract void OnTriggerEnter2D(Collider2D collision);
+    public override void InteractAction()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void OnTriggerEnter2D(Collider2D collision)
+    {
+        VillagerController vc = collision.gameObject.GetComponent<VillagerController>();
+        if (vc != null)
+        {
+            if (vc.villagerInfo.currentState == VillagerState.Recreation && vc.villagerInfo.recreationGoal == this)
+            {
+                vc.ReachedLocation();
+            }
+        }
+    }
 }

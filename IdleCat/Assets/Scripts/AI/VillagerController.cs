@@ -76,7 +76,7 @@ public class VillagerController : Intractable
                         StillCurrentState = false;
                     }
                 }
-                timeOut.Disable(i);
+                timeOut.Disable(i, villagerInfo.house);
                 break;
 
             case VillagerState.Work:
@@ -91,7 +91,7 @@ public class VillagerController : Intractable
                         StillCurrentState = false;
                     }
                 }
-                timeOut.Disable(i);
+                timeOut.Disable(i, villagerInfo.job);
                 break;
 
             case VillagerState.Recreation:
@@ -106,7 +106,8 @@ public class VillagerController : Intractable
                         StillCurrentState = false;
                     }
                 }
-                timeOut.Disable(i);
+                timeOut.Disable(i, villagerInfo.recreationGoal);
+                villagerInfo.recreationGoal = null;
                 break;
 
             //case VillagerState.Petitioning:
