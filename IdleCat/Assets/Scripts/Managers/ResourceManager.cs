@@ -10,29 +10,42 @@ public class ResourceManager : MonoBehaviour
 
     [SerializeField]
     private UIManager uiManager;
+    private void Awake()
+    {
+        // If there is an instance, and it's not me, delete myself.
+
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
     public void ResourceChange(Resource resourceToChange, float amountToChange)
     {
         int ResourceIndex;
         switch (resourceToChange)
         {
             case Resource.Wood:
-                ResourceIndex = 1;
+                ResourceIndex = 0;
                 break;
 
             case Resource.Stone:
-                ResourceIndex = 2;
+                ResourceIndex = 1;
                 break;
 
             case Resource.Food:
-                ResourceIndex = 3;
+                ResourceIndex = 2;
                 break;
 
             case Resource.Gold:
-                ResourceIndex = 4;
+                ResourceIndex = 3;
                 break;
 
             case Resource.Villagers:
-                ResourceIndex = 5;
+                ResourceIndex = 4;
                 break;
 
             default:
@@ -50,7 +63,6 @@ public class ResourceManager : MonoBehaviour
     {
         // Given And Activated By VillagerManager
         Resources[0] = VillageHappiness;
-        Resources[0] = Mathf.Ceil(Resources[0]);
         uiManager.UpdateResources(Resources);
     }
 

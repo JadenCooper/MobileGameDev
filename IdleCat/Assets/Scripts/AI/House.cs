@@ -15,7 +15,7 @@ public class House : Building
 
     public override void InteractAction()
     {
-        throw new System.NotImplementedException();
+
     }
 
     public override void OnTriggerEnter2D(Collider2D collision)

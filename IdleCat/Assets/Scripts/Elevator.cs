@@ -34,7 +34,6 @@ public class Elevator : Intractable
 
         if (elevatorChain.CheckForLevel(Level + 1))
         {
-            Debug.Log("Check");
             // Can Go Up
             if (UpButton.activeSelf)
             {

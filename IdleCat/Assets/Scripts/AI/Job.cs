@@ -30,7 +30,7 @@ public  class Job : Building
         {
             currentUser.happiness -= happinessLoss;
             currentUser.happiness = Mathf.Clamp(currentUser.happiness, 0, 100);
-            currentUser.happiness = Mathf.Ceil(currentUser.happiness);
+
 
             VillagerManager.Instance.CalculateVillageHappiness();
             Happiness currentUserHappiness = Data.CalculateHappinessState(currentUser.happiness);

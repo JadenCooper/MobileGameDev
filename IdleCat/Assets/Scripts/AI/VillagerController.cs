@@ -117,16 +117,15 @@ public class VillagerController : Intractable
                 break;
         }
     }
-
-    public override void InteractAction()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public void OutOfTimeOut()
     {
         moving = true;
         DayNightManager.Instance.NewHour += GetNewLocationGoal;
         GetNewLocationGoal();
+    }
+
+    public override void InteractAction()
+    {
+        throw new System.NotImplementedException();
     }
 }

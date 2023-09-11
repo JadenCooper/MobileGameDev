@@ -21,6 +21,21 @@ public class VillagerManager : MonoBehaviour
     public House Inn;
     public Job Mason;
 
+    private void Awake()
+    {
+        // If there is an instance, and it's not me, delete myself.
+
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
+
     [ContextMenu("Generate Villager")]
     public void GenerateVillager()
     {
@@ -30,6 +45,7 @@ public class VillagerManager : MonoBehaviour
         VillagerController VC = NewVillager.GetComponentInChildren<VillagerController>();
         VillagerInfo tempVI = Instantiate(defaultVillagerInfo);
         tempVI.house = Inn;
+        tempVI.job = Mason;
         tempVI.Species = UnlockedSpecies[Random.Range(0, UnlockedSpecies.Count)];
         tempVI.schedule = Instantiate(defaultSchedule);
         //tempVI.schedule = GenerateSchedule(tempVI);
