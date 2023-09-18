@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class TabGroup : MonoBehaviour
 {
-    public List<TabButton> tabButtons;
+    public List<TabButton> tabButtons = new List<TabButton>();
     public Color tabIdle;
     public Color tabHover;
     public Color tabActive;
@@ -12,12 +12,10 @@ public class TabGroup : MonoBehaviour
     public List<GameObject> objectsToSwap;
     public void Subscribe(TabButton button)
     {
-        if (tabButtons == null)
+        if (!tabButtons.Contains(button))
         {
-            tabButtons = new List<TabButton>();
+            tabButtons.Add(button);
         }
-
-        tabButtons.Add(button);
     }
 
     public void OnTabEnter(TabButton button)
@@ -33,7 +31,18 @@ public class TabGroup : MonoBehaviour
     {
         ResetTabs();
     }
-
+    public void OnIndexTabSelected(int Index)
+    {
+        TabButton button = tabButtons[Index];
+        if (button != null)
+        {
+            OnTabSelected(button);
+        }
+        else
+        {
+            Debug.LogWarning("OnIndexTabSelected Method Broken: Index Not Found");
+        }
+    }
     public void OnTabSelected(TabButton button)
     {
         if (selectedTab != null)
