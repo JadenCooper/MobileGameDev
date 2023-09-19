@@ -15,8 +15,12 @@ MonoBehaviour:
   schedule: {fileID: 11400000, guid: 97366879c6284f8478ea05bb631f1a62, type: 2}
   job: {fileID: 0}
   house: {fileID: 0}
+  recreationGoal: {fileID: 0}
   Speed: 0
-  FirstName: 
-  LastName: 
+  FirstName: Jane
+  LastName: Doe
   currentState: 4
   CurrentGoal: {x: 0, y: 1}
+  Species: {fileID: 0}
+  happiness: 0
+  rest: 0

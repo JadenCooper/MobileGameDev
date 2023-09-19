@@ -73,14 +73,14 @@ public class TabGroup : MonoBehaviour
 
     public void ResetTabs()
     {
-        foreach (TabButton button in tabButtons)
+        for (int i = 0; i < tabButtons.Count; i++)
         {
-            if (selectedTab != null && button == selectedTab)
+            if (selectedTab != null && tabButtons[i] == selectedTab)
             {
                 continue;
             }
-            button.background.color = tabIdle;
-            button.text.color = tabActive;
+            tabButtons[i].background.color = tabIdle;
+            tabButtons[i].text.color = tabActive;
         }
     }
 }

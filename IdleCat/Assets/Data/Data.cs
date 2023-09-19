@@ -34,6 +34,22 @@ public static class Data
         }
 
     }
+    public static float Wrap(float index, float count)
+    {
+        count--;
+        if (index > count)
+        {
+            // Outside Array Above
+            index = 0;
+        }
+        else if(index < 0)
+        {
+            // Outside Array Below
+            index = count;
+        }
+        return index;
+    }
+
     public static int TimeIndexIncrement = 6;
 }
 

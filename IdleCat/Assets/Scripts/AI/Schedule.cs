@@ -14,5 +14,6 @@ public enum VillagerState
     Work,
     Recreation, // EG Parks, Market, Inn 
     Traveling, // Is An Inbetween State
-    Petitioning
+    Petitioning,
+    Anything
 }
