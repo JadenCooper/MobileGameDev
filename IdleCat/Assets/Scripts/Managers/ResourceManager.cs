@@ -48,6 +48,9 @@ public class ResourceManager : MonoBehaviour
                 ResourceIndex = 4;
                 break;
 
+            case Resource.None:
+                return;
+
             default:
                 Debug.Log("Resource Manager Broke In Resource Change Method");
                 return;
@@ -104,6 +107,9 @@ public class ResourceManager : MonoBehaviour
                     return true;
                 }
                 break;
+
+            case Resource.None:
+                return true;
 
             default:
                 Debug.Log("Resource Manager Broke In Resource Check Method");

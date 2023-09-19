@@ -44,7 +44,8 @@ public enum Resource
     Gold,
     Food,
     Happiness,
-    Villagers
+    Villagers,
+    None
 }
 
 public enum Happiness

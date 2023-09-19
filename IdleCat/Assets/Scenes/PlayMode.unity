@@ -10094,11 +10094,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 798585906980421156, guid: 453cb1ccd45b680428d4cf8071b498ff, type: 3}
       propertyPath: m_Name
-      value: Home Tab
+      value: Overview Tab
       objectReference: {fileID: 0}
     - target: {fileID: 1344482249102344278, guid: 453cb1ccd45b680428d4cf8071b498ff, type: 3}
       propertyPath: m_text
-      value: Home
+      value: Overview
       objectReference: {fileID: 0}
     - target: {fileID: 1344482249102344278, guid: 453cb1ccd45b680428d4cf8071b498ff, type: 3}
       propertyPath: m_fontSize
@@ -10826,7 +10826,7 @@ GameObject:
   - component: {fileID: 2143738672}
   - component: {fileID: 2143738673}
   m_Layer: 0
-  m_Name: Mason
+  m_Name: Workhouse
   m_TagString: Intractable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10938,13 +10938,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractionDistance: 2.3
-  Name: Mason
+  Name: Workhouse
   Location: {x: 3.36, y: 0}
   users: []
   Employees: []
-  resourceToGain: 0
+  resourceToGain: 2
   resourceGain: 0
-  resourceToCost: 0
+  resourceToCost: 4
   resourceCost: 0
   happinessLoss: 0
 --- !u!224 &313076715808606731

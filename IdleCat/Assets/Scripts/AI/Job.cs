@@ -26,7 +26,7 @@ public  class Job : Building
 
     public override void BuildingAction(VillagerInfo currentUser)
     {
-        if (ResourceManager.Instance.ResourceCheck(resourceToCost, resourceCost)) // If Can Afford The Cost
+        if (resourceToCost == Resource.None || ResourceManager.Instance.ResourceCheck(resourceToCost, resourceCost)) // If Can Afford The Cost
         {
             currentUser.happiness -= happinessLoss;
             currentUser.happiness = Mathf.Clamp(currentUser.happiness, 0, 100);
@@ -53,7 +53,11 @@ public  class Job : Building
             }
 
             ResourceManager.Instance.ResourceChange(resourceToGain, resourceGain * ResourceMultiplier);
-            ResourceManager.Instance.ResourceChange(resourceToCost, resourceCost);
+
+            if (resourceToCost != Resource.None)
+            {
+                ResourceManager.Instance.ResourceChange(resourceToCost, resourceCost);
+            }
         }
     }
 
