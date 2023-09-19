@@ -5,16 +5,23 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     public TMP_Text clockText;
-    public bool longHourTime = true; // 24 hour time
-    public void UpdateClock(float hour)
+    private bool longHourTime = true; // 24 hour time
+    private float currentHour = 6;
+    public void UpdateClockTime(float hour)
+    {
+        currentHour = hour;
+        UpdateClock();
+    }
+
+    private void UpdateClock()
     {
         string backEnd;
         if (!longHourTime)
         {
             // Convert To 12 Hour Time
-            if (hour > 12)
+            if (currentHour > 12)
             {
-                hour -= 12;
+                currentHour -= 12;
                 backEnd = ":00 pm";
             }
             else
@@ -26,9 +33,15 @@ public class UIManager : MonoBehaviour
         {
             backEnd = ":00";
         }
-        clockText.text = hour.ToString() + backEnd;
+        clockText.text = currentHour.ToString() + backEnd;
     }
 
+    [ContextMenu("Toggle Time Setting")]
+    public void ChangeTimeSetting()
+    {
+        longHourTime = !longHourTime;
+        UpdateClock();
+    }
     public void UpdateResources(List<float> Resources)
     {
         // Change Resource Displays

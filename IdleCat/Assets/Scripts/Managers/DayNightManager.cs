@@ -79,7 +79,7 @@ public class DayNightManager : MonoBehaviour
             }
             // Change Sunlight Every Hour
             UpdateLight();
-            uiManager.UpdateClock(CurrentTime.x);
+            uiManager.UpdateClockTime(CurrentTime.x);
 
             if (NewHour != null)
             {
