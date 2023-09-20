@@ -60,7 +60,7 @@ public class TabGroup : MonoBehaviour
         int index = button.transform.GetSiblingIndex();
         for (int i = 0; i < objectsToSwap.Count; i++)
         {
-            if(i == index)
+            if (i == index)
             {
                 objectsToSwap[i].SetActive(true);
             }
