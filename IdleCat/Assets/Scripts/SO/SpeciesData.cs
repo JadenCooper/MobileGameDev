@@ -6,6 +6,6 @@ using UnityEngine;
 public class SpeciesData : ScriptableObject
 {
     public string Species;
-    public Sprite sprite;
+    public Sprite Sprite;
     public int FoodUsage;
 }

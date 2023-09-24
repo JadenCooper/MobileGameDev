@@ -21,7 +21,7 @@ public class VillagerController : Intractable
     public void Initialize(VillagerInfo villagerInfo)
     {
         this.villagerInfo = villagerInfo;
-        GetComponent<SpriteRenderer>().sprite = villagerInfo.Species.sprite;
+        GetComponent<SpriteRenderer>().sprite = villagerInfo.Species.Sprite;
 
     }
     private void Start()

@@ -15,9 +15,6 @@ public class DayNightManager : MonoBehaviour
 
     public event Action NewHour;
 
-    private const int HOURSINDAY = 18;
-    private const int STARTTIME = 6;
-    private const int ENDTIME = 24;
     public VillagerManager villagerManager;
 
     [Header("Length of Full Day In Seconds")]
@@ -27,12 +24,15 @@ public class DayNightManager : MonoBehaviour
     public Vector2 CurrentTime;
 
     private float TimeRate;
+
     private float LightIncreaceRate;
     private float LightDecreaceRate;
+    private float LightChangeOverTime;
 
     public UIManager uiManager;
     public Light2D Sun;
 
+    public List<SeasonLightValues> SeasonLightValues = new List<SeasonLightValues>();
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
@@ -48,42 +48,42 @@ public class DayNightManager : MonoBehaviour
     }
     private void Start()
     {
-        // Day Starts At 6am Ends At 12am
+        // Day Starts And Ends At 12am
         // This splits the full day equally from 0 to 1.
         // 0.0 being 6, 0.5 being midnight, and 1.0 being midday.
-        TimeRate = 1.0f / (fullDayLength / HOURSINDAY); // About 33 Seconds Per Hour
+        TimeRate = 1.0f / (fullDayLength / Data.HOURSINDAY);
 
-        CurrentTime.x = STARTTIME; // Start At 6AM
-
-        LightIncreaceRate = ((1 - 0.65f) / 6);
-        LightDecreaceRate = ((1 - 0.2f) / 12);
-        UpdateLight();
+        CurrentTime.x = Data.STARTTIME; // Start At 6AM
+        CalculateLightRates(SeasonLightValues[0]);
+        Sun.intensity = SeasonLightValues[0].LightDecreaseGoal;
+        uiManager.UpdateClockTime(CurrentTime.x);
     }
     private void Update()
     {
         //slowly increases the day from 0.0 to 1.0
         CurrentTime.y += TimeRate * Time.deltaTime;
 
-        //When it hits 1.0, it resets the timer back to 0.0, resetting the day.
+        //When it hits 1.0, it resets the timer back to 0.0, resetting the hour.
         if (CurrentTime.y >= 1.0f)
         {
             // New Hour
             CurrentTime.y = 0.0f;
             CurrentTime.x += 1f;
-            if (CurrentTime.x >= ENDTIME)
+            if (CurrentTime.x >= Data.ENDTIME)
             {
                 // New Day
-                CurrentTime.x = STARTTIME;
+                CurrentTime.x = Data.STARTTIME;
                 CurrentTime.y = 0;
-                Time.timeScale = 0f;
+                //Time.timeScale = 0.0f; // Slow Down Time For End Of Day Report
             }
+
             // Change Sunlight Every Hour
             UpdateLight();
             uiManager.UpdateClockTime(CurrentTime.x);
 
             if (NewHour != null)
             {
-                NewHour();
+                NewHour(); // Trigger New Hour Event If It Has Subscribers
             }
         }
 
@@ -91,12 +91,7 @@ public class DayNightManager : MonoBehaviour
 
     private void UpdateLight()
     {
-        if (CurrentTime.x == 6)
-        {
-            // Start Of Day
-            Sun.intensity = 0.65f;
-        }
-        else if (CurrentTime.x < 13)
+        if (CurrentTime.x < LightChangeOverTime)
         {
             // Before Midday
             Sun.intensity += LightIncreaceRate;
@@ -106,5 +101,19 @@ public class DayNightManager : MonoBehaviour
             // After Midday
             Sun.intensity -= LightDecreaceRate;
         }
+    }
+
+    public void SetTime(float TimeToSetTo)
+    {
+
+    }
+
+    public void CalculateLightRates(SeasonLightValues season)
+    {
+        // Second Number Is Goal Of Setting - Third Number Is The Amount Of Time To Do It
+        float intialValue = Sun.intensity;
+        LightChangeOverTime = season.LightChangeOverTime;
+        LightIncreaceRate = (season.LightIncreaseGoal - intialValue) / LightChangeOverTime;
+        LightDecreaceRate = (season.LightIncreaseGoal - season.LightDecreaseGoal) / (24 - LightChangeOverTime);
     }
 }

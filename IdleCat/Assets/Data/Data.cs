@@ -4,6 +4,10 @@ using UnityEngine;
 
 public static class Data
 {
+    public const int HOURSINDAY = 24;
+    public const int STARTTIME = 0;
+    public const int ENDTIME = 24;
+
     public static readonly Dictionary<int, float> FloorHeights = new Dictionary<int, float>()
     {
         {0, 0.3f },

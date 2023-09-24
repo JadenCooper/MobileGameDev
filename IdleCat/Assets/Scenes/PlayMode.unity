@@ -14318,7 +14318,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.15
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -19246,10 +19246,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   villagerManager: {fileID: 552203549}
-  fullDayLength: 400
+  fullDayLength: 130
   CurrentTime: {x: 0, y: 0}
   uiManager: {fileID: 761732380}
   Sun: {fileID: 931536219}
+  SeasonLightValues:
+  - {fileID: 11400000, guid: 8970b69aef926a34b9526b716e3ef902, type: 2}
 --- !u!4 &1624121011
 Transform:
   m_ObjectHideFlags: 0
