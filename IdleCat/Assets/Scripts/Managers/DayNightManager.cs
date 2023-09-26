@@ -33,6 +33,7 @@ public class DayNightManager : MonoBehaviour
     public Light2D Sun;
 
     public List<SeasonLightValues> SeasonLightValues = new List<SeasonLightValues>();
+    private SeasonLightValues currentSeasonLightValue;
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
@@ -52,10 +53,10 @@ public class DayNightManager : MonoBehaviour
         // This splits the full day equally from 0 to 1.
         // 0.0 being 6, 0.5 being midnight, and 1.0 being midday.
         TimeRate = 1.0f / (fullDayLength / Data.HOURSINDAY);
-
-        CurrentTime.x = Data.STARTTIME; // Start At 6AM
-        CalculateLightRates(SeasonLightValues[0]);
+        currentSeasonLightValue = SeasonLightValues[0]; // Set Current Season To Spring
+        CalculateLightRates(currentSeasonLightValue);
         Sun.intensity = SeasonLightValues[0].LightDecreaseGoal;
+        SetTime( new Vector2(Data.STARTTIME, 0)); // ADD Check For Tutorial, If So Start At 6
         uiManager.UpdateClockTime(CurrentTime.x);
     }
     private void Update()
@@ -103,15 +104,22 @@ public class DayNightManager : MonoBehaviour
         }
     }
 
-    public void SetTime(float TimeToSetTo)
+    public void SetTime(Vector2 TimeToSetTo)
     {
+        // Used To Set And Load Game Time
+       float increments = TimeToSetTo.x - CurrentTime.x;
+        for (int i = 0; i < increments; i++)
+        {
+            UpdateLight(); // Get Light Upto Set Time
+        }
 
+        CurrentTime = TimeToSetTo;
     }
 
     public void CalculateLightRates(SeasonLightValues season)
     {
         // Second Number Is Goal Of Setting - Third Number Is The Amount Of Time To Do It
-        float intialValue = Sun.intensity;
+        float intialValue = season.LightDecreaseGoal;
         LightChangeOverTime = season.LightChangeOverTime;
         LightIncreaceRate = (season.LightIncreaseGoal - intialValue) / LightChangeOverTime;
         LightDecreaceRate = (season.LightIncreaseGoal - season.LightDecreaseGoal) / (24 - LightChangeOverTime);
