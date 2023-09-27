@@ -7,7 +7,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public GameObject loadingScreen;
-    List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
+    public ProgressBar loadingBar;
+    private List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
+    private float totalSceneProgress;
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
@@ -23,7 +25,7 @@ public class GameManager : MonoBehaviour
 
         SceneManager.LoadSceneAsync((int)SceneIndexes.MainMenu, LoadSceneMode.Additive);
     }
-
+    [ContextMenu("Load Game")]
     public void LoadGame()
     {
         loadingScreen.SetActive(true);
@@ -38,6 +40,17 @@ public class GameManager : MonoBehaviour
         {
             while(!scenesLoading[i].isDone)
             {
+                totalSceneProgress = 0;
+
+                foreach (AsyncOperation operation in scenesLoading)
+                {
+                    totalSceneProgress += operation.progress;
+                }
+
+                totalSceneProgress = (totalSceneProgress / scenesLoading.Count) * 100f;
+
+                loadingBar.current = Mathf.RoundToInt(totalSceneProgress);
+
                 yield return null;
             }
         }
