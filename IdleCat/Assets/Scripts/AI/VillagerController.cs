@@ -40,7 +40,7 @@ public class VillagerController : Intractable
     }
     public void ChangeState()
     {
-        villagerInfo.currentState = villagerInfo.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x - 6];
+        villagerInfo.currentState = villagerInfo.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x];
     }
     public void GetNewLocationGoal()
     {
@@ -55,7 +55,7 @@ public class VillagerController : Intractable
 
     public void ReachedLocation()
     {
-        villagerInfo.currentState = villagerInfo.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x - Data.TimeIndexIncrement];
+        villagerInfo.currentState = villagerInfo.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x];
         moving = false;
         OnMovementInput?.Invoke(Vector2.zero);
         DayNightManager.Instance.NewHour -= GetNewLocationGoal;
@@ -67,13 +67,20 @@ public class VillagerController : Intractable
             case VillagerState.Home:
                 while (StillCurrentState)
                 {
-                    if (villagerInfo.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x - Data.TimeIndexIncrement + i] == villagerInfo.currentState)
+                    if ((int)DayNightManager.Instance.CurrentTime.x + i > (villagerInfo.schedule.VillagerStates.Length - 1))
                     {
-                        i++;
+                        StillCurrentState = false;
                     }
                     else
                     {
-                        StillCurrentState = false;
+                        if (villagerInfo.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x + i] == villagerInfo.currentState)
+                        {
+                            i++;
+                        }
+                        else
+                        {
+                            StillCurrentState = false;
+                        }
                     }
                 }
                 timeOut.Disable(i, villagerInfo.house);
@@ -82,13 +89,20 @@ public class VillagerController : Intractable
             case VillagerState.Work:
                 while (StillCurrentState)
                 {
-                    if (villagerInfo.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x - Data.TimeIndexIncrement + i] == villagerInfo.currentState)
+                    if ((int)DayNightManager.Instance.CurrentTime.x + i > (villagerInfo.schedule.VillagerStates.Length - 1))
                     {
-                        i++;
+                        StillCurrentState = false;
                     }
                     else
                     {
-                        StillCurrentState = false;
+                        if (villagerInfo.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x + i] == villagerInfo.currentState)
+                        {
+                            i++;
+                        }
+                        else
+                        {
+                            StillCurrentState = false;
+                        }
                     }
                 }
                 timeOut.Disable(i, villagerInfo.job);
@@ -97,13 +111,20 @@ public class VillagerController : Intractable
             case VillagerState.Recreation:
                 while (StillCurrentState)
                 {
-                    if (villagerInfo.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x - Data.TimeIndexIncrement + i] == villagerInfo.currentState)
+                    if ((int)DayNightManager.Instance.CurrentTime.x + i > (villagerInfo.schedule.VillagerStates.Length - 1))
                     {
-                        i++;
+                        StillCurrentState = false;
                     }
                     else
                     {
-                        StillCurrentState = false;
+                        if (villagerInfo.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x + i] == villagerInfo.currentState)
+                        {
+                            i++;
+                        }
+                        else
+                        {
+                            StillCurrentState = false;
+                        }
                     }
                 }
                 timeOut.Disable(i, villagerInfo.recreationGoal);

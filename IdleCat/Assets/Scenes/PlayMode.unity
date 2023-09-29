@@ -9769,7 +9769,7 @@ MonoBehaviour:
   Name: Park
   Location: {x: -4.29, y: 0}
   users: []
-  happinessGain: 0
+  happinessGain: 5
 --- !u!61 &169557079
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -21132,11 +21132,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractionDistance: 2.3
-  Name: 
+  Name: Fox Den Hotel
   Location: {x: -5.92, y: 1}
   users: []
   Inhabitants: []
-  restValue: 0
+  restValue: 10
 --- !u!212 &1829308503
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -23537,10 +23537,10 @@ MonoBehaviour:
   users: []
   Employees: []
   resourceToGain: 2
-  resourceGain: 0
-  resourceToCost: 4
+  resourceGain: 10
+  resourceToCost: 6
   resourceCost: 0
-  happinessLoss: 0
+  happinessLoss: 2
 --- !u!1 &2144754970
 GameObject:
   m_ObjectHideFlags: 0

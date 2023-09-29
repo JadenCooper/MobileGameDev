@@ -14,7 +14,7 @@ public class Navigation : MonoBehaviour
     /// <param name="villagerInfo"></param>
     public void GetLocationGoal(VillagerController VC ,VillagerInfo villagerInfo)
     {
-        int currentTime = (int)DayNightManager.Instance.CurrentTime.x - 6;
+        int currentTime = (int)DayNightManager.Instance.CurrentTime.x;
         Vector2 Location = new Vector3(villagerInfo.CurrentGoal.x, 0); // Default To Current Goal / Current Floor
         if (villagerInfo.currentState != VillagerState.Traveling) // If Not Already Traveling To Elevator
         {
@@ -31,7 +31,8 @@ public class Navigation : MonoBehaviour
                     break;
 
                 case VillagerState.Recreation:
-                    Location = BuildingManager.Instance.GetRecreationBuilding().Location;
+                    villagerInfo.recreationGoal = BuildingManager.Instance.GetRecreationBuilding();
+                    Location = villagerInfo.recreationGoal.Location;
                     villagerInfo.currentState = VillagerState.Recreation;
                     break;
 

@@ -21,6 +21,7 @@ public class Recreation : Building
     public override void OnTriggerEnter2D(Collider2D collision)
     {
         VillagerController vc = collision.gameObject.GetComponent<VillagerController>();
+
         if (vc != null)
         {
             if (vc.villagerInfo.currentState == VillagerState.Recreation && vc.villagerInfo.recreationGoal == this)

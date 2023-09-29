@@ -111,6 +111,7 @@ public class ResourceManager : MonoBehaviour
             case Resource.None:
                 return true;
 
+
             default:
                 Debug.Log("Resource Manager Broke In Resource Check Method");
                 break;

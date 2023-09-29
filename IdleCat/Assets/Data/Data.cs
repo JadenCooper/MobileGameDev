@@ -53,8 +53,6 @@ public static class Data
         }
         return index;
     }
-
-    public static int TimeIndexIncrement = 6;
 }
 
 public enum Resource
