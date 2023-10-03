@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class TabGroup : MonoBehaviour
 {
     public List<TabButton> tabButtons = new List<TabButton>();
+    public Queue<int> tabButtonHistory = new Queue<int>();
     public Color tabIdle;
     public Color tabHover;
     public Color tabActive;
@@ -69,6 +70,7 @@ public class TabGroup : MonoBehaviour
                 objectsToSwap[i].SetActive(false);
             }
         }
+        tabButtonHistory.Enqueue(index);
     }
 
     public void ResetTabs()
@@ -82,5 +84,15 @@ public class TabGroup : MonoBehaviour
             tabButtons[i].background.color = tabIdle;
             tabButtons[i].text.color = tabActive;
         }
+    }
+
+    public void ClearHistory()
+    {
+        tabButtonHistory.Clear();
+    }
+
+    public void GoBackInHistory()
+    {
+        OnTabSelected(tabButtons[tabButtonHistory.Dequeue()]);
     }
 }
