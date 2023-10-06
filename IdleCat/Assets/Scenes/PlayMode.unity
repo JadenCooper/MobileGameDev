@@ -9998,7 +9998,7 @@ MonoBehaviour:
   Name: Park
   Location: {x: -4.29, y: 0}
   users: []
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: b1bd684bdbe2f0940b61916f838ebfc5, type: 3}
   happinessGain: 5
 --- !u!61 &169557079
 BoxCollider2D:
@@ -14940,7 +14940,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9757c64f2a5dc14690db4437c00a24f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clockText: {fileID: 1435170551444125518}
+  ClockText: {fileID: 1435170551444125518}
+  ResourceTexts: []
 --- !u!1 &768776060
 GameObject:
   m_ObjectHideFlags: 0
@@ -18796,9 +18797,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4abd518879ad2514593482f861a469e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIBuildingPrefab: {fileID: 1112872653385643520, guid: 336ea68587c295143a16e482dc3eb300, type: 3}
-  GridParent: {fileID: 527533005}
-  BuildingsInGrid: []
+  uIBuildingPrefab: {fileID: 1112872653385643520, guid: 336ea68587c295143a16e482dc3eb300, type: 3}
+  gridParent: {fileID: 527533005}
+  buildingsInGrid: []
 --- !u!1 &1186520676
 GameObject:
   m_ObjectHideFlags: 0
@@ -24638,7 +24639,7 @@ MonoBehaviour:
   Name: Fox Den Hotel
   Location: {x: -5.92, y: 1}
   users: []
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: b1bd684bdbe2f0940b61916f838ebfc5, type: 3}
   Inhabitants: []
   restValue: 10
 --- !u!212 &1829308503
@@ -27498,7 +27499,7 @@ MonoBehaviour:
   Name: Workhouse
   Location: {x: 3.36, y: 0}
   users: []
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: e9747883cd4879e43b38fbec10f3f714, type: 3}
   Employees: []
   resourceToGain: 2
   resourceGain: 10

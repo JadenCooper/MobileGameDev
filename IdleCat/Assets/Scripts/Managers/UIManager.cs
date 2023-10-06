@@ -4,7 +4,8 @@ using UnityEngine;
 using TMPro;
 public class UIManager : MonoBehaviour
 {
-    public TMP_Text clockText;
+    public TMP_Text ClockText;
+    public List<TMP_Text> ResourceTexts = new List<TMP_Text>(); // Happiness, Wood, Stone, Food, Gold, VillagerCount
     private bool longHourTime = true; // 24 hour time
     private float currentHour = 6;
     public void UpdateClockTime(float hour)
@@ -33,7 +34,7 @@ public class UIManager : MonoBehaviour
         {
             backEnd = ":00";
         }
-        clockText.text = currentHour.ToString() + backEnd;
+        ClockText.text = currentHour.ToString() + backEnd;
     }
 
     [ContextMenu("Toggle Time Setting")]

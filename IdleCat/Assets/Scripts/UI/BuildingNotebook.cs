@@ -5,18 +5,17 @@ using UnityEngine;
 public class BuildingNotebook : MonoBehaviour
 {
     [SerializeField]
-    private GameObject UIBuildingPrefab;
+    private GameObject uIBuildingPrefab;
     [SerializeField]
-    private GameObject GridParent;
+    private GameObject gridParent;
     [SerializeField]
-    private List<GameObject> BuildingsInGrid = new List<GameObject>();
+    private List<GameObject> buildingsInGrid = new List<GameObject>();
 
     private const int BUILDINGSPERPAGE = 20;
     public void FillBuildings(int GridTypeIndex)
     {
-        if (BuildingsInGrid.Count != 0)
+        if (buildingsInGrid.Count != 0)
         {
-            Debug.Log("Clearing");
             ClearGrid();
         }
 
@@ -62,25 +61,22 @@ public class BuildingNotebook : MonoBehaviour
     {
         for (int i = 0; i < newBuildings.Count; i++)
         {
-            GameObject newBuilding = Instantiate(UIBuildingPrefab);
-            newBuilding.transform.parent = GridParent.transform;
+            GameObject newBuilding = Instantiate(uIBuildingPrefab);
+            newBuilding.transform.parent = gridParent.transform;
 
-            //
-            // Fill It In With Icon And Name Here
-            //
+            newBuilding.GetComponent<BuildingButton>().Initialize(newBuildings[i]);
 
-            BuildingsInGrid.Add(newBuilding);
+            buildingsInGrid.Add(newBuilding);
         }
     }
 
     public void ClearGrid()
     {
-        for (int i = 0; i < BuildingsInGrid.Count; i++)
+        for (int i = 0; i < buildingsInGrid.Count; i++)
         {
-            //Destroy(BuildingsInGrid[i]);
-            BuildingsInGrid[i].SetActive(false);
+            Destroy(buildingsInGrid[i]);
         }
 
-        BuildingsInGrid.Clear();
+        buildingsInGrid.Clear();
     }
 }
