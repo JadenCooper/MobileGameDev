@@ -9999,6 +9999,7 @@ MonoBehaviour:
   Location: {x: -4.29, y: 0}
   users: []
   Icon: {fileID: 21300000, guid: b1bd684bdbe2f0940b61916f838ebfc5, type: 3}
+  Capacity: 99
   happinessGain: 5
 --- !u!61 &169557079
 BoxCollider2D:
@@ -22393,7 +22394,7 @@ MonoBehaviour:
   villagerManager: {fileID: 552203549}
   fullDayLength: 130
   CurrentTime: {x: 0, y: 0}
-  uiManager: {fileID: 761732380}
+  UiManager: {fileID: 761732380}
   Sun: {fileID: 931536219}
   SeasonLightValues:
   - {fileID: 11400000, guid: 8970b69aef926a34b9526b716e3ef902, type: 2}
@@ -24640,6 +24641,7 @@ MonoBehaviour:
   Location: {x: -5.92, y: 1}
   users: []
   Icon: {fileID: 21300000, guid: b1bd684bdbe2f0940b61916f838ebfc5, type: 3}
+  Capacity: 5
   Inhabitants: []
   restValue: 10
 --- !u!212 &1829308503
@@ -27500,6 +27502,7 @@ MonoBehaviour:
   Location: {x: 3.36, y: 0}
   users: []
   Icon: {fileID: 21300000, guid: e9747883cd4879e43b38fbec10f3f714, type: 3}
+  Capacity: 4
   Employees: []
   resourceToGain: 2
   resourceGain: 10

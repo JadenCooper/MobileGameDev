@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class VillagerManager : MonoBehaviour
@@ -33,6 +31,16 @@ public class VillagerManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    private void Start()
+    {
+        DayNightManager.Instance.NewDay += SpawnVillagers;
+    }
+
+    public void SpawnVillagers()
+    {
+
     }
 
 

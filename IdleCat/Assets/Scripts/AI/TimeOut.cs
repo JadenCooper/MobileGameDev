@@ -21,8 +21,16 @@ public class TimeOut : MonoBehaviour
     {
         this.HoursToEnable = HoursToEnable;
         building = buildingNowIn;
-        building.users.Add(VC);
-        StartCoroutine(TimeOutDelay()); ;
+
+        if (building.CheckCapacity())
+        {
+            building.users.Add(VC);
+            StartCoroutine(TimeOutDelay());
+        }
+        else
+        {
+
+        }
     }
 
     public void Decrement()

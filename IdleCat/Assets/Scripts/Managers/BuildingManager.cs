@@ -25,6 +25,14 @@ public class BuildingManager : MonoBehaviour
 
     public Recreation GetRecreationBuilding()
     {
-        return RecreationBuildings[Random.Range(0, RecreationBuildings.Count)];
+        Recreation selectedRecreation = RecreationBuildings[Random.Range(0, RecreationBuildings.Count)];
+        if (selectedRecreation.CheckCapacity())
+        {
+            return selectedRecreation;
+        }
+
+        return RecreationBuildings[0];
     }
+
+
 }
