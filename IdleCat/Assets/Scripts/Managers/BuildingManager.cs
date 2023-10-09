@@ -9,6 +9,7 @@ public class BuildingManager : MonoBehaviour
     public List<Recreation> RecreationBuildings = new List<Recreation>();
     public List<Job> JobBuildings = new List<Job>();
     public List<House> HouseBuildings = new List<House>();
+    public int PetitionSlots = 3;
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.

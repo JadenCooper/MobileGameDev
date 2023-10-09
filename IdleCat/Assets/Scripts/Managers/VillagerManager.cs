@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,13 +37,28 @@ public class VillagerManager : MonoBehaviour
     private void Start()
     {
         DayNightManager.Instance.NewDay += SpawnVillagers;
+        SpawnVillagers();
     }
 
     public void SpawnVillagers()
     {
-
+        // Some PetitionSlots Will Later Be Taken Up By Quests And Unlocks
+        StartCoroutine(SpawnVillagerTimer(BuildingManager.Instance.PetitionSlots));
     }
 
+    private IEnumerator SpawnVillagerTimer(int i)
+    {
+        // Iteratively Spawn Villagers Until I Is 0 With A Second Gap Between
+        if (i <= 0)
+        {
+            yield break;
+        }
+        GenerateVillager();
+        i--;
+        yield return new WaitForSeconds(1f);
+
+        StartCoroutine(SpawnVillagerTimer(i));
+    }
 
     [ContextMenu("Generate Villager")]
     public void GenerateVillager()

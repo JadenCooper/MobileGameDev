@@ -24146,6 +24146,7 @@ MonoBehaviour:
   - {fileID: 2143738673}
   HouseBuildings:
   - {fileID: 1829308502}
+  PetitionSlots: 3
 --- !u!1 &1796572386
 GameObject:
   m_ObjectHideFlags: 0
