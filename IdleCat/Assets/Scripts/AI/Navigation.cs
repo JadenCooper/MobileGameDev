@@ -13,7 +13,7 @@ public class Navigation : MonoBehaviour
 
     /// <param name="VC"></param>
     /// <param name="villagerInfo"></param>
-    public void CheckSchedule(VillagerController VC, VillagerInfo villagerInfo)
+    public void CheckSchedule(VillagerInfo villagerInfo)
     {
         int currentTime = (int)DayNightManager.Instance.CurrentTime.x;
         Vector2 Location = new Vector3(villagerInfo.CurrentGoal.x, 0); // Default To Current Goal / Current Floor
@@ -47,34 +47,38 @@ public class Navigation : MonoBehaviour
             }
         }
 
-        GetLocationGoal(VC, villagerInfo, Location);
+        GetLocationGoal(villagerInfo, Location);
     }
-    public void GetLocationGoal(VillagerController VC ,VillagerInfo villagerInfo, Vector2 Location)
+    public void GetLocationGoal(VillagerInfo VI, Vector2 Location)
     {
-        if (VC.CurrentLevel != Location.y)
+        if (VI.CurrentLevel != Location.y)
         {
-            GetNearestElevator(villagerInfo, VC, Location);
+            GetNearestElevator(VI, Location);
         }
-
-        villagerInfo.CurrentGoal.x = Location.x;
+        else
+        {
+            VI.CurrentGoal.x = Location.x;
+        }
     }
 
-    public void GetNearestElevator(VillagerInfo villagerInfo, VillagerController VC, Vector2 Location)
+    public void GetNearestElevator(VillagerInfo VI, Vector2 Location)
     {
-        villagerInfo.currentState = VillagerState.Traveling;
+        VI.currentState = VillagerState.Traveling;
 
-        if (Location.y > VC.CurrentLevel)
+        if (Location.y > VI.CurrentLevel)
         {
             // Needs To Go Up
-            villagerInfo.CurrentGoal.y = 1;
+            VI.CurrentGoal.y = 1;
         }
         else
         {
             // Needs To Go Down
-            villagerInfo.CurrentGoal.y = -1;
+            VI.CurrentGoal.y = -1;
         }
 
-        VC.currentElevatorGoal = ElevatorManager.Instance.GetClosestElevator((int)VC.CurrentLevel, (int)villagerInfo.CurrentGoal.y, VC.gameObject.transform.position.x);
-        Location.x = VC.currentElevatorGoal.elevatorChain.X;
+        VI.currentElevatorGoal = ElevatorManager.Instance.GetClosestElevator((int)VI.CurrentLevel, (int)VI.CurrentGoal.y, VI.gameObject.transform.position.x);
+        Location.x = VI.currentElevatorGoal.elevatorChain.X;
+
+        VI.CurrentGoal.x = Location.x;
     }
 }

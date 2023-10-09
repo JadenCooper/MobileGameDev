@@ -14,10 +14,14 @@ public class VillagerInfo : ScriptableObject
     public string FirstName;
     public string LastName;
     public VillagerState currentState = VillagerState.Home;
-    public Vector2 CurrentGoal;
 
     public SpeciesData Species;
 
     public float happiness;
     public float rest;
+
+    public Vector2 CurrentGoal;
+    public Elevator currentElevatorGoal;
+    public GameObject gameObject;
+    public int CurrentLevel = 0;
 }

@@ -6,4 +6,60 @@ public class PetitionManager : MonoBehaviour
 {
     public List<PetitionSlot> PetitionSlots = new List<PetitionSlot>();
 
+    public void SetPetitionSlot(VillagerPetitionAI VPAI)
+    {
+        for (int i = 0; i < PetitionSlots.Count; i++)
+        {
+            if (!PetitionSlots[i].Occupied)
+            {
+                VPAI.AssignPetitionSlot(PetitionSlots[i]);
+                PetitionSlots[i].Occupied = true;
+                return;
+            }
+        }
+    }
+
+    public void ShuffleSlots(int index)
+    {
+        // Goes In At The Slot Before The Removed Slot
+        for (int i = (index + 1); i < PetitionSlots.Count; i++)
+        {
+            if (PetitionSlots[i].Occupied)
+            {
+                // Setting To Previous Slot
+                PetitionSlots[i].VPAI.AssignPetitionSlot(PetitionSlots[i - 1]);
+                PetitionSlots[i - 1].Occupied = true;
+
+                // Clearing Current Slot
+                PetitionSlots[i].VPAI = null;
+                PetitionSlots[i].Occupied = false;
+
+            }
+            else
+            {
+                return;
+            }
+        }
+    }
+
+    public void RemoveFromSlots(VillagerPetitionAI removedVillager)
+    {
+        for (int i = 0; i < PetitionSlots.Count; i++)
+        {
+            if (PetitionSlots[i].VPAI == removedVillager)
+            {
+                PetitionSlots[i].VPAI = null;
+                ShuffleSlots(i);
+                return;
+            }
+        }
+    }
+
+    [ContextMenu("Test")]
+    public void TestRemove()
+    {
+        PetitionSlots[0].VPAI = null;
+        PetitionSlots[0].Occupied = false;
+        ShuffleSlots(0);
+    }
 }

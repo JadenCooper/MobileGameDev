@@ -20,6 +20,8 @@ public class VillagerManager : MonoBehaviour
     public House Inn;
     public Job Mason;
 
+    public PetitionManager petitionManager;
+
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
@@ -74,8 +76,13 @@ public class VillagerManager : MonoBehaviour
         tempVI.schedule = Instantiate(defaultSchedule);
         //tempVI.schedule = GenerateSchedule(tempVI);
         VC.Initialize(tempVI);
-        Villagers.Add(VC);
-        ResourceManager.Instance.ResourceChange(Resource.Villagers, 1);
+        VC.enabled = false;
+
+        VillagerPetitionAI VPAI = NewVillager.GetComponentInChildren<VillagerPetitionAI>();
+        VPAI.VI = tempVI;
+        petitionManager.SetPetitionSlot(VPAI);
+        //Villagers.Add(VC);
+        //ResourceManager.Instance.ResourceChange(Resource.Villagers, 1);
     }
 
     public void CalculateVillageHappiness()

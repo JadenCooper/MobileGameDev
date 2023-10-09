@@ -14,15 +14,12 @@ public class VillagerController : Intractable
     private Navigation navigation;
 
     public UnityEvent<Vector2> OnMovementInput;
-    public int CurrentLevel = 0;
-    public bool moving = true;
+    private bool moving = true;
     public TimeOut timeOut;
-    public Elevator currentElevatorGoal;
     public void Initialize(VillagerInfo villagerInfo)
     {
         this.villagerInfo = villagerInfo;
         GetComponent<SpriteRenderer>().sprite = villagerInfo.Species.Sprite;
-
     }
     private void Start()
     {
@@ -44,7 +41,7 @@ public class VillagerController : Intractable
     }
     public void GetNewLocationGoal()
     {
-        navigation.CheckSchedule(this, villagerInfo);
+        navigation.CheckSchedule(villagerInfo);
     }
     public Vector2 DetermineMovement()
     {
