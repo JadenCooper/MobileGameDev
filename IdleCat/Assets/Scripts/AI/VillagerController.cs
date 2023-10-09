@@ -44,7 +44,7 @@ public class VillagerController : Intractable
     }
     public void GetNewLocationGoal()
     {
-        navigation.GetLocationGoal(this, villagerInfo);
+        navigation.CheckSchedule(this, villagerInfo);
     }
     public Vector2 DetermineMovement()
     {
