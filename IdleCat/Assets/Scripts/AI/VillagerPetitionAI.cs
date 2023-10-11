@@ -12,7 +12,7 @@ public class VillagerPetitionAI : Intractable
     private Navigation navigation;
     public PetitionSlot petitionSlot;
     public UnityEvent<Vector2> OnMovementInput;
-
+    public Vector2 Goal;
     public void Initialize(VillagerInfo villagerInfo)
     {
         VI = villagerInfo;
@@ -31,7 +31,7 @@ public class VillagerPetitionAI : Intractable
     public Vector2 DetermineMovement()
     {
         // Gets Direction For Movement Based On Current Goal
-        Vector2 Goal = new Vector2(VI.CurrentGoal.x, transform.position.y);
+         Goal = new Vector2(VI.CurrentGoal.x, transform.position.y);
         return (Goal - (Vector2)transform.position).normalized;
     }
 
@@ -47,6 +47,8 @@ public class VillagerPetitionAI : Intractable
         if (moving == false)
         {
             // At Slot So Can Accept Or Decline
+            string fullName = VI.FirstName + " " + VI.LastName;
+            UIManager.Instance.ModelWindow.ShowAsPrompt(fullName, VI.Species.Sprite, "Test", null);
         }
     }
 

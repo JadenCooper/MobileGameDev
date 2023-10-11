@@ -4,10 +4,25 @@ using UnityEngine;
 using TMPro;
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance { get; private set; }
     public TMP_Text ClockText;
     public List<TMP_Text> ResourceTexts = new List<TMP_Text>(); // Happiness, Wood, Stone, Food, Gold, VillagerCount
     private bool longHourTime = true; // 24 hour time
     private float currentHour = 6;
+    public ModelWindowPanel ModelWindow;
+    private void Awake()
+    {
+        // If there is an instance, and it's not me, delete myself.
+
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
     public void UpdateClockTime(float hour)
     {
         currentHour = hour;
