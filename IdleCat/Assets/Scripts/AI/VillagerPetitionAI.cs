@@ -48,8 +48,20 @@ public class VillagerPetitionAI : Intractable
         {
             // At Slot So Can Accept Or Decline
             string fullName = VI.FirstName + " " + VI.LastName;
-            UIManager.Instance.ModelWindow.ShowAsPrompt(fullName, VI.Species.Sprite, "Test", null);
+            UIManager.Instance.ModelWindow.ShowAsPrompt(fullName, VI.Species.Sprite, "Test", "Yay", "Nay", "Postpone", JoinVillage, LeaveVillage, null);
         }
+    }
+
+    public void JoinVillage()
+    {
+        Debug.Log("Join");
+        VillagerManager.Instance.VillagerJoinsVillage(this);
+    }
+
+    public void LeaveVillage()
+    {
+        navigation.GetLocationGoal(VI, VillagerManager.Instance.VillagerLeavesVillage(this));
+        moving = true;
     }
 
     public void ReachedLocation()

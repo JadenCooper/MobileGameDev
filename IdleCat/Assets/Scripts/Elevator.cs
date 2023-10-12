@@ -19,7 +19,7 @@ public class Elevator : Intractable
     private void OnTriggerEnter2D(Collider2D collision)
     {
         VillagerController VC = collision.gameObject.GetComponent<VillagerController>();
-        if (VC != null)
+        if (VC != null && VC.enabled == true)
         {
             if (VC.villagerInfo.currentElevatorGoal == this)
             {

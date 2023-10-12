@@ -190,7 +190,7 @@ public class ModelWindowPanel : MonoBehaviour
     {
         confirmButton.onClick.AddListener(Confirm);
         alternateButton.onClick.AddListener(Alternate);
-        declineButton.onClick.AddListener(Close);
+        declineButton.onClick.AddListener(Decline);
 
         gameObject.SetActive(true);
     }

@@ -21,6 +21,7 @@ public class VillagerManager : MonoBehaviour
     public Job Mason;
 
     public PetitionManager petitionManager;
+    public Transform LeaveTrigger;
 
     private void Awake()
     {
@@ -68,21 +69,34 @@ public class VillagerManager : MonoBehaviour
         GameObject NewVillager = Instantiate(villagerPrefab, VillagerSpawnPoint.transform);
         NewVillager.transform.parent = null;
         NewVillager.transform.parent = this.transform;
-        VillagerController VC = NewVillager.GetComponentInChildren<VillagerController>();
+
         VillagerInfo tempVI = Instantiate(defaultVillagerInfo);
         tempVI.house = Inn;
         tempVI.job = Mason;
         tempVI.Species = UnlockedSpecies[Random.Range(0, UnlockedSpecies.Count)];
         tempVI.schedule = Instantiate(defaultSchedule);
-        //tempVI.schedule = GenerateSchedule(tempVI);
-        VC.Initialize(tempVI);
-        VC.enabled = false;
+        tempVI.gameObject = NewVillager;
 
         VillagerPetitionAI VPAI = NewVillager.GetComponentInChildren<VillagerPetitionAI>();
-        VPAI.VI = tempVI;
+        VPAI.Initialize(tempVI);
         petitionManager.SetPetitionSlot(VPAI);
-        //Villagers.Add(VC);
-        //ResourceManager.Instance.ResourceChange(Resource.Villagers, 1);
+    }
+
+    public void VillagerJoinsVillage(VillagerPetitionAI VPAI)
+    {
+        VillagerController VC = VPAI.gameObject.GetComponent<VillagerController>();
+        VC.Initialize(VPAI.VI);
+        Villagers.Add(VC);
+        ResourceManager.Instance.ResourceChange(Resource.Villagers, 1);
+        VC.enabled = true;
+        VPAI.enabled = false;
+    }
+
+    public Vector2 VillagerLeavesVillage(VillagerPetitionAI VPAI)
+    {
+        petitionManager.RemoveFromSlots(VPAI);
+        VPAI.gameObject.tag = "Destroy";
+        return new Vector2(LeaveTrigger.position.x, 0);
     }
 
     public void CalculateVillageHappiness()

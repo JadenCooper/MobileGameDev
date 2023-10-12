@@ -22,7 +22,7 @@ public class Recreation : Building
     {
         VillagerController vc = collision.gameObject.GetComponent<VillagerController>();
 
-        if (vc != null)
+        if (vc != null && vc.enabled == true)
         {
             if (vc.villagerInfo.currentState == VillagerState.Recreation && vc.villagerInfo.recreationGoal == this)
             {

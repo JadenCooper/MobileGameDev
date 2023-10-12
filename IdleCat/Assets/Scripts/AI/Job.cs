@@ -15,7 +15,7 @@ public  class Job : Building
     public override void OnTriggerEnter2D(Collider2D collision)
     {
         VillagerController vc = collision.gameObject.GetComponent<VillagerController>();
-        if (vc != null)
+        if (vc != null && vc.enabled == true)
         {
             if (vc.villagerInfo.currentState == VillagerState.Work && vc.villagerInfo.job == this)
             {
