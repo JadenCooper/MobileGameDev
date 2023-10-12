@@ -13,6 +13,9 @@ public class VillagerPetitionAI : Intractable
     public PetitionSlot petitionSlot;
     public UnityEvent<Vector2> OnMovementInput;
     public Vector2 Goal;
+
+    public bool VillageInhabitant = false;
+    public int PostponeTime = 0;
     public void Initialize(VillagerInfo villagerInfo)
     {
         VI = villagerInfo;
@@ -47,21 +50,46 @@ public class VillagerPetitionAI : Intractable
         if (moving == false)
         {
             // At Slot So Can Accept Or Decline
-            string fullName = VI.FirstName + " " + VI.LastName;
-            UIManager.Instance.ModelWindow.ShowAsPrompt(fullName, VI.Species.Sprite, "Test", "Yay", "Nay", "Postpone", JoinVillage, LeaveVillage, null);
+            if (!VillageInhabitant)
+            {
+                // Asking To Join Village
+                string fullName = VI.FirstName + " " + VI.LastName;
+                UIManager.Instance.ModelWindow.ShowAsPrompt(fullName, VI.Species.Sprite, "Test", "Yay", "Nay", "Postpone", JoinVillage, LeaveVillage, PostponeDecision);
+            }
         }
     }
 
     public void JoinVillage()
     {
-        Debug.Log("Join");
         VillagerManager.Instance.VillagerJoinsVillage(this);
+        VillagerManager.Instance.petitionManager.RemoveFromSlots(this);
     }
 
     public void LeaveVillage()
     {
         navigation.GetLocationGoal(VI, VillagerManager.Instance.VillagerLeavesVillage(this));
+        gameObject.tag = "Destroy";
         moving = true;
+        VillagerManager.Instance.petitionManager.RemoveFromSlots(this);
+    }
+
+    public void PostponeDecision()
+    {
+        moving = true;
+        // Postpone Petition Decision For 1-3 Days
+        PostponeTime = Random.Range(1, 4);
+        VillagerManager.Instance.petitionManager.RemoveFromSlots(this);
+        if (VillageInhabitant)
+        {
+            GetComponent<VillagerController>().enabled = true;
+            this.enabled = false;
+        }
+        else
+        {
+            // Leave Screen
+            navigation.GetLocationGoal(VI, VillagerManager.Instance.VillagerLeavesVillage(this));
+            gameObject.tag = "Save";
+        }
     }
 
     public void ReachedLocation()

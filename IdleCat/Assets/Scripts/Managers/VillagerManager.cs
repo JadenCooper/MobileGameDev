@@ -7,6 +7,10 @@ public class VillagerManager : MonoBehaviour
     public static VillagerManager Instance { get; private set; }
 
     public List<VillagerController> Villagers = new List<VillagerController>();
+    public List<VillagerPetitionAI> PostponedVillagerPetitions = new List<VillagerPetitionAI>();
+    public List<VillagerPetitionAI> PostponedNonVillagerPetitions = new List<VillagerPetitionAI>();
+    public List<VillagerPetitionAI> QueuedVillagers = new List<VillagerPetitionAI>();
+
     public List<SpeciesData> UnlockedSpecies = new List<SpeciesData>();
     public List<SpeciesData> AllSpecies = new List<SpeciesData>();
 
@@ -45,8 +49,61 @@ public class VillagerManager : MonoBehaviour
 
     public void SpawnVillagers()
     {
+        petitionManager.RemoveAll();
+
         // Some PetitionSlots Will Later Be Taken Up By Quests And Unlocks
-        StartCoroutine(SpawnVillagerTimer(BuildingManager.Instance.PetitionSlots));
+        int currentSlots = BuildingManager.Instance.PetitionSlots;
+
+
+        List<VillagerPetitionAI> TempList = new List<VillagerPetitionAI>();
+
+        // Check For Postponed Decisions First
+        foreach (VillagerPetitionAI villager in PostponedVillagerPetitions)
+        {
+            // Postponed Villagers Get First Priority
+            villager.PostponeTime--;
+            if (villager.PostponeTime <= 0)
+            {
+                QueuedVillagers.Add(villager);
+                PostponedVillagerPetitions.Remove(villager);
+            }
+        }
+
+        if (QueuedVillagers.Count < currentSlots)
+        {
+            foreach (VillagerPetitionAI villager in PostponedNonVillagerPetitions)
+            {
+                // Postponed Villagers Get First Priority
+                villager.PostponeTime--;
+                if (villager.PostponeTime <= 0)
+                {
+                    QueuedVillagers.Add(villager);
+                    PostponedVillagerPetitions.Remove(villager);
+                }
+            }
+        }
+
+
+        int i = 0;
+        while (QueuedVillagers.Count > 0 && currentSlots > 0)
+        {
+            QueuedVillagers[i].gameObject.transform.parent.gameObject.SetActive(true);
+            QueuedVillagers[i].GetComponent<VillagerController>().enabled = false;
+            QueuedVillagers[i].enabled = true;
+            petitionManager.SetPetitionSlot(QueuedVillagers[i]);
+
+            QueuedVillagers.RemoveAt(i);
+            i++;
+            currentSlots--;
+        }
+
+        QueuedVillagers.RemoveRange(0, i);
+
+        // If Slots Leftover Generate New Villagers
+        if (currentSlots > 0)
+        {
+            StartCoroutine(SpawnVillagerTimer(currentSlots));
+        }
     }
 
     private IEnumerator SpawnVillagerTimer(int i)
@@ -85,9 +142,15 @@ public class VillagerManager : MonoBehaviour
     public void VillagerJoinsVillage(VillagerPetitionAI VPAI)
     {
         VillagerController VC = VPAI.gameObject.GetComponent<VillagerController>();
-        VC.Initialize(VPAI.VI);
-        Villagers.Add(VC);
-        ResourceManager.Instance.ResourceChange(Resource.Villagers, 1);
+
+        if (!VPAI.VillageInhabitant)
+        {
+            VC.Initialize(VPAI.VI);
+            Villagers.Add(VC);
+            ResourceManager.Instance.ResourceChange(Resource.Villagers, 1);
+            VPAI.VillageInhabitant = true;
+        }
+
         VC.enabled = true;
         VPAI.enabled = false;
     }
@@ -95,7 +158,6 @@ public class VillagerManager : MonoBehaviour
     public Vector2 VillagerLeavesVillage(VillagerPetitionAI VPAI)
     {
         petitionManager.RemoveFromSlots(VPAI);
-        VPAI.gameObject.tag = "Destroy";
         return new Vector2(LeaveTrigger.position.x, 0);
     }
 

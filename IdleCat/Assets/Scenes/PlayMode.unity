@@ -17643,6 +17643,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Villagers: []
+  PostponedVillagerPetitions: []
+  PostponedNonVillagerPetitions: []
+  QueuedVillagers: []
   UnlockedSpecies:
   - {fileID: 11400000, guid: d49783ec2f5b7f64a858f825bafd663b, type: 2}
   - {fileID: 11400000, guid: a1906b256ac0aed45afbb3a7f00499a0, type: 2}
@@ -30563,7 +30566,7 @@ MonoBehaviour:
   - {fileID: 2143738673}
   HouseBuildings:
   - {fileID: 1829308502}
-  PetitionSlots: 3
+  PetitionSlots: 4
 --- !u!1 &1796572386
 GameObject:
   m_ObjectHideFlags: 0

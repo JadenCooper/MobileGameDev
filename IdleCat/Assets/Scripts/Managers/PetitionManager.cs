@@ -49,6 +49,7 @@ public class PetitionManager : MonoBehaviour
             if (PetitionSlots[i].VPAI == removedVillager)
             {
                 PetitionSlots[i].VPAI = null;
+                PetitionSlots[i].Occupied = false;
                 ShuffleSlots(i);
                 return;
             }
@@ -61,5 +62,26 @@ public class PetitionManager : MonoBehaviour
         PetitionSlots[0].VPAI = null;
         PetitionSlots[0].Occupied = false;
         ShuffleSlots(0);
+    }
+
+    public void RemoveAll()
+    {
+        foreach (PetitionSlot slot in PetitionSlots)
+        {
+            if (slot.Occupied == true)
+            {
+                // If Current Villager Return To Normal Villager Behaviors Otherwise Leave
+                if (slot.VPAI.VillageInhabitant)
+                {
+                    slot.VPAI.JoinVillage();
+                }
+                else
+                {
+                    slot.VPAI.LeaveVillage();
+                }
+                slot.VPAI = null;
+                slot.Occupied = false;
+            }
+        }
     }
 }

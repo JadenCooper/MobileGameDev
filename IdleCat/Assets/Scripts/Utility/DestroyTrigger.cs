@@ -13,7 +13,16 @@ public class DestroyTrigger : MonoBehaviour
         else if(collision.CompareTag("Save"))
         {
             // For Villagers Leaving The Map But Will Return
-            Debug.Log("Save");
+            collision.gameObject.transform.parent.gameObject.SetActive(false);
+            VillagerPetitionAI VPAI = collision.GetComponent<VillagerPetitionAI>();
+            if (VPAI.VillageInhabitant)
+            {
+                VillagerManager.Instance.PostponedVillagerPetitions .Add(collision.GetComponent<VillagerPetitionAI>());
+            }
+            else
+            {
+                VillagerManager.Instance.PostponedNonVillagerPetitions.Add(collision.GetComponent<VillagerPetitionAI>());
+            }
         }
     }
 }

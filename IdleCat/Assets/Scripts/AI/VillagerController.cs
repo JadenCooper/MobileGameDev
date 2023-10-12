@@ -144,6 +144,6 @@ public class VillagerController : Intractable
 
     public override void InteractAction()
     {
-        Debug.Log("Test");
+
     }
 }
