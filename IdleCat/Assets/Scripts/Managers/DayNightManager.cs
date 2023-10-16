@@ -61,6 +61,7 @@ public class DayNightManager : MonoBehaviour
         Sun.intensity = SeasonLightValues[0].LightDecreaseGoal;
         SetTime( new Vector2(Data.STARTTIME, 0)); // ADD Check For Tutorial, If So Start At 6
         UiManager.UpdateClockTime(CurrentTime.x);
+        Debug.Log("Current Day: " + currentDay);
     }
     private void Update()
     {

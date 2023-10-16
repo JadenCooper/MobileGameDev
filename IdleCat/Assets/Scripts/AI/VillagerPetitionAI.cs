@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class VillagerPetitionAI : Intractable
 {
     public VillagerInfo VI;
+    [SerializeField]
     private bool moving = true;
     [SerializeField]
     private Navigation navigation;
@@ -62,7 +63,10 @@ public class VillagerPetitionAI : Intractable
     public void JoinVillage()
     {
         VillagerManager.Instance.VillagerJoinsVillage(this);
-        VillagerManager.Instance.petitionManager.RemoveFromSlots(this);
+        if (petitionSlot != null)
+        {
+            VillagerManager.Instance.petitionManager.RemoveFromSlots(this);
+        }
     }
 
     public void LeaveVillage()
@@ -70,7 +74,11 @@ public class VillagerPetitionAI : Intractable
         navigation.GetLocationGoal(VI, VillagerManager.Instance.VillagerLeavesVillage(this));
         gameObject.tag = "Destroy";
         moving = true;
-        VillagerManager.Instance.petitionManager.RemoveFromSlots(this);
+        if (petitionSlot != null)
+        {
+
+            VillagerManager.Instance.petitionManager.RemoveFromSlots(this);
+        }
     }
 
     public void PostponeDecision()

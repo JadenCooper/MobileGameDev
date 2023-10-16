@@ -27,7 +27,7 @@ public class PetitionManager : MonoBehaviour
             if (PetitionSlots[i].Occupied)
             {
                 // Setting To Previous Slot
-                PetitionSlots[i].VPAI.AssignPetitionSlot(PetitionSlots[i - 1]);
+                PetitionSlots[i].VPAI.AssignPetitionSlot(PetitionSlots[i - 1]); // Breaking Here
                 PetitionSlots[i - 1].Occupied = true;
 
                 // Clearing Current Slot
@@ -59,9 +59,10 @@ public class PetitionManager : MonoBehaviour
     [ContextMenu("Test")]
     public void TestRemove()
     {
-        PetitionSlots[0].VPAI = null;
-        PetitionSlots[0].Occupied = false;
-        ShuffleSlots(0);
+        //PetitionSlots[0].VPAI = null;
+        //PetitionSlots[0].Occupied = false;
+        //ShuffleSlots(0);
+        RemoveAll();
     }
 
     public void RemoveAll()
@@ -71,13 +72,17 @@ public class PetitionManager : MonoBehaviour
             if (slot.Occupied == true)
             {
                 // If Current Villager Return To Normal Villager Behaviors Otherwise Leave
-                if (slot.VPAI.VillageInhabitant)
+                if (slot.VPAI != null)
                 {
-                    slot.VPAI.JoinVillage();
-                }
-                else
-                {
-                    slot.VPAI.LeaveVillage();
+                    slot.VPAI.petitionSlot = null;
+                    if (slot.VPAI.VillageInhabitant)
+                    {
+                        slot.VPAI.JoinVillage();
+                    }
+                    else
+                    {
+                        slot.VPAI.LeaveVillage();
+                    }
                 }
                 slot.VPAI = null;
                 slot.Occupied = false;

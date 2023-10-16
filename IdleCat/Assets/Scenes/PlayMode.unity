@@ -28610,7 +28610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   villagerManager: {fileID: 552203549}
-  fullDayLength: 130
+  fullDayLength: 30
   CurrentTime: {x: 0, y: 0}
   UiManager: {fileID: 761732380}
   Sun: {fileID: 931536219}
