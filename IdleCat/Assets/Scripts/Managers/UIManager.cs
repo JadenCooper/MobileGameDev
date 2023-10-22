@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     private bool longHourTime = true; // 24 hour time
     private float currentHour = 6;
     public ModelWindowPanel ModelWindow;
+    public VillagerDisplay VillagerDisplayWindow;
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.

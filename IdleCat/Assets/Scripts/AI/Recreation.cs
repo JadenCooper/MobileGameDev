@@ -24,7 +24,7 @@ public class Recreation : Building
 
         if (vc != null && vc.enabled == true)
         {
-            if (vc.villagerInfo.currentState == VillagerState.Recreation && vc.villagerInfo.recreationGoal == this)
+            if (vc.VI.currentState == VillagerState.Recreation && vc.VI.recreationGoal == this)
             {
                 vc.ReachedLocation();
             }

@@ -21,7 +21,7 @@ public class Elevator : Intractable
         VillagerController VC = collision.gameObject.GetComponent<VillagerController>();
         if (VC != null && VC.enabled == true)
         {
-            if (VC.villagerInfo.currentElevatorGoal == this)
+            if (VC.VI.currentElevatorGoal == this)
             {
                 elevatorChain.Transport(VC);
             }

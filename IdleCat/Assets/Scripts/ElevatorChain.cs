@@ -19,10 +19,10 @@ public class ElevatorChain : MonoBehaviour
     }
     public void Transport(VillagerController VC)
     {
-        int newFloor = VC.villagerInfo.CurrentLevel + (int)VC.villagerInfo.CurrentGoal.y;
+        int newFloor = VC.VI.CurrentLevel + (int)VC.VI.CurrentGoal.y;
         VC.gameObject.transform.position = new Vector2(VC.gameObject.transform.position.x, Data.FloorHeights[newFloor]);
-        VC.villagerInfo.CurrentLevel = newFloor;
-        VC.villagerInfo.currentElevatorGoal = null;
+        VC.VI.CurrentLevel = newFloor;
+        VC.VI.currentElevatorGoal = null;
         VC.ChangeState();
         VC.GetNewLocationGoal();
     }

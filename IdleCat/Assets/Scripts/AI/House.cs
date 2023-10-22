@@ -23,7 +23,7 @@ public class House : Building
         VillagerController vc = collision.gameObject.GetComponent<VillagerController>();
         if (vc != null)
         {
-            if (vc.villagerInfo.currentState == VillagerState.Home && vc.villagerInfo.house == this)
+            if (vc.VI.currentState == VillagerState.Home && vc.VI.house == this)
             {
                 vc.ReachedLocation();
             }

@@ -10,7 +10,7 @@ public class VillagerController : Intractable
     /// This Script Handles The Functionality Of The Villager From Moment To Interactions
     /// </summary>
 
-    public VillagerInfo villagerInfo;
+    public VillagerInfo VI;
     private Navigation navigation;
 
     public UnityEvent<Vector2> OnMovementInput;
@@ -18,7 +18,7 @@ public class VillagerController : Intractable
     public TimeOut timeOut;
     public void Initialize(VillagerInfo villagerInfo)
     {
-        this.villagerInfo = villagerInfo;
+        this.VI = villagerInfo;
         //GetComponent<SpriteRenderer>().sprite = villagerInfo.Species.Sprite;
     }
     private void Start()
@@ -37,40 +37,40 @@ public class VillagerController : Intractable
     }
     public void ChangeState()
     {
-        villagerInfo.currentState = villagerInfo.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x];
+        VI.currentState = VI.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x];
     }
     public void GetNewLocationGoal()
     {
-        navigation.CheckSchedule(villagerInfo);
+        navigation.CheckSchedule(VI);
     }
     public Vector2 DetermineMovement()
     {
         // Gets Direction For Movement Based On Current Goal
-        Vector2 Goal = new Vector2(villagerInfo.CurrentGoal.x, transform.position.y);
+        Vector2 Goal = new Vector2(VI.CurrentGoal.x, transform.position.y);
         return (Goal - (Vector2)transform.position).normalized;
     }
 
     public void ReachedLocation()
     {
-        villagerInfo.currentState = villagerInfo.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x];
+        VI.currentState = VI.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x];
         moving = false;
         OnMovementInput?.Invoke(Vector2.zero);
         DayNightManager.Instance.NewHour -= GetNewLocationGoal;
 
         bool StillCurrentState = true;
         int i = 0;
-        switch (villagerInfo.currentState)
+        switch (VI.currentState)
         {
             case VillagerState.Home:
                 while (StillCurrentState)
                 {
-                    if ((int)DayNightManager.Instance.CurrentTime.x + i > (villagerInfo.schedule.VillagerStates.Length - 1))
+                    if ((int)DayNightManager.Instance.CurrentTime.x + i > (VI.schedule.VillagerStates.Length - 1))
                     {
                         StillCurrentState = false;
                     }
                     else
                     {
-                        if (villagerInfo.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x + i] == villagerInfo.currentState)
+                        if (VI.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x + i] == VI.currentState)
                         {
                             i++;
                         }
@@ -80,19 +80,19 @@ public class VillagerController : Intractable
                         }
                     }
                 }
-                timeOut.Disable(i, villagerInfo.house);
+                timeOut.Disable(i, VI.house);
                 break;
 
             case VillagerState.Work:
                 while (StillCurrentState)
                 {
-                    if ((int)DayNightManager.Instance.CurrentTime.x + i > (villagerInfo.schedule.VillagerStates.Length - 1))
+                    if ((int)DayNightManager.Instance.CurrentTime.x + i > (VI.schedule.VillagerStates.Length - 1))
                     {
                         StillCurrentState = false;
                     }
                     else
                     {
-                        if (villagerInfo.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x + i] == villagerInfo.currentState)
+                        if (VI.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x + i] == VI.currentState)
                         {
                             i++;
                         }
@@ -102,19 +102,19 @@ public class VillagerController : Intractable
                         }
                     }
                 }
-                timeOut.Disable(i, villagerInfo.job);
+                timeOut.Disable(i, VI.job);
                 break;
 
             case VillagerState.Recreation:
                 while (StillCurrentState)
                 {
-                    if ((int)DayNightManager.Instance.CurrentTime.x + i > (villagerInfo.schedule.VillagerStates.Length - 1))
+                    if ((int)DayNightManager.Instance.CurrentTime.x + i > (VI.schedule.VillagerStates.Length - 1))
                     {
                         StillCurrentState = false;
                     }
                     else
                     {
-                        if (villagerInfo.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x + i] == villagerInfo.currentState)
+                        if (VI.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x + i] == VI.currentState)
                         {
                             i++;
                         }
@@ -124,8 +124,8 @@ public class VillagerController : Intractable
                         }
                     }
                 }
-                timeOut.Disable(i, villagerInfo.recreationGoal);
-                villagerInfo.recreationGoal = null;
+                timeOut.Disable(i, VI.recreationGoal);
+                VI.recreationGoal = null;
                 break;
 
             //case VillagerState.Petitioning:
@@ -144,6 +144,6 @@ public class VillagerController : Intractable
 
     public override void InteractAction()
     {
-
+        UIManager.Instance.VillagerDisplayWindow.OpenWindow(VI);
     }
 }

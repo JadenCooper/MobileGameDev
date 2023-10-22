@@ -36,7 +36,7 @@ public class TimeOut : MonoBehaviour
     public void Decrement()
     {
         HoursToEnable--;
-        building.BuildingAction(VC.villagerInfo);
+        building.BuildingAction(VC.VI);
         if (HoursToEnable <= 0)
         {
             DayNightManager.Instance.NewHour -= Decrement;

@@ -64,7 +64,7 @@ public class BuildingNotebook : MonoBehaviour
             GameObject newBuilding = Instantiate(uIBuildingPrefab);
             newBuilding.transform.parent = gridParent.transform;
 
-            newBuilding.GetComponent<BuildingButton>().Initialize(newBuildings[i]);
+            newBuilding.GetComponent<UIBuildingButton>().Initialize(newBuildings[i]);
 
             buildingsInGrid.Add(newBuilding);
         }

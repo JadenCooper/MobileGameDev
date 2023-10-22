@@ -181,7 +181,7 @@ public class VillagerManager : MonoBehaviour
 
         foreach (VillagerController vc in Villagers)
         {
-            happinessTotal += vc.villagerInfo.happiness;
+            happinessTotal += vc.VI.happiness;
         }
 
         happinessTotal = happinessTotal / Villagers.Count;

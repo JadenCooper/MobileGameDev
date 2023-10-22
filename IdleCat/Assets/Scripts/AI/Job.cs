@@ -17,7 +17,7 @@ public  class Job : Building
         VillagerController vc = collision.gameObject.GetComponent<VillagerController>();
         if (vc != null && vc.enabled == true)
         {
-            if (vc.villagerInfo.currentState == VillagerState.Work && vc.villagerInfo.job == this)
+            if (vc.VI.currentState == VillagerState.Work && vc.VI.job == this)
             {
                 vc.ReachedLocation();
             }

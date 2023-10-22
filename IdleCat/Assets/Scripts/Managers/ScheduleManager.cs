@@ -20,7 +20,7 @@ public class ScheduleManager : MonoBehaviour
     {
         selectedVillagerState = VillagerState.Anything;
         CurrentVillagerIndex = index;
-        VillagerInfo vi = VillagerManager.Instance.Villagers[CurrentVillagerIndex].villagerInfo;
+        VillagerInfo vi = VillagerManager.Instance.Villagers[CurrentVillagerIndex].VI;
         FullName.text = vi.FirstName + " " + vi.LastName;
         SetSchedule(vi.schedule);
     }
@@ -28,7 +28,7 @@ public class ScheduleManager : MonoBehaviour
     {
         selectedVillagerState = VillagerState.Anything;
         CurrentVillagerIndex = 0;
-        VillagerInfo vi = VillagerManager.Instance.Villagers[CurrentVillagerIndex].villagerInfo;
+        VillagerInfo vi = VillagerManager.Instance.Villagers[CurrentVillagerIndex].VI;
         FullName.text = vi.FirstName + " " + vi.LastName;
         VillagerIcon.sprite = vi.Species.Sprite;
         SetSchedule(vi.schedule); // Set To First Villager Schedule
@@ -52,7 +52,7 @@ public class ScheduleManager : MonoBehaviour
             CurrentVillagerIndex--;
         }
         CurrentVillagerIndex = (int)Data.Wrap(CurrentVillagerIndex, VillagerManager.Instance.Villagers.Count);
-        VillagerInfo vi = VillagerManager.Instance.Villagers[CurrentVillagerIndex].villagerInfo;
+        VillagerInfo vi = VillagerManager.Instance.Villagers[CurrentVillagerIndex].VI;
         FullName.text = vi.FirstName + " " + vi.LastName;
         VillagerIcon.sprite = vi.Species.Sprite;
 
@@ -118,7 +118,7 @@ public class ScheduleManager : MonoBehaviour
 
     public void Save()
     {
-        VillagerInfo vi = VillagerManager.Instance.Villagers[CurrentVillagerIndex].villagerInfo;
+        VillagerInfo vi = VillagerManager.Instance.Villagers[CurrentVillagerIndex].VI;
         Schedule schedule = vi.schedule;
 
         for (int i = 0; i < scheduleButtons.Count; i++)

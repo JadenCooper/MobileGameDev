@@ -24,4 +24,12 @@ public class VillagerInfo : ScriptableObject
     public Elevator currentElevatorGoal;
     public GameObject gameObject;
     public int CurrentLevel = 0;
+
+
+    public int Age;
+    public string Sex;
+    public VillagerInfo Father;
+    public VillagerInfo Mother;
+    public VillagerInfo Partner;
+    public List<VillagerInfo> Children = new List<VillagerInfo>();
 }
