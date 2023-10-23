@@ -14,11 +14,20 @@ public class UIVillagerButton : MonoBehaviour
     private TMP_Text name;
     private VillagerInfo VI;
 
-    public void Initialize(VillagerInfo villagerInfo)
+    public void Initialize(VillagerInfo villagerInfo = null, Sprite givenSprite = null)
     {
-        VI = villagerInfo;
-        icon.sprite = VI.Species.Sprite;
-        name.text = VI.FirstName;
+        if (villagerInfo == null)
+        {
+            icon.sprite = givenSprite;
+            name.text = "Unknown";
+            VI = null;
+        }
+        else
+        {
+            VI = villagerInfo;
+            icon.sprite = VI.Species.Sprite;
+            name.text = VI.FirstName;
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)

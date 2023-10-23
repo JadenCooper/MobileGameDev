@@ -26,7 +26,8 @@ public class VillagerInfo : ScriptableObject
     public int CurrentLevel = 0;
 
 
-    public int Age;
+    public Vector2 Age; // X is current age Y is the next life stage
+    public LifeStages LifeStage;
     public string Sex;
     public VillagerInfo Father;
     public VillagerInfo Mother;
