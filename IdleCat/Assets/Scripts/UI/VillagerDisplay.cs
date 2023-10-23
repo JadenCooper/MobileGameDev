@@ -54,16 +54,16 @@ public class VillagerDisplay : MonoBehaviour
 
     private void SetVillagerDetails()
     {
-        VillagerDetails[0].text = currentVI.FirstName;
-        VillagerDetails[1].text = currentVI.LastName;
-        VillagerDetails[2].text = currentVI.Species.Species;
-        VillagerDetails[3].text = currentVI.LifeStage.ToString(); 
-        VillagerDetails[4].text = currentVI.Sex;
+        VillagerDetails[0].text = "First Name: " + currentVI.FirstName;
+        VillagerDetails[1].text = "Last Name: " + currentVI.LastName;
+        VillagerDetails[2].text = "Species: " + currentVI.Species.Species;
+        VillagerDetails[3].text = "Age: " + currentVI.LifeStage.ToString(); 
+        VillagerDetails[4].text = "Sex: " + currentVI.Sex;
 
         VillagerIcon.sprite = currentVI.Species.Sprite;
 
         // Will Eventually Pre Process It Into A Phrase Eg Instead Of Working, Cutting Blocks At The Mason
-        VillagerDetails[5].text = currentVI.currentState.ToString();
+        VillagerDetails[5].text = "Current Activity: " + currentVI.currentState.ToString();
         //VillagerDetails[5].text = currentVI.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x].ToString();
     }
     private void SetFamilyTree()

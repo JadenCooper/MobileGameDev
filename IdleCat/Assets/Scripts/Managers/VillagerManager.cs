@@ -149,6 +149,28 @@ public class VillagerManager : MonoBehaviour
         tempVI.schedule = Instantiate(defaultSchedule);
         tempVI.gameObject = NewVillager;
 
+        // 25 -- 75 odds for adult or young adult
+        int RandomNumber = Random.Range(0, 3);
+        if (RandomNumber == 0)
+        {
+            tempVI.LifeStage = LifeStages.Adult;
+        }
+        else
+        {
+            tempVI.LifeStage = LifeStages.YoungAdult;
+        }
+
+        RandomNumber = Random.Range(0,2);
+
+        if (RandomNumber == 0)
+        {
+            tempVI.Sex = "Male";
+        }
+        else
+        {
+            tempVI.Sex = "Female";
+        }
+
         VillagerPetitionAI VPAI = NewVillager.GetComponentInChildren<VillagerPetitionAI>();
         VPAI.Initialize(tempVI);
         petitionManager.SetPetitionSlot(VPAI);
