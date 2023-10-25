@@ -2,22 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingNotebook : MonoBehaviour
+public class BuildingNotebook : GridNotebook
 {
-    [SerializeField]
-    private GameObject uIBuildingPrefab;
-    [SerializeField]
-    private GameObject gridParent;
-    [SerializeField]
-    private List<GameObject> buildingsInGrid = new List<GameObject>();
-
-    private const int BUILDINGSPERPAGE = 20;
-    public void FillBuildings(int GridTypeIndex)
+    public override void FillGrid(int GridTypeIndex)
     {
-        if (buildingsInGrid.Count != 0)
-        {
-            ClearGrid();
-        }
+        base.FillGrid(GridTypeIndex);
 
         List<Building> newBuildings = new List<Building>(); // Create List To Hold Buildings
         switch (GridTypeIndex)
@@ -25,11 +14,7 @@ public class BuildingNotebook : MonoBehaviour
             case 0:
                 // Anything
                 newBuildings.AddRange(BuildingManager.Instance.JobBuildings);
-                FillGrid(newBuildings);
-                newBuildings.Clear();
                 newBuildings.AddRange(BuildingManager.Instance.HouseBuildings);
-                FillGrid(newBuildings);
-                newBuildings.Clear();
                 newBuildings.AddRange(BuildingManager.Instance.RecreationBuildings);
                 FillGrid(newBuildings);
                 break;
@@ -61,22 +46,12 @@ public class BuildingNotebook : MonoBehaviour
     {
         for (int i = 0; i < newBuildings.Count; i++)
         {
-            GameObject newBuilding = Instantiate(uIBuildingPrefab);
-            newBuilding.transform.parent = gridParent.transform;
+            GameObject newBuilding = Instantiate(GridObjectPrefab);
+            newBuilding.transform.parent = GridParent.transform;
 
             newBuilding.GetComponent<UIBuildingButton>().Initialize(newBuildings[i]);
 
-            buildingsInGrid.Add(newBuilding);
+            ObjectsInGrid.Add(newBuilding);
         }
-    }
-
-    public void ClearGrid()
-    {
-        for (int i = 0; i < buildingsInGrid.Count; i++)
-        {
-            Destroy(buildingsInGrid[i]);
-        }
-
-        buildingsInGrid.Clear();
     }
 }

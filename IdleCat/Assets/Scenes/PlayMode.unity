@@ -16229,7 +16229,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1180824249}
         m_TargetAssemblyTypeName: BuildingNotebook, Assembly-CSharp
-        m_MethodName: FillBuildings
+        m_MethodName: FillGrid
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -22168,7 +22168,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1180824249}
         m_TargetAssemblyTypeName: BuildingNotebook, Assembly-CSharp
-        m_MethodName: FillBuildings
+        m_MethodName: FillGrid
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -26455,7 +26455,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1180824249}
         m_TargetAssemblyTypeName: BuildingNotebook, Assembly-CSharp
-        m_MethodName: FillBuildings
+        m_MethodName: FillGrid
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -26587,7 +26587,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1180824249}
         m_TargetAssemblyTypeName: BuildingNotebook, Assembly-CSharp
-        m_MethodName: FillBuildings
+        m_MethodName: FillGrid
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -27601,9 +27601,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4abd518879ad2514593482f861a469e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uIBuildingPrefab: {fileID: 1112872653385643520, guid: 336ea68587c295143a16e482dc3eb300, type: 3}
-  gridParent: {fileID: 527533005}
-  buildingsInGrid: []
+  GridObjectPrefab: {fileID: 1112872653385643520, guid: 336ea68587c295143a16e482dc3eb300, type: 3}
+  GridParent: {fileID: 527533005}
+  ObjectsInGrid: []
+  BuildingsPerPage: 20
 --- !u!1 &1186520676
 GameObject:
   m_ObjectHideFlags: 0
