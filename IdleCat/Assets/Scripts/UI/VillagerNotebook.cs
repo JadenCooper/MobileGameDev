@@ -13,6 +13,12 @@ public class VillagerNotebook : GridNotebook
 
     private void FillGrid(List<VillagerController> newVillagers)
     {
+
+        if (newVillagers.Count > ObjectsPerPage)
+        {
+            ExpandGrid(newVillagers.Count);
+        }
+
         for (int i = 0; i < newVillagers.Count; i++)
         {
             GameObject newVillager = Instantiate(GridObjectPrefab);

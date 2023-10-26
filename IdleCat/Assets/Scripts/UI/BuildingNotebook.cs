@@ -44,6 +44,11 @@ public class BuildingNotebook : GridNotebook
 
     private void FillGrid(List<Building> newBuildings)
     {
+        if (newBuildings.Count > ObjectsPerPage)
+        {
+            ExpandGrid(newBuildings.Count);
+        }
+
         for (int i = 0; i < newBuildings.Count; i++)
         {
             GameObject newBuilding = Instantiate(GridObjectPrefab);
