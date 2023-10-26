@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIVillagerButton : MonoBehaviour
+public class UIVillagerButton : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField]
     private Image icon;
@@ -32,6 +32,9 @@ public class UIVillagerButton : MonoBehaviour
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        UIManager.Instance.VillagerDisplayWindow.OpenWindow(VI);
+        if (VI != null)
+        {
+            UIManager.Instance.VillagerDisplayWindow.OpenWindow(VI);
+        }
     }
 }

@@ -8,8 +8,8 @@ public class GridNotebook : MonoBehaviour
     public GameObject GridParent;
     public List<GameObject> ObjectsInGrid = new List<GameObject>();
 
-    public int BuildingsPerPage = 20;
-    public virtual void FillGrid(int GridTypeIndex)
+    public int ObjectsPerPage = 20;
+    public virtual void SetupGrid(int GridTypeIndex)
     {
         if (ObjectsInGrid.Count != 0)
         {

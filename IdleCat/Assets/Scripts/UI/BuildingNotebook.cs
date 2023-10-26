@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BuildingNotebook : GridNotebook
 {
-    public override void FillGrid(int GridTypeIndex)
+    public override void SetupGrid(int GridTypeIndex)
     {
-        base.FillGrid(GridTypeIndex);
+        base.SetupGrid(GridTypeIndex);
 
         List<Building> newBuildings = new List<Building>(); // Create List To Hold Buildings
         switch (GridTypeIndex)

@@ -20,8 +20,19 @@ public class VillagerDisplay : MonoBehaviour
 
     [SerializeField]
     private Sprite unknownSprite;
+
+    private bool alreadyInMenu = false;
     public void OpenWindow(VillagerInfo VI)
     {
+        if (Time.timeScale == 0)
+        {
+            alreadyInMenu = true;
+        }
+        else
+        {
+            alreadyInMenu = false;
+        }
+
         CloseWindow();
         Time.timeScale = 0f;
         currentVI = VI;
@@ -49,7 +60,11 @@ public class VillagerDisplay : MonoBehaviour
 
             Children.Clear();
         }
-        Time.timeScale = 1f;
+
+        if (!alreadyInMenu)
+        {
+            Time.timeScale = 1f;
+        }
     }
 
     private void SetVillagerDetails()

@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UIBuildingButton : MonoBehaviour
+public class UIBuildingButton : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField]
     private Image icon;
