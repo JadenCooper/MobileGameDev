@@ -57,4 +57,9 @@ public class GameManager : MonoBehaviour
 
         loadingScreen.SetActive(false);
     }
+
+    public void AlterTimeScale()
+    {
+
+    }
 }

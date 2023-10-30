@@ -15059,6 +15059,7 @@ GameObject:
   - component: {fileID: 190247182}
   - component: {fileID: 190247181}
   - component: {fileID: 190247183}
+  - component: {fileID: 190247184}
   m_Layer: 5
   m_Name: Villager Display
   m_TagString: Untagged
@@ -15101,7 +15102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.12156863}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -15153,6 +15154,20 @@ MonoBehaviour:
   ChildrenParent: {fileID: 253168809}
   VillagerIcon: {fileID: 1611352406}
   unknownSprite: {fileID: 21300000, guid: 738aa0cb951a60742a7eafbad00b0ad3, type: 3}
+  tweenScale: {fileID: 190247184}
+  openScale: {x: 1.204849, y: 1.106, z: 1.106}
+--- !u!114 &190247184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190247179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b27885009587cc744b46fa1f103bb0aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &192232982
 GameObject:
   m_ObjectHideFlags: 0

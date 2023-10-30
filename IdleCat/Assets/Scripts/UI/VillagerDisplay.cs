@@ -20,8 +20,12 @@ public class VillagerDisplay : MonoBehaviour
 
     [SerializeField]
     private Sprite unknownSprite;
+    [SerializeField]
+    private TweenScale tweenScale;
 
     private bool alreadyInMenu = false;
+    [SerializeField]
+    private Vector3 openScale;
     public void OpenWindow(VillagerInfo VI)
     {
         if (Time.timeScale == 0)
@@ -36,16 +40,10 @@ public class VillagerDisplay : MonoBehaviour
         CloseWindow();
         Time.timeScale = 0f;
         currentVI = VI;
-
-        SetFamilyTree();
-        SetVillagerDetails();
-
-        gameObject.SetActive(true);
     }
 
     public void CloseWindow()
     {
-        gameObject.SetActive(false);
         Father.Initialize(null, unknownSprite);
         Mother.Initialize(null, unknownSprite);
 
@@ -65,8 +63,16 @@ public class VillagerDisplay : MonoBehaviour
         {
             Time.timeScale = 1f;
         }
+
+        tweenScale.ScaleDown(null, SetVillagerScreen);
     }
 
+    private void SetVillagerScreen()
+    {
+        SetFamilyTree();
+        SetVillagerDetails();
+        tweenScale.ScaleUp(openScale);
+    }
     private void SetVillagerDetails()
     {
         VillagerDetails[0].text = "First Name: " + currentVI.FirstName;
@@ -112,7 +118,6 @@ public class VillagerDisplay : MonoBehaviour
                     break;
             }
         }
-        Debug.Log(currentAction);
         VillagerDetails[5].text = currentAction;
     }
     private void SetFamilyTree()
