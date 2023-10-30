@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using static UnityEditor.FilePathAttribute;
+
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
@@ -11,6 +13,16 @@ public class UIManager : MonoBehaviour
     private float currentHour = 6;
     public ModelWindowPanel ModelWindow;
     public VillagerDisplay VillagerDisplayWindow;
+
+    [SerializeField]
+    private Camera playerCamera;
+    [SerializeField]
+    private Vector3 playerCameraPosition;
+
+    [SerializeField]
+    private GameObject mainUICanvas;
+    [SerializeField]
+    private GameObject cameraLookCanvas;
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
@@ -63,5 +75,24 @@ public class UIManager : MonoBehaviour
     {
         // Change Resource Displays
 
+    }
+
+    public void MoveCamera(Vector3 location)
+    {
+        mainUICanvas.SetActive(false);
+        cameraLookCanvas.SetActive(true);
+        location = transform.TransformPoint(location);
+        LeanTween.move(playerCamera.gameObject, location, 0.5f).setIgnoreTimeScale(true).setOnComplete(resetZValue);
+    }
+
+    private void resetZValue()
+    {
+        playerCamera.transform.localPosition = new Vector3(playerCamera.transform.localPosition.x, playerCamera.transform.localPosition.y, playerCameraPosition.z);
+    }
+    public void CameraReturn()
+    {
+        mainUICanvas.SetActive(true);
+        cameraLookCanvas.SetActive(false);
+        LeanTween.moveLocal(playerCamera.gameObject, playerCameraPosition, 0.5f).setIgnoreTimeScale(true).setOnComplete(resetZValue);
     }
 }

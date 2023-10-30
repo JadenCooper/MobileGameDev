@@ -26,6 +26,9 @@ public class VillagerDisplay : MonoBehaviour
     private bool alreadyInMenu = false;
     [SerializeField]
     private Vector3 openScale;
+
+    [SerializeField]
+    private GoToButton goToVillager;
     public void OpenWindow(VillagerInfo VI)
     {
         if (Time.timeScale == 0)
@@ -119,6 +122,8 @@ public class VillagerDisplay : MonoBehaviour
             }
         }
         VillagerDetails[5].text = currentAction;
+
+        goToVillager.location = currentVI.gameObject.transform.position;
     }
     private void SetFamilyTree()
     {
