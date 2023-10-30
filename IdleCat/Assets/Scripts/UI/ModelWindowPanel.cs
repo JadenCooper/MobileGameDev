@@ -54,7 +54,8 @@ public class ModelWindowPanel : MonoBehaviour
     private Action onAlternateAction;
     private Action onDeclineAction;
 
-
+    [SerializeField]
+    private TweenScale tweenScale;
     public void ShowAsHero(string title, Sprite imageToShow, string message, string confirmMessage, string declineMessage, string alternateMessage, Action confirmAction, Action declineAction = null, Action alternateAction = null)
     {
 
@@ -183,7 +184,7 @@ public class ModelWindowPanel : MonoBehaviour
         alternateButton.onClick.RemoveAllListeners();
         declineButton.onClick.RemoveAllListeners();
 
-        LeanTween.scale(gameObject, Vector3.zero, 0.2f).setOnComplete(AlterState);
+        tweenScale.ScaleDown(null);
     }
 
     public void Show()
@@ -192,13 +193,6 @@ public class ModelWindowPanel : MonoBehaviour
         alternateButton.onClick.AddListener(Alternate);
         declineButton.onClick.AddListener(Decline);
 
-        AlterState();
-        LeanTween.scale(gameObject, Vector3.one, 0.2f);
+        tweenScale.ScaleUp(null);
     }
-
-    void AlterState()
-    {
-        gameObject.SetActive(!gameObject.activeSelf);
-    }
-
 }

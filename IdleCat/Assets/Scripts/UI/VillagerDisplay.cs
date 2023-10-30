@@ -79,7 +79,41 @@ public class VillagerDisplay : MonoBehaviour
 
         // Will Eventually Pre Process It Into A Phrase Eg Instead Of Working, Cutting Blocks At The Mason
         VillagerDetails[5].text = "Current Activity: " + currentVI.currentState.ToString();
-        //VillagerDetails[5].text = currentVI.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x].ToString();
+
+        string currentAction = "Current Activity: ";
+
+        if (currentVI.currentState == VillagerState.Traveling)
+        {
+            // Need To Get Location Traveling To
+            currentAction += "Traveling To " + currentVI.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x];
+        }
+        else
+        {
+            switch (currentVI.currentState)
+            {
+                case VillagerState.Home:
+                    currentAction += currentVI.house.ActionDescription;
+                    break;
+
+                case VillagerState.Work:
+                    currentAction += currentVI.job.ActionDescription;
+                    break;
+
+                case VillagerState.Recreation:
+                    currentAction += currentVI.recreationGoal.ActionDescription;
+                    break;
+
+                case VillagerState.Petitioning:
+                    currentAction += "Petitioning The Mayor";
+                    break;
+
+                default:
+                    Debug.Log("Current Activity Description Broken");
+                    break;
+            }
+        }
+        Debug.Log(currentAction);
+        VillagerDetails[5].text = currentAction;
     }
     private void SetFamilyTree()
     {

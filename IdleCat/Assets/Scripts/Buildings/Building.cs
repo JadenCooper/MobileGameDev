@@ -9,6 +9,7 @@ public abstract class Building : Intractable
     public List<VillagerController> users = new List<VillagerController>(); // People Currently Inside, Used For Display Purposes
     public Sprite Icon;
     public int Capacity;
+    public string ActionDescription;
     public abstract void OnTriggerEnter2D(Collider2D collision);
 
     public abstract void BuildingAction(VillagerInfo currentUser);

@@ -3900,6 +3900,7 @@ GameObject:
   - component: {fileID: 74627562}
   - component: {fileID: 74627561}
   - component: {fileID: 74627563}
+  - component: {fileID: 74627564}
   m_Layer: 5
   m_Name: Model Panel
   m_TagString: Untagged
@@ -3995,6 +3996,19 @@ MonoBehaviour:
   alternateText: {fileID: 937421476}
   declineButton: {fileID: 798593607}
   declineText: {fileID: 1402606835}
+  tweenScale: {fileID: 74627564}
+--- !u!114 &74627564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 74627559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b27885009587cc744b46fa1f103bb0aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &86727885
 GameObject:
   m_ObjectHideFlags: 0
@@ -14828,6 +14842,7 @@ MonoBehaviour:
   users: []
   Icon: {fileID: 21300000, guid: b1bd684bdbe2f0940b61916f838ebfc5, type: 3}
   Capacity: 99
+  ActionDescription: Relaxing At The Park
   happinessGain: 5
 --- !u!61 &169557079
 BoxCollider2D:
@@ -35760,6 +35775,7 @@ MonoBehaviour:
   users: []
   Icon: {fileID: 21300000, guid: b1bd684bdbe2f0940b61916f838ebfc5, type: 3}
   Capacity: 5
+  ActionDescription: Resting At The Fox Den Inn
   Inhabitants: []
   restValue: 10
 --- !u!212 &1829308503
@@ -40202,6 +40218,7 @@ MonoBehaviour:
   users: []
   Icon: {fileID: 21300000, guid: e9747883cd4879e43b38fbec10f3f714, type: 3}
   Capacity: 4
+  ActionDescription: Sweating Away At The Workhouse
   Employees: []
   resourceToGain: 2
   resourceGain: 10

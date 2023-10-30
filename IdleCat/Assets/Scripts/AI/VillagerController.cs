@@ -125,7 +125,6 @@ public class VillagerController : Intractable
                     }
                 }
                 timeOut.Disable(i, VI.recreationGoal);
-                VI.recreationGoal = null;
                 break;
 
             //case VillagerState.Petitioning:
