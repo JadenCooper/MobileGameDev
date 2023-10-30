@@ -54,6 +54,7 @@ public class ModelWindowPanel : MonoBehaviour
     private Action onAlternateAction;
     private Action onDeclineAction;
 
+
     public void ShowAsHero(string title, Sprite imageToShow, string message, string confirmMessage, string declineMessage, string alternateMessage, Action confirmAction, Action declineAction = null, Action alternateAction = null)
     {
 
@@ -121,7 +122,6 @@ public class ModelWindowPanel : MonoBehaviour
 
         Show();
     }
-
     public void ShowAsPrompt(string title, Sprite imageToShow, string message, Action confirmAction)
     {
         ShowAsPrompt(title, imageToShow, message, "Continue", "", "", confirmAction);
@@ -183,7 +183,7 @@ public class ModelWindowPanel : MonoBehaviour
         alternateButton.onClick.RemoveAllListeners();
         declineButton.onClick.RemoveAllListeners();
 
-        gameObject.SetActive(false);
+        LeanTween.scale(gameObject, Vector3.zero, 0.2f).setOnComplete(AlterState);
     }
 
     public void Show()
@@ -192,7 +192,13 @@ public class ModelWindowPanel : MonoBehaviour
         alternateButton.onClick.AddListener(Alternate);
         declineButton.onClick.AddListener(Decline);
 
-        gameObject.SetActive(true);
+        AlterState();
+        LeanTween.scale(gameObject, Vector3.one, 0.2f);
+    }
+
+    void AlterState()
+    {
+        gameObject.SetActive(!gameObject.activeSelf);
     }
 
 }
