@@ -14721,7 +14721,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1146904631}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
-        m_MethodName: TogglePause
+        m_MethodName: AlterNotebookState
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14730,18 +14730,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2732145000510946953}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 2732145000877321233}
         m_TargetAssemblyTypeName: TabGroup, Assembly-CSharp
@@ -17535,21 +17523,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2732145000510946953}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1146904631}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
-        m_MethodName: TogglePause
+        m_MethodName: AlterNotebookState
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17557,7 +17533,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 7635321184980745812}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
@@ -27448,6 +27424,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f50f2cd5cb313440a6f0f1038cbae3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Notebook: {fileID: 2732145000510946953}
+  NotebookMove: {fileID: 2732145000510946957}
+  OpenNotebook: {x: -115, y: 0, z: 0}
+  ClosedNotebook: {x: -1652, y: 0, z: 0}
 --- !u!1 &1156432412
 GameObject:
   m_ObjectHideFlags: 0
@@ -41746,6 +41726,7 @@ GameObject:
   - component: {fileID: 2732145000510946954}
   - component: {fileID: 2732145000510946956}
   - component: {fileID: 2732145000510946955}
+  - component: {fileID: 2732145000510946957}
   m_Layer: 5
   m_Name: Notebook
   m_TagString: Untagged
@@ -41772,7 +41753,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -112, y: 0}
+  m_AnchoredPosition: {x: -1652, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2732145000510946955
@@ -41788,7 +41769,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.12156863}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -41813,6 +41794,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2732145000510946953}
   m_CullTransparentMesh: 1
+--- !u!114 &2732145000510946957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2732145000510946953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df26e5f0dc6eb5b45a342ba221293e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2732145000806571686
 GameObject:
   m_ObjectHideFlags: 0
