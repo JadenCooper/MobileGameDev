@@ -16,6 +16,10 @@ public class SceneChange : MonoBehaviour
                 SceneManager.LoadScene("PlayMode");
                 break;
 
+            case 2:
+                Application.Quit();
+                break;
+
             default:
                 Debug.Log("Scene Change Index Entered Incorrectly");
                 break;

@@ -9,6 +9,12 @@ public class PauseManager : MonoBehaviour
     public TweenMove NotebookMove;
     public Vector3 OpenNotebook;
     public Vector3 ClosedNotebook;
+
+    [Header("Pause Menu Settings")]
+    public GameObject PauseMenu;
+    public TweenMove PauseMenuMove;
+    public Vector3 OpenPauseMenu;
+    public Vector3 ClosedPauseMenu;
     public void AlterNotebookState()
     {
         TogglePause();
@@ -42,4 +48,25 @@ public class PauseManager : MonoBehaviour
     {
         Notebook.SetActive(!Notebook.activeSelf);
     }
+    public void AlterPauseMenuState()
+    {
+        TogglePause();
+
+        if (PauseMenu.activeSelf)
+        {
+            // Already Open So Close
+            PauseMenuMove.Move(ClosedPauseMenu, ChangePauseMenuState);
+        }
+        else
+        {
+            ChangePauseMenuState();
+            PauseMenuMove.Move(OpenPauseMenu);
+        }
+    }
+
+    public void ChangePauseMenuState()
+    {
+        PauseMenu.SetActive(!PauseMenu.activeSelf);
+    }
+
 }
