@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Building : Intractable
 {
+    public string ID;
     public string Name;
     public Vector2 Location; // X is X / Y Is Level
     public List<VillagerController> users = new List<VillagerController>(); // People Currently Inside, Used For Display Purposes

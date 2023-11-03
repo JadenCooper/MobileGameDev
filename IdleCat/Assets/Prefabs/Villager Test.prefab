@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractionDistance: 2.3
-  villagerInfo: {fileID: 0}
+  VI: {fileID: 0}
   OnMovementInput:
     m_PersistentCalls:
       m_Calls:
@@ -163,6 +163,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   Goal: {x: 0, y: 0}
+  VillageInhabitant: 0
+  PostponeTime: 0
 --- !u!61 &4287487494912847262
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -215,7 +217,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2738389094612232789}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

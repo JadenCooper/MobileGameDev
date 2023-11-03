@@ -7,6 +7,7 @@ public class VillagerManager : MonoBehaviour
     public static VillagerManager Instance { get; private set; }
 
     public List<VillagerController> Villagers = new List<VillagerController>();
+    public List<VillagerPetitionAI> NonVillagers = new List<VillagerPetitionAI>();
     public List<VillagerPetitionAI> PostponedVillagerPetitions = new List<VillagerPetitionAI>();
     public List<VillagerPetitionAI> PostponedNonVillagerPetitions = new List<VillagerPetitionAI>();
     public List<VillagerPetitionAI> QueuedVillagers = new List<VillagerPetitionAI>();
@@ -25,8 +26,7 @@ public class VillagerManager : MonoBehaviour
     public Job Mason;
 
     public PetitionManager petitionManager;
-    public Transform LeaveTrigger;
-
+    public Transform LeaveTrigger; 
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
@@ -40,12 +40,12 @@ public class VillagerManager : MonoBehaviour
             Instance = this;
         }
 
-        SaveManager.Instance.SaveCall += SaveData;
-        SaveManager.Instance.LoadCall += LoadData;
     }
 
     private void Start()
     {
+        SaveManager.Instance.SaveCall += SaveVillagerData;
+        SaveManager.Instance.LoadCall += LoadVillagerData;
         DayNightManager.Instance.NewDay += SpawnVillagers;
         SpawnVillagers();
     }
@@ -151,7 +151,8 @@ public class VillagerManager : MonoBehaviour
         tempVI.Species = UnlockedSpecies[Random.Range(0, UnlockedSpecies.Count)];
         tempVI.schedule = Instantiate(defaultSchedule);
         tempVI.gameObject = NewVillager;
-
+        System.Guid newGuid = System.Guid.NewGuid();
+        tempVI.ID = newGuid.ToString();
         // 25 -- 75 odds for adult or young adult
         int RandomNumber = Random.Range(0, 3);
         if (RandomNumber == 0)
@@ -177,6 +178,7 @@ public class VillagerManager : MonoBehaviour
         VillagerPetitionAI VPAI = NewVillager.GetComponentInChildren<VillagerPetitionAI>();
         VPAI.Initialize(tempVI);
         petitionManager.SetPetitionSlot(VPAI);
+        NonVillagers.Add(VPAI);
     }
 
     public void VillagerJoinsVillage(VillagerPetitionAI VPAI)
@@ -215,13 +217,175 @@ public class VillagerManager : MonoBehaviour
         ResourceManager.Instance.UpdateVillageHappiness(happinessTotal);
     }
 
-    public void SaveData()
+    public void SaveVillagerData()
     {
+        VillagerManagerSaveDate VMSD = new VillagerManagerSaveDate();
+
+        for (int i = 0; i < Villagers.Count; i++)
+        {
+            VMSD.Villagers.Add(FillInVillagerSaveData(Villagers[i]));
+        }
+
+        for (int i = 0; i < PostponedVillagerPetitions.Count; i++)
+        {
+            string ID = PostponedVillagerPetitions[i].VI.ID;
+
+            for (int t = 0; t < VMSD.Villagers.Count; t++)
+            {
+                if (ID == VMSD.Villagers[t].ID)
+                {
+                    VMSD.Villagers[t].PostponeTime = PostponedVillagerPetitions[i].PostponeTime;
+                }
+            }
+            VMSD.PostponedVillagerPetitionsIDS.Add(PostponedVillagerPetitions[i].VI.ID);
+        }
+
+        for (int i = 0; i < NonVillagers.Count; i++)
+        {
+            VMSD.NonVillagers.Add(FillInVillagerSaveData(NonVillagers[i].GetComponent<VillagerController>()));
+        }
+
+        for (int i = 0; i < PostponedNonVillagerPetitions.Count; i++)
+        {
+            VMSD.PostponedNonVillagerPetitions.Add(FillInVillagerSaveData(PostponedNonVillagerPetitions[i].GetComponent<VillagerController>()));
+        }
+
+        for (int i = 0; i < QueuedVillagers.Count; i++)
+        {
+            VMSD.QueuedVillagers.Add(FillInVillagerSaveData(QueuedVillagers[i].GetComponent<VillagerController>()));
+        }
 
     }
 
-    public void LoadData()
+    public void LoadVillagerData()
     {
+        VillagerManagerSaveDate VMSD = SaveData.current.VMSD;
 
+        for (int i = 0; i < VMSD.Villagers.Count; i++)
+        {
+            VillagerSaveData VSD = VMSD.Villagers[i];
+            GameObject newVillager = LoadInVillagerSaveData(VSD);
+            newVillager.GetComponentInChildren<VillagerPetitionAI>().enabled = false;
+            Villagers.Add(newVillager.GetComponentInChildren<VillagerController>());
+        }
+
+        for (int i = 0; i < VMSD.PostponedVillagerPetitionsIDS.Count; i++)
+        {
+            string ID = PostponedVillagerPetitions[i].VI.ID;
+
+            for (int t = 0; t < Villagers.Count; t++)
+            {
+                if (ID == Villagers[t].VI.ID)
+                {
+                    PostponedVillagerPetitions.Add(Villagers[t].GetComponent<VillagerPetitionAI>());
+                }
+            }
+        }
+
+        for (int i = 0; i < VMSD.PostponedNonVillagerPetitions.Count; i++)
+        {
+            VillagerSaveData VSD = VMSD.PostponedNonVillagerPetitions[i];
+            GameObject newVillager = LoadInVillagerSaveData(VSD);
+            newVillager.GetComponentInChildren<VillagerController>().enabled = false;
+            PostponedNonVillagerPetitions.Add(newVillager.GetComponentInChildren<VillagerPetitionAI>());
+            newVillager.SetActive(false);
+        }
+
+        for (int i = 0; i < VMSD.QueuedVillagers.Count; i++)
+        {
+            VillagerSaveData VSD = VMSD.Villagers[i];
+            GameObject newVillager = LoadInVillagerSaveData(VSD);
+            newVillager.GetComponentInChildren<VillagerController>().enabled = false;
+            QueuedVillagers.Add(newVillager.GetComponentInChildren<VillagerPetitionAI>());
+            newVillager.SetActive(false);
+        }
+
+        // Use IDS To Reference Family And Buildings
+    }
+
+    public VillagerSaveData FillInVillagerSaveData(VillagerController vc)
+    {
+        VillagerSaveData VSD = new VillagerSaveData();
+        VillagerInfo tempVI = vc.VI;
+
+        VSD.ID = tempVI.ID;
+        VSD.VillagerTransform = vc.gameObject.transform;
+        VSD.VillageInhabitant = vc.GetComponent<VillagerPetitionAI>().VillageInhabitant;
+
+        VSD.FirstName = tempVI.FirstName;
+        VSD.LastName = tempVI.LastName;
+        VSD.currentState = tempVI.currentState;
+
+        VSD.JobID = tempVI.job.ID;
+        VSD.HouseID = tempVI.house.ID;
+        if (tempVI.recreationGoal != null)
+        {
+            VSD.RecreationID = tempVI.recreationGoal.ID;
+        }
+        if (tempVI.currentElevatorGoal != null)
+        {
+            VSD.ElevatorID = tempVI.currentElevatorGoal.ID;
+        }
+        VSD.CurrentLevel = tempVI.CurrentLevel;
+        VSD.CurrentGoal = tempVI.CurrentGoal;
+
+        VSD.Age = tempVI.Age;
+        VSD.LifeStage = tempVI.LifeStage;
+        VSD.Sex = tempVI.Sex;
+        VSD.happiness = tempVI.happiness;
+        VSD.rest = tempVI.rest;
+
+        VSD.MotherID = tempVI.Mother.ID;
+        VSD.FatherID = tempVI.Father.ID;
+        VSD.PartnerID = tempVI.Partner.ID;
+
+        for (int c = 0; c < tempVI.Children.Count; c++)
+        {
+            VSD.ChildrenID.Add(tempVI.Children[c].ID);
+        }
+
+        VSD.VillagerStates = tempVI.schedule.VillagerStates;
+        VSD.Moving = tempVI.Moving;
+
+        VSD.transform = vc.gameObject.transform;
+
+        return VSD;
+    }
+
+    public GameObject LoadInVillagerSaveData(VillagerSaveData VSD)
+    {
+        GameObject newVillager = Instantiate(villagerPrefab);
+        newVillager.transform.position = VSD.transform.position;
+        newVillager.transform.rotation = VSD.transform.rotation;
+        newVillager.transform.localScale = VSD.transform.localScale;
+        newVillager.transform.parent = null;
+        newVillager.transform.parent = this.transform;
+
+        VillagerInfo tempVI = Instantiate(defaultVillagerInfo);
+        tempVI.FirstName = VSD.FirstName;
+        tempVI.LastName = VSD.LastName;
+        tempVI.currentState = VSD.currentState;
+        tempVI.CurrentLevel = VSD.CurrentLevel;
+        tempVI.CurrentGoal = VSD.CurrentGoal;
+
+        tempVI.Age = VSD.Age;
+        tempVI.LifeStage = VSD.LifeStage;
+        tempVI.Sex = VSD.Sex;
+        tempVI.happiness = VSD.happiness;
+        tempVI.rest = VSD.rest;
+
+        tempVI.schedule.VillagerStates = VSD.VillagerStates;
+        tempVI.Moving = VSD.Moving;
+
+
+        VillagerPetitionAI VPAI = newVillager.GetComponentInChildren<VillagerPetitionAI>();
+        VPAI.enabled = true;
+        VPAI.Initialize(tempVI);
+
+        VillagerController VC = newVillager.GetComponentInChildren<VillagerController>();
+        VC.enabled = true;
+        VC.Initialize(tempVI);
+
+        return newVillager;
     }
 }

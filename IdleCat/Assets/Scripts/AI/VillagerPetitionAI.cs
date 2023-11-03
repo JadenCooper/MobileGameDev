@@ -8,8 +8,6 @@ public class VillagerPetitionAI : Intractable
 {
     public VillagerInfo VI;
     [SerializeField]
-    private bool moving = true;
-    [SerializeField]
     private Navigation navigation;
     public PetitionSlot petitionSlot;
     public UnityEvent<Vector2> OnMovementInput;
@@ -26,7 +24,7 @@ public class VillagerPetitionAI : Intractable
 
     void Update()
     {
-        if (moving)
+        if (VI.Moving)
         {
             OnMovementInput?.Invoke(DetermineMovement());
         }
@@ -42,13 +40,13 @@ public class VillagerPetitionAI : Intractable
     public void AssignPetitionSlot(PetitionSlot petitionSlot)
     {
         this.petitionSlot = petitionSlot;
-        moving = true;
+        VI.Moving = true;
         navigation.GetLocationGoal(VI, petitionSlot.Location);
     }
 
     public override void InteractAction()
     {
-        if (moving == false)
+        if (VI.Moving == false)
         {
             // At Slot So Can Accept Or Decline
             if (!VillageInhabitant)
@@ -62,6 +60,7 @@ public class VillagerPetitionAI : Intractable
 
     public void JoinVillage()
     {
+        VI.Moving = true;
         VillagerManager.Instance.VillagerJoinsVillage(this);
         if (petitionSlot != null)
         {
@@ -73,7 +72,7 @@ public class VillagerPetitionAI : Intractable
     {
         navigation.GetLocationGoal(VI, VillagerManager.Instance.VillagerLeavesVillage(this));
         gameObject.tag = "Destroy";
-        moving = true;
+        VI.Moving = true;
         if (petitionSlot != null)
         {
 
@@ -83,7 +82,7 @@ public class VillagerPetitionAI : Intractable
 
     public void PostponeDecision()
     {
-        moving = true;
+        VI.Moving = true;
         // Postpone Petition Decision For 1-3 Days
         PostponeTime = Random.Range(1, 4);
         VillagerManager.Instance.petitionManager.RemoveFromSlots(this);
@@ -102,7 +101,7 @@ public class VillagerPetitionAI : Intractable
 
     public void ReachedLocation()
     {
-        moving = false;
+        VI.Moving = false;
         OnMovementInput?.Invoke(Vector2.zero);
     }
 }

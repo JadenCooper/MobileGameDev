@@ -15,7 +15,6 @@ public class VillagerController : Intractable
     private Navigation navigation;
 
     public UnityEvent<Vector2> OnMovementInput;
-    private bool moving = true;
     public TimeOut timeOut;
     public void Initialize(VillagerInfo villagerInfo)
     {
@@ -31,7 +30,7 @@ public class VillagerController : Intractable
 
     private void Update()
     {
-        if (moving)
+        if (VI.Moving)
         {
             OnMovementInput?.Invoke(DetermineMovement());
         }
@@ -54,7 +53,7 @@ public class VillagerController : Intractable
     public void ReachedLocation()
     {
         VI.currentState = VI.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x];
-        moving = false;
+        VI.Moving = false;
         OnMovementInput?.Invoke(Vector2.zero);
         DayNightManager.Instance.NewHour -= GetNewLocationGoal;
 
@@ -137,7 +136,7 @@ public class VillagerController : Intractable
     }
     public void OutOfTimeOut()
     {
-        moving = true;
+        VI.Moving = true;
         DayNightManager.Instance.NewHour += GetNewLocationGoal;
         GetNewLocationGoal();
     }

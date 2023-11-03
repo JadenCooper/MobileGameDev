@@ -25,4 +25,6 @@ public class SaveData : MonoBehaviour
             }
         }
     }
+
+    public VillagerManagerSaveDate VMSD;
 }

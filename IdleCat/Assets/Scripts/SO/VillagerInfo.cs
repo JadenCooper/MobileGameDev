@@ -6,6 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class VillagerInfo : ScriptableObject
 {
+    public string ID;
     public Schedule schedule;
     public Job job; // If Null Then Unemployed
     public House house;
@@ -34,4 +35,5 @@ public class VillagerInfo : ScriptableObject
     public VillagerInfo Mother;
     public VillagerInfo Partner;
     public List<VillagerInfo> Children = new List<VillagerInfo>();
+    public bool Moving = true;
 }

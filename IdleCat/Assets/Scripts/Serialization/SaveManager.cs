@@ -16,6 +16,20 @@ public class SaveManager : MonoBehaviour
     public Transform LoadArea;
     public event Action SaveCall;
     public event Action LoadCall;
+    private void Awake()
+    {
+        // If there is an instance, and it's not me, delete myself.
+
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+
+    }
     public void OnSave()
     {
         SaveCall?.Invoke();

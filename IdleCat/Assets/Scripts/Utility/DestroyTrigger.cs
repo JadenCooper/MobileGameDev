@@ -6,6 +6,8 @@ public class DestroyTrigger : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        VillagerManager.Instance.NonVillagers.Remove(collision.GetComponent<VillagerPetitionAI>());
+
         if (collision.CompareTag("Destroy"))
         {
             Destroy(collision.gameObject.transform.parent.gameObject);
@@ -17,7 +19,7 @@ public class DestroyTrigger : MonoBehaviour
             VillagerPetitionAI VPAI = collision.GetComponent<VillagerPetitionAI>();
             if (VPAI.VillageInhabitant)
             {
-                VillagerManager.Instance.PostponedVillagerPetitions .Add(collision.GetComponent<VillagerPetitionAI>());
+                VillagerManager.Instance.PostponedVillagerPetitions.Add(collision.GetComponent<VillagerPetitionAI>());
             }
             else
             {

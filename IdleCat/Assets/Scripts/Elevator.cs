@@ -8,7 +8,7 @@ public class Elevator : Intractable
     /// <summary>
     /// This Script Handles The On The Ground Functions Of An Elevator EG Entering
     /// </summary>
-
+    public string ID;
     public ElevatorChain elevatorChain;
     public int Level;
     public GameObject UpButton, DownButton;
