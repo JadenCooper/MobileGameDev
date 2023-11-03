@@ -5,17 +5,24 @@ using UnityEngine;
 [System.Serializable]
 public class SaveData : MonoBehaviour
 {
-    private static SaveData current;
-    public static SaveData Current
+    private static SaveData _current;
+
+    public static SaveData current
     {
         get
         {
-            if (current == null)
+            if (_current == null)
             {
-                current = new SaveData();
+                _current = new SaveData();
             }
-
-            return current;
+            return _current;
+        }
+        set
+        {
+            if (value != null)
+            {
+                _current = value;
+            }
         }
     }
 }

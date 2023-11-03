@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewVillagerInfo", menuName = "Data/VillagerInfo")]
+[System.Serializable]
 public class VillagerInfo : ScriptableObject
 {
     public Schedule schedule;

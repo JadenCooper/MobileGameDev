@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
 
+[System.Serializable]
 public class VillagerController : Intractable
 {
     /// <summary>

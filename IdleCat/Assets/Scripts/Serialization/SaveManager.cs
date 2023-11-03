@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -7,13 +8,23 @@ using UnityEngine.UI;
 
 public class SaveManager : MonoBehaviour
 {
+    public static SaveManager Instance { get; private set; }
+
     public TMP_InputField SaveName;
     public GameObject LoadButtonPrefab;
     public string[] SaveFiles;
-    public GameObject LoadArea;
+    public Transform LoadArea;
+    public event Action SaveCall;
+    public event Action LoadCall;
     public void OnSave()
     {
-        SerializationManager.Save(SaveName.text, SaveData.Current);
+        SaveCall?.Invoke();
+        SerializationManager.Save(SaveName.text, SaveData.current);
+    }
+    public void OnLoad(string saveName)
+    {
+        LoadCall?.Invoke();
+        SaveData.current = (SaveData)SerializationManager.load(Application.persistentDataPath + saveName);
     }
 
     public void GetLoadFiles()
@@ -36,6 +47,7 @@ public class SaveManager : MonoBehaviour
 
         for (int i = 0; i < SaveFiles.Length; i++)
         {
+            // Gotta Add Way To Delete Save Too
             GameObject buttonObject = Instantiate(LoadButtonPrefab);
             buttonObject.transform.SetParent(LoadArea, false);
 
@@ -43,11 +55,7 @@ public class SaveManager : MonoBehaviour
             {
                 OnLoad(SaveFiles[i]);
             });
+            buttonObject.GetComponentInChildren<TextMeshProUGUI>().text = SaveFiles[i].Replace(Application.persistentDataPath + "/saves/", "");
         }
-    }
-
-    public void OnLoad(string saveName)
-    {
-
     }
 }

@@ -39,6 +39,9 @@ public class VillagerManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        SaveManager.Instance.SaveCall += SaveData;
+        SaveManager.Instance.LoadCall += LoadData;
     }
 
     private void Start()
@@ -210,5 +213,15 @@ public class VillagerManager : MonoBehaviour
         happinessTotal = Mathf.Clamp(happinessTotal, 0, 100);
 
         ResourceManager.Instance.UpdateVillageHappiness(happinessTotal);
+    }
+
+    public void SaveData()
+    {
+
+    }
+
+    public void LoadData()
+    {
+
     }
 }
