@@ -60,9 +60,11 @@ public class SerializationManager : MonoBehaviour
 
         Vector3SerializationSurrogate vector3Surrogate = new Vector3SerializationSurrogate();
         QuaternionSerializationSurrogate quaternionSurrogate = new QuaternionSerializationSurrogate();
+        TransformSerializationSurrogate transformSurrogate = new TransformSerializationSurrogate();
 
         selector.AddSurrogate(typeof(Vector3), new StreamingContext(StreamingContextStates.All), vector3Surrogate);
         selector.AddSurrogate(typeof(Quaternion), new StreamingContext(StreamingContextStates.All), quaternionSurrogate);
+        selector.AddSurrogate(typeof(Transform), new StreamingContext(StreamingContextStates.All), transformSurrogate);
 
         formatter.SurrogateSelector = selector;
 
