@@ -12,7 +12,7 @@ public class VillagerController : Intractable
     /// </summary>
 
     public VillagerInfo VI;
-    private Navigation navigation;
+    public Navigation navigation;
 
     public UnityEvent<Vector2> OnMovementInput;
     public TimeOut timeOut;

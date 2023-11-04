@@ -96,13 +96,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2468018628509557508}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f355f704b817b94a9e1099cde6718ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   InteractionDistance: 2.3
   VI: {fileID: 0}
+  navigation: {fileID: 161862949687524195}
   OnMovementInput:
     m_PersistentCalls:
       m_Calls:

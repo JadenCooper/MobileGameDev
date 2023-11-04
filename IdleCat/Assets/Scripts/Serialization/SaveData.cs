@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class SaveData : MonoBehaviour
+public class SaveData 
 {
     private static SaveData _current;
 
@@ -27,7 +27,7 @@ public class SaveData : MonoBehaviour
     }
 
     public VillagerManagerSaveDate VMSD;
-    public Vector2 CurrentTime;
-    public List<BuildingSaveData> Buildings;
+    public Vector3 CurrentTime;
+    public BuildingManagerData BMD;
     public PlayerSaveData PSD;
 }

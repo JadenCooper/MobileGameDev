@@ -179,6 +179,9 @@ public class VillagerManager : MonoBehaviour
 
         VillagerPetitionAI VPAI = NewVillager.GetComponentInChildren<VillagerPetitionAI>();
         VPAI.Initialize(tempVI);
+        VillagerController VC = NewVillager.GetComponentInChildren<VillagerController>();
+        VC.Initialize(tempVI);
+        VC.enabled = false;
         petitionManager.SetPetitionSlot(VPAI);
         NonVillagers.Add(VPAI);
     }
@@ -186,10 +189,9 @@ public class VillagerManager : MonoBehaviour
     public void VillagerJoinsVillage(VillagerPetitionAI VPAI)
     {
         VillagerController VC = VPAI.gameObject.GetComponent<VillagerController>();
-
+        NonVillagers.Remove(VPAI);
         if (!VPAI.VillageInhabitant)
         {
-            VC.Initialize(VPAI.VI);
             Villagers.Add(VC);
             ResourceManager.Instance.ResourceChange(Resource.Villagers, 1);
             VPAI.VillageInhabitant = true;
@@ -258,6 +260,7 @@ public class VillagerManager : MonoBehaviour
             VMSD.QueuedVillagers.Add(FillInVillagerSaveData(QueuedVillagers[i].GetComponent<VillagerController>()));
         }
 
+        SaveData.current.VMSD = VMSD;
     }
 
     public void LoadVillagerData()
@@ -294,15 +297,18 @@ public class VillagerManager : MonoBehaviour
             Villagers.Add(newVillager.GetComponentInChildren<VillagerController>());
         }
 
-        for (int i = 0; i < VMSD.PostponedVillagerPetitionsIDS.Count; i++)
+        if (VMSD.PostponedVillagerPetitionsIDS != null)
         {
-            string ID = PostponedVillagerPetitions[i].VI.ID;
-
-            for (int t = 0; t < Villagers.Count; t++)
+            for (int i = 0; i < VMSD.PostponedVillagerPetitionsIDS.Count; i++)
             {
-                if (ID == Villagers[t].VI.ID)
+                string ID = PostponedVillagerPetitions[i].VI.ID;
+
+                for (int t = 0; t < Villagers.Count; t++)
                 {
-                    PostponedVillagerPetitions.Add(Villagers[t].GetComponent<VillagerPetitionAI>());
+                    if (ID == Villagers[t].VI.ID)
+                    {
+                        PostponedVillagerPetitions.Add(Villagers[t].GetComponent<VillagerPetitionAI>());
+                    }
                 }
             }
         }
@@ -348,9 +354,8 @@ public class VillagerManager : MonoBehaviour
     {
         VillagerSaveData VSD = new VillagerSaveData();
         VillagerInfo tempVI = vc.VI;
-
         VSD.ID = tempVI.ID;
-        VSD.VillagerTransform = vc.gameObject.transform;
+        VSD.VillagerPosition = vc.gameObject.transform.position;
         VSD.VillageInhabitant = vc.GetComponent<VillagerPetitionAI>().VillageInhabitant;
 
         VSD.FirstName = tempVI.FirstName;
@@ -373,9 +378,18 @@ public class VillagerManager : MonoBehaviour
         VSD.happiness = tempVI.happiness;
         VSD.rest = tempVI.rest;
 
-        VSD.MotherID = tempVI.Mother.ID;
-        VSD.FatherID = tempVI.Father.ID;
-        VSD.PartnerID = tempVI.Partner.ID;
+        if (tempVI.Mother != null)
+        {
+            VSD.MotherID = tempVI.Mother.ID;
+        }
+        if (tempVI.Mother != null)
+        {
+            VSD.FatherID = tempVI.Father.ID;
+        }
+        if (tempVI.Mother != null)
+        {
+            VSD.PartnerID = tempVI.Partner.ID;
+        }
 
         for (int c = 0; c < tempVI.Children.Count; c++)
         {
@@ -385,9 +399,11 @@ public class VillagerManager : MonoBehaviour
         VSD.VillagerStates = tempVI.schedule.VillagerStates;
         VSD.Moving = tempVI.Moving;
 
-        VSD.transform = vc.gameObject.transform;
+        VSD.VillagerPosition = vc.gameObject.transform.position;
 
         VSD.Tag = vc.gameObject.transform.parent.tag;
+
+        VSD.Species = tempVI.Species.Species;
 
         villagerIDToVillagerInfo[VSD.ID] = vc.VI;
         return VSD;
@@ -396,9 +412,7 @@ public class VillagerManager : MonoBehaviour
     public GameObject LoadInVillagerSaveData(VillagerSaveData VSD)
     {
         GameObject newVillager = Instantiate(villagerPrefab);
-        newVillager.transform.position = VSD.transform.position;
-        newVillager.transform.rotation = VSD.transform.rotation;
-        newVillager.transform.localScale = VSD.transform.localScale;
+        newVillager.transform.position = VSD.VillagerPosition;
         newVillager.transform.parent = null;
         newVillager.transform.parent = this.transform;
         newVillager.tag = VSD.Tag;
@@ -419,6 +433,14 @@ public class VillagerManager : MonoBehaviour
         tempVI.schedule.VillagerStates = VSD.VillagerStates;
         tempVI.Moving = VSD.Moving;
 
+        for (int i = 0; i < UnlockedSpecies.Count; i++)
+        {
+            if (VSD.Species == UnlockedSpecies[i].Species)
+            {
+                tempVI.Species = UnlockedSpecies[i];
+                break;
+            }
+        }
 
         VillagerPetitionAI VPAI = newVillager.GetComponentInChildren<VillagerPetitionAI>();
         VPAI.enabled = true;
@@ -458,17 +480,17 @@ public class VillagerManager : MonoBehaviour
 
         for (int i = 0; i < allVSD.Count; i++)
         {
-            if (villagerIDToVillagerInfo.ContainsKey(allVSD[i].MotherID))
+            if (allVSD[i].MotherID != null && villagerIDToVillagerInfo.ContainsKey(allVSD[i].MotherID))
             {
                 allVillagerInfos[i].Mother = villagerIDToVillagerInfo[allVSD[i].MotherID];
             }
 
-            if (villagerIDToVillagerInfo.ContainsKey(allVSD[i].FatherID))
+            if (allVSD[i].MotherID != null && villagerIDToVillagerInfo.ContainsKey(allVSD[i].FatherID))
             {
                 allVillagerInfos[i].Father = villagerIDToVillagerInfo[allVSD[i].FatherID];
             }
 
-            if (villagerIDToVillagerInfo.ContainsKey(allVSD[i].PartnerID))
+            if (allVSD[i].MotherID != null && villagerIDToVillagerInfo.ContainsKey(allVSD[i].PartnerID))
             {
                 allVillagerInfos[i].Partner = villagerIDToVillagerInfo[allVSD[i].PartnerID];
             }

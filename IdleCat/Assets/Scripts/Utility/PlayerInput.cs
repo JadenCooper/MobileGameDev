@@ -26,6 +26,7 @@ public class PlayerInput : MonoBehaviour
         PlayerSaveData saveData = new PlayerSaveData();
         saveData.Position = transform.position;
         saveData.Flipped = GetComponent<SpriteRenderer>().flipX;
+        SaveData.current.PSD = saveData;
     }
 
     private void LoadPlayerData()

@@ -8,7 +8,7 @@ public class VillagerSaveData
     public string ID;
     public string Tag;
 
-    public Transform VillagerTransform;
+    public Vector3 VillagerPosition;
     public bool VillageInhabitant = false;
     public int PostponeTime = 0;
 
@@ -22,10 +22,10 @@ public class VillagerSaveData
     public string HouseID;
     public string ElevatorID;
     public int CurrentLevel = 0;
-    public Vector2 CurrentGoal;
+    public Vector3 CurrentGoal;
 
 
-    public Vector2 Age; // X is current age Y is the next life stage
+    public Vector3 Age; // X is current age Y is the next life stage
     public LifeStages LifeStage;
     public string Sex;
     public float happiness;
@@ -36,10 +36,9 @@ public class VillagerSaveData
     public string PartnerID;
     public List<string> ChildrenID = new List<string>();
 
+    public string Species;
 
     // Schedule
     public VillagerState[] VillagerStates;
     public bool Moving = true;
-
-    public Transform transform;
 }

@@ -43,6 +43,8 @@ public class BuildingManager : MonoBehaviour
 
     public void SaveBuildingData()
     {
+        BuildingManagerData BMD = new BuildingManagerData();
+
         for (int i = 0; i < JobBuildings.Count; i++)
         {
             BuildingSaveData newSaveData = new BuildingSaveData();
@@ -51,7 +53,7 @@ public class BuildingManager : MonoBehaviour
             newSaveData.buildingType = BuildingType.Job;
             newSaveData.location = JobBuildings[i].Location;
 
-            SaveData.current.Buildings.Add(newSaveData);
+            BMD.Buildings.Add(newSaveData);
         }
 
         for (int i = 0; i < HouseBuildings.Count; i++)
@@ -62,7 +64,7 @@ public class BuildingManager : MonoBehaviour
             newSaveData.buildingType = BuildingType.House;
             newSaveData.location = HouseBuildings[i].Location;
 
-            SaveData.current.Buildings.Add(newSaveData);
+            BMD.Buildings.Add(newSaveData);
         }
 
         for (int i = 0; i < RecreationBuildings.Count; i++)
@@ -73,8 +75,10 @@ public class BuildingManager : MonoBehaviour
             newSaveData.buildingType = BuildingType.Recreation;
             newSaveData.location = RecreationBuildings[i].Location;
 
-            SaveData.current.Buildings.Add(newSaveData);
+            BMD.Buildings.Add(newSaveData);
         }
+
+        SaveData.current.BMD = BMD;
     }
 
     public void LoadBuildingSaveData(List<VillagerInfo> allVillagerInfos, List<VillagerSaveData> allVSD)
@@ -101,18 +105,19 @@ public class BuildingManager : MonoBehaviour
 
         HouseBuildings.Clear();
 
-        List<BuildingSaveData> newBuildingData = SaveData.current.Buildings;
+        List<BuildingSaveData> newBuildingData = SaveData.current.BMD.Buildings;
 
         for (int i = 0; i < newBuildingData.Count; i++)
         {
             GameObject newBuilding = Instantiate(ListOfBuildingPrefabs[newBuildingData[i].BuildingTypeID]);
+
             newBuilding.transform.position = new Vector2(newBuildingData[i].location.x, Data.FloorHeights[(int)newBuildingData[i].location.y]);
 
             switch (newBuildingData[i].buildingType)
             {
                 case BuildingType.Job:
                     Job newJob = newBuilding.GetComponent<Job>();
-                    for (int t = 0; t < allVSD.Count; t++)
+                    for (int t = 0; t < allVillagerInfos.Count; t++)
                     {
                         if (newBuildingData[i].BuildingID == allVSD[t].JobID)
                         {
@@ -126,8 +131,7 @@ public class BuildingManager : MonoBehaviour
 
                 case BuildingType.House:
                     House newHouse = newBuilding.GetComponent<House>();
-
-                    for (int t = 0; t < allVSD.Count; t++)
+                    for (int t = 0; t < allVillagerInfos.Count; t++)
                     {
                         if (newBuildingData[i].BuildingID == allVSD[t].HouseID)
                         {

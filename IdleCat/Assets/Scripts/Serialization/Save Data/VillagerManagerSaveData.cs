@@ -5,9 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class VillagerManagerSaveDate
 {
-    public List<VillagerSaveData> Villagers;
+    public List<VillagerSaveData> Villagers = new List<VillagerSaveData>();
     public List<string> PostponedVillagerPetitionsIDS;
-    public List<VillagerSaveData> NonVillagers;
-    public List<VillagerSaveData> PostponedNonVillagerPetitions;
-    public List<VillagerSaveData> QueuedVillagers;
+    public List<VillagerSaveData> NonVillagers = new List<VillagerSaveData>();
+    public List<VillagerSaveData> PostponedNonVillagerPetitions = new List<VillagerSaveData>();
+    public List<VillagerSaveData> QueuedVillagers = new List<VillagerSaveData>();
 }

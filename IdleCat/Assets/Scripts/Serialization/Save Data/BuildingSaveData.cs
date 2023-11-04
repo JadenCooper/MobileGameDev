@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingSaveData : MonoBehaviour
+[System.Serializable]
+public class BuildingSaveData
 {
     public string BuildingID;
     public int BuildingTypeID;
     public BuildingType buildingType;
-    public Vector2 location;
+    public Vector3 location;
 }
