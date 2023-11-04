@@ -26,7 +26,10 @@ public class BuildingManager : MonoBehaviour
             Instance = this;
         }
     }
-
+    private void Start()
+    {
+        SaveManager.Instance.SaveCall += SaveBuildingData;
+    }
     public Recreation GetRecreationBuilding()
     {
         Recreation selectedRecreation = RecreationBuildings[Random.Range(0, RecreationBuildings.Count)];
@@ -40,7 +43,38 @@ public class BuildingManager : MonoBehaviour
 
     public void SaveBuildingData()
     {
+        for (int i = 0; i < JobBuildings.Count; i++)
+        {
+            BuildingSaveData newSaveData = new BuildingSaveData();
+            newSaveData.BuildingID = JobBuildings[i].ID;
+            newSaveData.BuildingTypeID = JobBuildings[i].BuildingTypeID;
+            newSaveData.buildingType = BuildingType.Job;
+            newSaveData.location = JobBuildings[i].Location;
 
+            SaveData.current.Buildings.Add(newSaveData);
+        }
+
+        for (int i = 0; i < HouseBuildings.Count; i++)
+        {
+            BuildingSaveData newSaveData = new BuildingSaveData();
+            newSaveData.BuildingID = HouseBuildings[i].ID;
+            newSaveData.BuildingTypeID = HouseBuildings[i].BuildingTypeID;
+            newSaveData.buildingType = BuildingType.House;
+            newSaveData.location = HouseBuildings[i].Location;
+
+            SaveData.current.Buildings.Add(newSaveData);
+        }
+
+        for (int i = 0; i < RecreationBuildings.Count; i++)
+        {
+            BuildingSaveData newSaveData = new BuildingSaveData();
+            newSaveData.BuildingID = RecreationBuildings[i].ID;
+            newSaveData.BuildingTypeID = RecreationBuildings[i].BuildingTypeID;
+            newSaveData.buildingType = BuildingType.Recreation;
+            newSaveData.location = RecreationBuildings[i].Location;
+
+            SaveData.current.Buildings.Add(newSaveData);
+        }
     }
 
     public void LoadBuildingSaveData(List<VillagerInfo> allVillagerInfos, List<VillagerSaveData> allVSD)

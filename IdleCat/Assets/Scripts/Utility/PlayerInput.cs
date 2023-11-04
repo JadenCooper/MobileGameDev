@@ -15,6 +15,22 @@ public class PlayerInput : MonoBehaviour
         OnMovementInput?.Invoke(movement.action.ReadValue<Vector2>().normalized);
     }
 
+    private void Start()
+    {
+        SaveManager.Instance.SaveCall += SavePlayerData;
+        SaveManager.Instance.LoadCall += LoadPlayerData;
+    }
+
+    private void SavePlayerData()
+    {
+
+    }
+
+    private void LoadPlayerData()
+    {
+
+    }
+
     private void OnEnable()
     {
         Interact.action.performed += Press;
