@@ -55,6 +55,7 @@ public static class Data
     }
 }
 
+[System.Serializable]
 public enum Resource
 {
     Wood,
@@ -66,6 +67,7 @@ public enum Resource
     None
 }
 
+[System.Serializable]
 public enum Happiness
 {
     Ecstatic,

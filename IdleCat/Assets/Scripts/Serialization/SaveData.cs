@@ -27,4 +27,5 @@ public class SaveData : MonoBehaviour
     }
 
     public VillagerManagerSaveDate VMSD;
+    public Vector2 CurrentTime;
 }

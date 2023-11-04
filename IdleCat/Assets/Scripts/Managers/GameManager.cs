@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    public bool TutorialComplete = false;
+    public bool LoadingGame = false;
     public GameObject loadingScreen;
     public ProgressBar loadingBar;
     private List<AsyncOperation> scenesLoading = new List<AsyncOperation>();

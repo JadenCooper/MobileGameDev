@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class VillagerManager : MonoBehaviour
 {
+    private Dictionary<string, VillagerInfo> villagerIDToVillagerInfo = new Dictionary<string, VillagerInfo>();
+
     public static VillagerManager Instance { get; private set; }
 
     public List<VillagerController> Villagers = new List<VillagerController>();
@@ -219,6 +221,7 @@ public class VillagerManager : MonoBehaviour
 
     public void SaveVillagerData()
     {
+        villagerIDToVillagerInfo.Clear();
         VillagerManagerSaveDate VMSD = new VillagerManagerSaveDate();
 
         for (int i = 0; i < Villagers.Count; i++)
@@ -301,6 +304,7 @@ public class VillagerManager : MonoBehaviour
         }
 
         // Use IDS To Reference Family And Buildings
+        AssignVillagerReferences(VMSD);
     }
 
     public VillagerSaveData FillInVillagerSaveData(VillagerController vc)
@@ -349,6 +353,7 @@ public class VillagerManager : MonoBehaviour
 
         VSD.transform = vc.gameObject.transform;
 
+        villagerIDToVillagerInfo[VSD.ID] = vc.VI;
         return VSD;
     }
 
@@ -387,5 +392,60 @@ public class VillagerManager : MonoBehaviour
         VC.Initialize(tempVI);
 
         return newVillager;
+    }
+
+    private void AssignVillagerReferences(VillagerManagerSaveDate VMSD)
+    {
+        List<VillagerInfo> allVillagerInfos = new List<VillagerInfo>();
+        List<VillagerSaveData> allVSD = new List<VillagerSaveData>();
+
+        // Combine All Villager Infos
+        for (int i = 0; i < Villagers.Count; i++)
+        {
+            allVillagerInfos.Add(Villagers[i].VI);
+        }
+        for (int i = 0; i < PostponedVillagerPetitions.Count; i++)
+        {
+            allVillagerInfos.Add(PostponedVillagerPetitions[i].VI);
+        }
+        for (int i = 0; i < NonVillagers.Count; i++)
+        {
+            allVillagerInfos.Add(NonVillagers[i].VI);
+        }
+
+        // Combine All VSD
+        allVSD.AddRange(VMSD.Villagers);
+        allVSD.AddRange(VMSD.PostponedNonVillagerPetitions);
+        allVSD.AddRange(VMSD.NonVillagers);
+
+
+        for (int i = 0; i < allVSD.Count; i++)
+        {
+            if (villagerIDToVillagerInfo.ContainsKey(allVSD[i].MotherID))
+            {
+                allVillagerInfos[i].Mother = villagerIDToVillagerInfo[allVSD[i].MotherID];
+            }
+
+            if (villagerIDToVillagerInfo.ContainsKey(allVSD[i].FatherID))
+            {
+                allVillagerInfos[i].Father = villagerIDToVillagerInfo[allVSD[i].FatherID];
+            }
+
+            if (villagerIDToVillagerInfo.ContainsKey(allVSD[i].PartnerID))
+            {
+                allVillagerInfos[i].Partner = villagerIDToVillagerInfo[allVSD[i].PartnerID];
+            }
+
+            foreach (string ID in allVSD[i].ChildrenID)
+            {
+                if (villagerIDToVillagerInfo.ContainsKey(ID))
+                {
+                    allVillagerInfos[i].Children.Add(villagerIDToVillagerInfo[ID]);
+                }
+            }
+
+        }
+
+
     }
 }

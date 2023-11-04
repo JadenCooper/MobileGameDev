@@ -35,5 +35,14 @@ public class BuildingManager : MonoBehaviour
         return RecreationBuildings[0];
     }
 
+    public void SaveBuildingData()
+    {
+
+    }
+
+    public void LoadBuildingSaveData()
+    {
+
+    }
 
 }

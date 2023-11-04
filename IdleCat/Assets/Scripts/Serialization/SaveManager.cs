@@ -33,10 +33,12 @@ public class SaveManager : MonoBehaviour
     public void OnSave()
     {
         SaveCall?.Invoke();
+        SaveData.current.CurrentTime = DayNightManager.Instance.CurrentTime;
         SerializationManager.Save(SaveName.text, SaveData.current);
     }
     public void OnLoad(string saveName)
     {
+        DayNightManager.Instance.SetTime(SaveData.current.CurrentTime);
         LoadCall?.Invoke();
         SaveData.current = (SaveData)SerializationManager.load(Application.persistentDataPath + saveName);
     }
