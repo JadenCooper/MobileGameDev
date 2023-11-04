@@ -23,12 +23,15 @@ public class PlayerInput : MonoBehaviour
 
     private void SavePlayerData()
     {
-
+        PlayerSaveData saveData = new PlayerSaveData();
+        saveData.Position = transform.position;
+        saveData.Flipped = GetComponent<SpriteRenderer>().flipX;
     }
 
     private void LoadPlayerData()
     {
-
+        transform.position = SaveData.current.PSD.Position;
+        GetComponent<SpriteRenderer>().flipX = SaveData.current.PSD.Flipped;
     }
 
     private void OnEnable()

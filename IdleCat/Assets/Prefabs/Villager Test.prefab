@@ -145,7 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InteractionDistance: 2.3
   VI: {fileID: 0}
-  navigation: {fileID: 161862949687524195}
+  Navigation: {fileID: 161862949687524195}
   petitionSlot: {fileID: 0}
   OnMovementInput:
     m_PersistentCalls:

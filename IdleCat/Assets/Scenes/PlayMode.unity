@@ -14903,6 +14903,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InteractionDistance: 2.3
   ID: 2
+  BuildingTypeID: 0
+  buildingType: 0
   Name: Park
   Location: {x: -4.29, y: 0}
   users: []
@@ -19077,6 +19079,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f8a809577728a14d850fca56a06afac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  VMSD:
+    Villagers: []
+    PostponedVillagerPetitionsIDS: []
+    NonVillagers: []
+    PostponedNonVillagerPetitions: []
+    QueuedVillagers: []
+  CurrentTime: {x: 0, y: 0}
+  Buildings: []
 --- !u!114 &498874916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19245,6 +19255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Villagers: []
+  NonVillagers: []
   PostponedVillagerPetitions: []
   PostponedNonVillagerPetitions: []
   QueuedVillagers: []
@@ -19258,7 +19269,7 @@ MonoBehaviour:
   defaultSchedule: {fileID: 11400000, guid: 97366879c6284f8478ea05bb631f1a62, type: 2}
   VillagerSpawnPoint: {fileID: 963395702}
   Inn: {fileID: 1829308502}
-  Mason: {fileID: 2143738673}
+  Workhouse: {fileID: 2143738673}
   petitionManager: {fileID: 552203551}
   LeaveTrigger: {fileID: 1229270259}
 --- !u!4 &552203550
@@ -36472,6 +36483,7 @@ MonoBehaviour:
   - {fileID: 2143738673}
   HouseBuildings:
   - {fileID: 1829308502}
+  ListOfBuildingPrefabs: []
   PetitionSlots: 4
 --- !u!1 &1796572386
 GameObject:
@@ -37066,6 +37078,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InteractionDistance: 2.3
   ID: 0
+  BuildingTypeID: 0
+  buildingType: 0
   Name: Fox Den Hotel
   Location: {x: -5.92, y: 1}
   users: []
@@ -41527,6 +41541,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InteractionDistance: 2.3
   ID: 1
+  BuildingTypeID: 0
+  buildingType: 0
   Name: Workhouse
   Location: {x: 3.36, y: 0}
   users: []
