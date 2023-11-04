@@ -8,7 +8,7 @@ public class VillagerPetitionAI : Intractable
 {
     public VillagerInfo VI;
     [SerializeField]
-    private Navigation navigation;
+    public Navigation Navigation;
     public PetitionSlot petitionSlot;
     public UnityEvent<Vector2> OnMovementInput;
     public Vector2 Goal;
@@ -41,7 +41,7 @@ public class VillagerPetitionAI : Intractable
     {
         this.petitionSlot = petitionSlot;
         VI.Moving = true;
-        navigation.GetLocationGoal(VI, petitionSlot.Location);
+        Navigation.GetLocationGoal(VI, petitionSlot.Location);
     }
 
     public override void InteractAction()
@@ -70,12 +70,11 @@ public class VillagerPetitionAI : Intractable
 
     public void LeaveVillage()
     {
-        navigation.GetLocationGoal(VI, VillagerManager.Instance.VillagerLeavesVillage(this));
+        Navigation.GetLocationGoal(VI, VillagerManager.Instance.VillagerLeavesVillage());
         gameObject.tag = "Destroy";
         VI.Moving = true;
         if (petitionSlot != null)
         {
-
             VillagerManager.Instance.petitionManager.RemoveFromSlots(this);
         }
     }
@@ -94,7 +93,7 @@ public class VillagerPetitionAI : Intractable
         else
         {
             // Leave Screen
-            navigation.GetLocationGoal(VI, VillagerManager.Instance.VillagerLeavesVillage(this));
+            Navigation.GetLocationGoal(VI, VillagerManager.Instance.VillagerLeavesVillage());
             gameObject.tag = "Save";
         }
     }

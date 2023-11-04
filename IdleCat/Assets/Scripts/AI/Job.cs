@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public  class Job : Building
+public class Job : Building
 {
-    public List<VillagerController> Employees = new List<VillagerController>();
+    public List<VillagerInfo> Employees = new List<VillagerInfo>();
 
     public Resource resourceToGain;
     public float resourceGain;

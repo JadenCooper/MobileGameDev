@@ -5,7 +5,7 @@ using UnityEngine;
 public class House : Building
 {
 
-    public List<VillagerController> Inhabitants = new List<VillagerController>();
+    public List<VillagerInfo> Inhabitants = new List<VillagerInfo>();
     public float restValue;
     public override void BuildingAction(VillagerInfo currentUser)
     {

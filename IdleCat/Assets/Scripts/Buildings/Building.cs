@@ -4,10 +4,12 @@ using UnityEngine;
 
 public abstract class Building : Intractable
 {
-    public string ID;
+    public string ID; // Used To Restore Villager References
+    public string BuildingTypeID; // Used To Restore Building Type
+    public BuildingType buildingType;
     public string Name;
     public Vector2 Location; // X is X / Y Is Level
-    public List<VillagerController> users = new List<VillagerController>(); // People Currently Inside, Used For Display Purposes
+    public List<VillagerInfo> users = new List<VillagerInfo>(); // People Currently Inside, Used For Display Purposes
     public Sprite Icon;
     public int Capacity;
     public string ActionDescription;

@@ -6,6 +6,7 @@ using UnityEngine;
 public class VillagerSaveData
 {
     public string ID;
+    public string Tag;
 
     public Transform VillagerTransform;
     public bool VillageInhabitant = false;
@@ -19,7 +20,6 @@ public class VillagerSaveData
 
     public string JobID;
     public string HouseID;
-    public string RecreationID;
     public string ElevatorID;
     public int CurrentLevel = 0;
     public Vector2 CurrentGoal;

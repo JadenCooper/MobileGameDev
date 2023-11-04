@@ -199,7 +199,7 @@ public class VillagerManager : MonoBehaviour
         VPAI.enabled = false;
     }
 
-    public Vector2 VillagerLeavesVillage(VillagerPetitionAI VPAI)
+    public Vector2 VillagerLeavesVillage()
     {
         return new Vector2(LeaveTrigger.position.x, 0);
     }
@@ -262,6 +262,7 @@ public class VillagerManager : MonoBehaviour
 
     public void LoadVillagerData()
     {
+        // Need To Add Clear All Functionality
         VillagerManagerSaveDate VMSD = SaveData.current.VMSD;
 
         for (int i = 0; i < VMSD.Villagers.Count; i++)
@@ -305,6 +306,21 @@ public class VillagerManager : MonoBehaviour
 
         // Use IDS To Reference Family And Buildings
         AssignVillagerReferences(VMSD);
+
+        for (int i = 0; i < NonVillagers.Count; i++)
+        {
+            string tag = NonVillagers[i].gameObject.transform.parent.tag;
+            if (tag == "Save" || tag == "Destroy")
+            {
+                // Send To Leave Trigger
+               NonVillagers[i].Navigation.GetLocationGoal(NonVillagers[i].VI, VillagerLeavesVillage());
+            }
+            else
+            {
+                // Needs To Be Sent To Petition
+                petitionManager.SetPetitionSlot(NonVillagers[i]);
+            }
+        }
     }
 
     public VillagerSaveData FillInVillagerSaveData(VillagerController vc)
@@ -322,10 +338,7 @@ public class VillagerManager : MonoBehaviour
 
         VSD.JobID = tempVI.job.ID;
         VSD.HouseID = tempVI.house.ID;
-        if (tempVI.recreationGoal != null)
-        {
-            VSD.RecreationID = tempVI.recreationGoal.ID;
-        }
+
         if (tempVI.currentElevatorGoal != null)
         {
             VSD.ElevatorID = tempVI.currentElevatorGoal.ID;
@@ -353,6 +366,8 @@ public class VillagerManager : MonoBehaviour
 
         VSD.transform = vc.gameObject.transform;
 
+        VSD.Tag = vc.gameObject.transform.parent.tag;
+
         villagerIDToVillagerInfo[VSD.ID] = vc.VI;
         return VSD;
     }
@@ -365,6 +380,7 @@ public class VillagerManager : MonoBehaviour
         newVillager.transform.localScale = VSD.transform.localScale;
         newVillager.transform.parent = null;
         newVillager.transform.parent = this.transform;
+        newVillager.tag = VSD.Tag;
 
         VillagerInfo tempVI = Instantiate(defaultVillagerInfo);
         tempVI.FirstName = VSD.FirstName;
@@ -446,6 +462,14 @@ public class VillagerManager : MonoBehaviour
 
         }
 
+        BuildingManager.Instance.LoadBuildingSaveData(allVillagerInfos, allVSD);
+    }
 
+    public void TriggerNavigation()
+    {
+        for (int i = 0; i < Villagers.Count; i++)
+        {
+            Villagers[i].GetNewLocationGoal();
+        }
     }
 }

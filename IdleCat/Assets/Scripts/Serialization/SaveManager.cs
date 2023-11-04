@@ -38,9 +38,10 @@ public class SaveManager : MonoBehaviour
     }
     public void OnLoad(string saveName)
     {
+        SaveData.current = (SaveData)SerializationManager.load(Application.persistentDataPath + saveName);
         DayNightManager.Instance.SetTime(SaveData.current.CurrentTime);
         LoadCall?.Invoke();
-        SaveData.current = (SaveData)SerializationManager.load(Application.persistentDataPath + saveName);
+        VillagerManager.Instance.TriggerNavigation();
     }
 
     public void GetLoadFiles()

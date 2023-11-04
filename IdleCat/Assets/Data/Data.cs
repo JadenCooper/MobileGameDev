@@ -76,3 +76,11 @@ public enum Happiness
     Sad,
     Miserable
 }
+
+[System.Serializable]
+public enum BuildingType
+{
+    Job,
+    House,
+    Recreation,
+}
