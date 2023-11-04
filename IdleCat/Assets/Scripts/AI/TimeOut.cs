@@ -24,7 +24,7 @@ public class TimeOut : MonoBehaviour
 
         if (building.CheckCapacity())
         {
-            building.users.Add(VC);
+            building.users.Add(VC.VI);
             StartCoroutine(TimeOutDelay());
         }
         else
@@ -41,7 +41,7 @@ public class TimeOut : MonoBehaviour
         {
             DayNightManager.Instance.NewHour -= Decrement;
             StartCoroutine(ComingBackDelay());
-            building.users.Remove(VC);
+            building.users.Remove(VC.VI);
         }
     }
 

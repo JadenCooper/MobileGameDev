@@ -46,6 +46,27 @@ public class BuildingManager : MonoBehaviour
     public void LoadBuildingSaveData(List<VillagerInfo> allVillagerInfos, List<VillagerSaveData> allVSD)
     {
         // Need To Add Clear All Functionality
+        foreach (Job job in JobBuildings)
+        {
+            Destroy(job.gameObject);
+        }
+
+        JobBuildings.Clear();
+
+        foreach (Recreation recreation in RecreationBuildings)
+        {
+            Destroy(recreation.gameObject);
+        }
+
+        RecreationBuildings.Clear();
+
+        foreach (House house in HouseBuildings)
+        {
+            Destroy(house.gameObject);
+        }
+
+        HouseBuildings.Clear();
+
         List<BuildingSaveData> newBuildingData = SaveData.current.Buildings;
 
         for (int i = 0; i < newBuildingData.Count; i++)
@@ -94,6 +115,9 @@ public class BuildingManager : MonoBehaviour
                     break;
             }
         }
+
+        VillagerManager.Instance.Inn = HouseBuildings[0];
+        VillagerManager.Instance.Workhouse = JobBuildings[0];
     }
 
 }

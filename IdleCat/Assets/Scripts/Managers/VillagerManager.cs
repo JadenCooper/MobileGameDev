@@ -25,7 +25,7 @@ public class VillagerManager : MonoBehaviour
     private Schedule defaultSchedule;
     public GameObject VillagerSpawnPoint;
     public House Inn;
-    public Job Mason;
+    public Job Workhouse;
 
     public PetitionManager petitionManager;
     public Transform LeaveTrigger; 
@@ -149,7 +149,7 @@ public class VillagerManager : MonoBehaviour
 
         VillagerInfo tempVI = Instantiate(defaultVillagerInfo);
         tempVI.house = Inn;
-        tempVI.job = Mason;
+        tempVI.job = Workhouse;
         tempVI.Species = UnlockedSpecies[Random.Range(0, UnlockedSpecies.Count)];
         tempVI.schedule = Instantiate(defaultSchedule);
         tempVI.gameObject = NewVillager;
@@ -263,6 +263,27 @@ public class VillagerManager : MonoBehaviour
     public void LoadVillagerData()
     {
         // Need To Add Clear All Functionality
+        foreach (VillagerController villager in Villagers)
+        {
+            Destroy(villager.gameObject.transform.parent.gameObject);
+        }
+        Villagers.Clear();
+        PostponedVillagerPetitions.Clear();
+
+        foreach (VillagerPetitionAI villager in PostponedVillagerPetitions)
+        {
+            Destroy(villager.gameObject.transform.parent.gameObject);
+        }
+
+        PostponedVillagerPetitions.Clear();
+
+        foreach (VillagerPetitionAI villager in NonVillagers)
+        {
+            Destroy(villager.gameObject.transform.parent.gameObject);
+        }
+
+        NonVillagers.Clear();
+
         VillagerManagerSaveDate VMSD = SaveData.current.VMSD;
 
         for (int i = 0; i < VMSD.Villagers.Count; i++)
