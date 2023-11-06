@@ -40,6 +40,32 @@ public class Navigation : MonoBehaviour
                 //case VillagerState.Petitioning:
                 //    break;
 
+                case VillagerState.Anything:
+                    int anythingIndex = Random.Range(0, 3);
+                    switch (anythingIndex)
+                    {
+                        case 0:
+                            Location = villagerInfo.house.Location;
+                            villagerInfo.currentState = VillagerState.Home;
+                            break;
+
+                        case 1:
+                            Location = villagerInfo.job.Location;
+                            villagerInfo.currentState = VillagerState.Work;
+                            break;
+
+                        case 2:
+                            villagerInfo.recreationGoal = BuildingManager.Instance.GetRecreationBuilding();
+                            Location = villagerInfo.recreationGoal.Location;
+                            villagerInfo.currentState = VillagerState.Recreation;
+                            break;
+
+                        default:
+                            Debug.Log("Anything Index Out Of Bounds");
+                            break;
+                    }
+                    break;
+
                 default:
                     Debug.Log("Navigation Broke");
                     break;

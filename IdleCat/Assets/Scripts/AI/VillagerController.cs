@@ -56,79 +56,22 @@ public class VillagerController : Intractable
         VI.Moving = false;
         OnMovementInput?.Invoke(Vector2.zero);
         DayNightManager.Instance.NewHour -= GetNewLocationGoal;
-
-        bool StillCurrentState = true;
-        int i = 0;
         switch (VI.currentState)
         {
             case VillagerState.Home:
-                while (StillCurrentState)
-                {
-                    if ((int)DayNightManager.Instance.CurrentTime.x + i > (VI.schedule.VillagerStates.Length - 1))
-                    {
-                        StillCurrentState = false;
-                    }
-                    else
-                    {
-                        if (VI.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x + i] == VI.currentState)
-                        {
-                            i++;
-                        }
-                        else
-                        {
-                            StillCurrentState = false;
-                        }
-                    }
-                }
-                timeOut.Disable(i, VI.house);
+                timeOut.Disable(VI.house, VI.currentState);
                 break;
 
             case VillagerState.Work:
-                while (StillCurrentState)
-                {
-                    if ((int)DayNightManager.Instance.CurrentTime.x + i > (VI.schedule.VillagerStates.Length - 1))
-                    {
-                        StillCurrentState = false;
-                    }
-                    else
-                    {
-                        if (VI.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x + i] == VI.currentState)
-                        {
-                            i++;
-                        }
-                        else
-                        {
-                            StillCurrentState = false;
-                        }
-                    }
-                }
-                timeOut.Disable(i, VI.job);
+                timeOut.Disable(VI.job, VI.currentState);
                 break;
 
             case VillagerState.Recreation:
-                while (StillCurrentState)
-                {
-                    if ((int)DayNightManager.Instance.CurrentTime.x + i > (VI.schedule.VillagerStates.Length - 1))
-                    {
-                        StillCurrentState = false;
-                    }
-                    else
-                    {
-                        if (VI.schedule.VillagerStates[(int)DayNightManager.Instance.CurrentTime.x + i] == VI.currentState)
-                        {
-                            i++;
-                        }
-                        else
-                        {
-                            StillCurrentState = false;
-                        }
-                    }
-                }
-                timeOut.Disable(i, VI.recreationGoal);
+                timeOut.Disable(VI.recreationGoal, VI.currentState);
                 break;
 
-            //case VillagerState.Petitioning:
-            //    break;
+            case VillagerState.Anything:
+                break;
 
             default:
                 break;
