@@ -29,6 +29,10 @@ public class VillagerDisplay : MonoBehaviour
 
     [SerializeField]
     private GoToButton goToVillager;
+    [SerializeField]
+    private GoToButton goToJob;
+    [SerializeField]
+    private GoToButton goToHouse;
     public void OpenWindow(VillagerInfo VI)
     {
         if (Time.timeScale == 0)
@@ -124,6 +128,8 @@ public class VillagerDisplay : MonoBehaviour
         VillagerDetails[5].text = currentAction;
 
         goToVillager.location = currentVI.gameObject.transform.position;
+        goToJob.location = currentVI.job.transform.position;
+        goToHouse.location = currentVI.house.transform.position;
     }
     private void SetFamilyTree()
     {
