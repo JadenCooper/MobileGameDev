@@ -25,4 +25,9 @@ public abstract class Building : Intractable
         }
         return false;
     }
+
+    public override void InteractAction()
+    {
+        UIManager.Instance.BuildingDisplayWindow.OpenWindow(this);
+    }
 }

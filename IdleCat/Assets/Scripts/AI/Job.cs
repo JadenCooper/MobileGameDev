@@ -61,11 +61,6 @@ public class Job : Building
         }
     }
 
-    public override void InteractAction()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public void AssignEmployee(VillagerInfo VI)
     {
         Employees.Add(VI);

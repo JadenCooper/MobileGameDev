@@ -17,6 +17,8 @@ public class BuildingDisplay : MonoBehaviour
     private GameObject uIVillagerButtonPrefab;
     private bool alreadyInMenu = false;
     private Building currentBuilding;
+    [SerializeField]
+    private TMP_Text title;
 
     [Header("House")]
     [SerializeField]
@@ -74,6 +76,8 @@ public class BuildingDisplay : MonoBehaviour
     }
     private void SetBuildingDetails()
     {
+        title.text = currentBuilding.Name;
+
         switch (currentBuilding.buildingType)
         {
             case BuildingType.Job:

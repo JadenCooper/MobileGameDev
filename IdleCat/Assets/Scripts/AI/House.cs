@@ -13,10 +13,6 @@ public class House : Building
         currentUser.rest = Mathf.Clamp(currentUser.rest, 0, 100);
     }
 
-    public override void InteractAction()
-    {
-
-    }
 
     public override void OnTriggerEnter2D(Collider2D collision)
     {

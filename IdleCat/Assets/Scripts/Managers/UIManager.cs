@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     private float currentHour = 6;
     public ModelWindowPanel ModelWindow;
     public VillagerDisplay VillagerDisplayWindow;
+    public BuildingDisplay BuildingDisplayWindow;
 
     [SerializeField]
     private Camera playerCamera;
