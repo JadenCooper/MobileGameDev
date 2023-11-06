@@ -49,6 +49,9 @@ public class DayNightManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        SaveManager.Instance.SaveCall += SaveDayData;
+        SaveManager.Instance.LoadCall += LoadDayData;
     }
     private void Start()
     {
@@ -133,5 +136,19 @@ public class DayNightManager : MonoBehaviour
         lightChangeOverTime = season.LightChangeOverTime;
         lightIncreaceRate = (season.LightIncreaseGoal - intialValue) / lightChangeOverTime;
         lightDecreaceRate = (season.LightIncreaseGoal - season.LightDecreaseGoal) / (24 - lightChangeOverTime);
+    }
+
+    private void SaveDayData()
+    {
+        DaySaveData DSD = new DaySaveData();
+        DSD.currentDay = currentDay;
+        DSD.CurrentTime = CurrentTime;
+        SaveData.current.DSD = DSD;
+    }
+
+    private void LoadDayData()
+    {
+        currentDay = SaveData.current.DSD.currentDay;
+        SetTime(SaveData.current.DSD.CurrentTime);
     }
 }

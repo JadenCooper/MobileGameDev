@@ -29,4 +29,16 @@ public class House : Building
             }
         }
     }
+
+    public void AssignInhabitant(VillagerInfo VI)
+    {
+        Inhabitants.Add(VI);
+        VI.house = this;
+    }
+
+    public void RemoveInhabitant(VillagerInfo VI)
+    {
+        Inhabitants.Remove(VI);
+        VI.house = null;
+    }
 }

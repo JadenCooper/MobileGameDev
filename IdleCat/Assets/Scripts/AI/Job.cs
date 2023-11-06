@@ -65,4 +65,16 @@ public class Job : Building
     {
         throw new System.NotImplementedException();
     }
+
+    public void AssignEmployee(VillagerInfo VI)
+    {
+        Employees.Add(VI);
+        VI.job = this;
+    }
+
+    public void RemoveEmployee(VillagerInfo VI)
+    {
+        Employees.Remove(VI);
+        VI.job = null;
+    }
 }

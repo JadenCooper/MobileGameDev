@@ -33,20 +33,11 @@ public class SaveManager : MonoBehaviour
     public void OnSave()
     {
         SaveCall?.Invoke();
-
-        Debug.Log(SaveData.current.BMD);
-        Debug.Log(SaveData.current.PSD);
-        Debug.Log(SaveData.current.VMSD);
-        Debug.Log(SaveData.current.CurrentTime);
-
-        SaveData.current.CurrentTime = DayNightManager.Instance.CurrentTime;
         SerializationManager.Save(SaveName.text, SaveData.current);
     }
     public void OnLoad(string saveName)
     {
         SaveData.current = (SaveData)SerializationManager.load(saveName);
-
-        DayNightManager.Instance.SetTime(SaveData.current.CurrentTime);
         LoadCall?.Invoke();
         VillagerManager.Instance.TriggerNavigation();
     }

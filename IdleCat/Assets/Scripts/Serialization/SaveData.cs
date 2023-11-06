@@ -28,6 +28,7 @@ public class SaveData
 
     public VillagerManagerSaveDate VMSD;
     public Vector3 CurrentTime;
+    public DaySaveData DSD; 
     public BuildingManagerData BMD;
     public PlayerSaveData PSD;
 }
