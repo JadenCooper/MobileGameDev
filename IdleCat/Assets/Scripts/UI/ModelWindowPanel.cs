@@ -135,7 +135,7 @@ public class ModelWindowPanel : MonoBehaviour
     public void ShowAsDialog(string title, string message, string confirmMessage, string declineMessage, string alternateMessage, Action confirmAction, Action declineAction = null, Action alternateAction = null)
     {
         horizontalLayoutArea.gameObject.SetActive(true);
-        iconImage.gameObject.SetActive(false);
+        iconContainer.gameObject.SetActive(false);
         verticalLayoutArea.gameObject.SetActive(false);
 
         // Hide header if there's no title

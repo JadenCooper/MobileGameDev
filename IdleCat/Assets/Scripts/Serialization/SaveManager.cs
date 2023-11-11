@@ -39,10 +39,9 @@ public class SaveManager : MonoBehaviour
             // Check For Overwrite
             if (newSaveName == SaveFiles[i])
             {
-                Debug.Log("Match");
                 // Save With Name Already Present
-                UIManager.Instance.ModelWindow.ShowAsDialog("Caution", "A Save File With That Name Already Exists. Would You Like To Overwrite It?", "Confirm",
-                    "Cancel", null, OnOverwrite);
+                UIManager.Instance.ModelWindow.ShowAsDialog("CAUTION", "A Save File With That Name Already Exists. Would You Like To Overwrite It?", "Confirm",
+                    "Cancel", null, OnOverwrite, UIManager.Instance.ModelWindow.Close);
                 return;
             }
         }
@@ -55,6 +54,7 @@ public class SaveManager : MonoBehaviour
         string path = Application.persistentDataPath + "/saves/" + SaveName.text + ".save";
         OnDelete(path);
         SerializationManager.Save(SaveName.text, SaveData.current);
+        ShowLoadScreen();
     }
 
     public void OnDelete(string saveName)
