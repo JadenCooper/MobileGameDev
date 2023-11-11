@@ -6,7 +6,9 @@ public class ResourceManager : MonoBehaviour
 {
     public static ResourceManager Instance { get; private set; }
 
-    public List<float> Resources = new List<float>(); // Happiness, Wood, Stone, Food, Gold, VillagerCount
+    public List<float> Resources = new List<float>(); // Wood, Stone, Food, Gold, Happiness, VillagerCount
+    [SerializeReference]
+    private List<Sprite> resourceSprites = new List<Sprite>();
 
     [SerializeField]
     private UIManager uiManager;
@@ -118,5 +120,29 @@ public class ResourceManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    public Sprite GetResourceSprite(Resource resourceToGet)
+    {
+        switch (resourceToGet)
+        {
+            case Resource.Wood:
+                return resourceSprites[0];
+
+            case Resource.Stone:
+                return resourceSprites[1];
+
+            case Resource.Gold:
+                return resourceSprites[2];
+
+            case Resource.Food:
+                return resourceSprites[3];
+
+            case Resource.Villagers:
+                return resourceSprites[5];
+
+            default:
+                return null;
+        }
     }
 }

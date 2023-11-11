@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingNotebook : GridNotebook
+public class BuildingNotebook : ScrollViewExtender
 {
     public override void SetupGrid(int GridTypeIndex)
     {

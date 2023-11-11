@@ -10,7 +10,7 @@ public class Job : Building
     public float resourceGain;
     public Resource resourceToCost;
     public float resourceCost;
-
+    public float restLoss;
     public float happinessLoss;
     public override void OnTriggerEnter2D(Collider2D collision)
     {

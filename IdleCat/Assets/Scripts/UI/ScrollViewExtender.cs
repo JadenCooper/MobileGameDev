@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridNotebook : MonoBehaviour
+public class ScrollViewExtender : MonoBehaviour
 {
     public GameObject GridObjectPrefab;
     public GameObject GridParent;

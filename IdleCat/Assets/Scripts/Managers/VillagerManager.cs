@@ -148,8 +148,6 @@ public class VillagerManager : MonoBehaviour
         NewVillager.transform.parent = this.transform;
 
         VillagerInfo tempVI = Instantiate(defaultVillagerInfo);
-        tempVI.house = Inn;
-        tempVI.job = Workhouse;
         tempVI.Species = UnlockedSpecies[Random.Range(0, UnlockedSpecies.Count)];
         tempVI.schedule = Instantiate(defaultSchedule);
         tempVI.gameObject = NewVillager;
@@ -195,6 +193,10 @@ public class VillagerManager : MonoBehaviour
             Villagers.Add(VC);
             ResourceManager.Instance.ResourceChange(Resource.Villagers, 1);
             VPAI.VillageInhabitant = true;
+            VPAI.VI.house = Inn;
+            Inn.Inhabitants.Add(VPAI.VI);
+            VPAI.VI.job = Workhouse;
+            Workhouse.Employees.Add(VPAI.VI);
         }
 
         VC.enabled = true;

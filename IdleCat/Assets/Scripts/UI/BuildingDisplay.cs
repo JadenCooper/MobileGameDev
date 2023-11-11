@@ -13,8 +13,6 @@ public class BuildingDisplay : MonoBehaviour
     private TweenScale tweenScale;
     [SerializeField]
     private Vector3 openScale;
-    [SerializeField]
-    private GameObject uIVillagerButtonPrefab;
     private bool alreadyInMenu = false;
     private Building currentBuilding;
     [SerializeField]
@@ -30,9 +28,9 @@ public class BuildingDisplay : MonoBehaviour
     [SerializeField]
     private Image gainResourceType;
     [SerializeField]
-    private Image lossResourceType;
+    private ScrollViewExtender employeeGrid;
     [SerializeField]
-    private List<Sprite> resourceTypeSprites = new List<Sprite>();
+    private ScrollViewExtender jobUserGrid;
 
     [Header("Recreation")]
     [SerializeField]
@@ -55,7 +53,6 @@ public class BuildingDisplay : MonoBehaviour
 
     public void CloseWindow()
     {
-
         if (!alreadyInMenu)
         {
             Time.timeScale = 1f;
@@ -99,6 +96,18 @@ public class BuildingDisplay : MonoBehaviour
 
     private void DisplayJob(Job currentJob)
     {
+        FillGrid(employeeGrid, currentJob.Employees);
+        FillGrid(jobUserGrid, currentJob.users);
+
+        jobDetails[0].text = "Gain " + currentJob.resourceGain + " Per Hour";
+        gainResourceType.sprite = ResourceManager.Instance.GetResourceSprite(currentJob.resourceToGain);
+
+        jobDetails[1].text = "Employee Capacity Is At " + currentJob.Employees.Count + "/" + currentJob.Capacity;
+
+        jobDetails[2].text = "Employees Lose " + currentJob.happinessLoss + " Happiness Per Hour";
+
+        jobDetails[3].text = "Employees Lose " + currentJob.restLoss + " Rest Per Hour";
+
         pages[0].SetActive(true);
     }
 
@@ -110,6 +119,27 @@ public class BuildingDisplay : MonoBehaviour
     private void DisplayRecreation(Recreation currentRecreation)
     {
         pages[2].SetActive(true);
+    }
+
+    private void FillGrid(ScrollViewExtender scrollViewExtender, List<VillagerInfo> newVillagers)
+    {
+        scrollViewExtender.ClearGrid();
+
+        if (newVillagers.Count > scrollViewExtender.ObjectsPerPage)
+        {
+            scrollViewExtender.ExpandGrid(newVillagers.Count);
+        }
+
+        for (int i = 0; i < newVillagers.Count; i++)
+        {
+            GameObject newVillager = Instantiate(scrollViewExtender.GridObjectPrefab);
+            newVillager.transform.parent = scrollViewExtender.GridParent.transform;
+
+            newVillager.GetComponent<UIVillagerButton>().Initialize(newVillagers[i]);
+
+            scrollViewExtender.ObjectsInGrid.Add(newVillager);
+            newVillager.transform.localScale = scrollViewExtender.GridObjectPrefab.transform.localScale;
+        }
     }
 
 

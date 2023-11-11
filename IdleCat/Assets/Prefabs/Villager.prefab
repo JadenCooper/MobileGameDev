@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 7419883371828481749}
   - component: {fileID: 947270508308940161}
   m_Layer: 0
-  m_Name: Villager Test
+  m_Name: Villager
   m_TagString: Intractable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
