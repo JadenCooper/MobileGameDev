@@ -151,6 +151,8 @@ public class VillagerManager : MonoBehaviour
         tempVI.Species = UnlockedSpecies[Random.Range(0, UnlockedSpecies.Count)];
         tempVI.schedule = Instantiate(defaultSchedule);
         tempVI.gameObject = NewVillager;
+        tempVI.job = Workhouse;
+        tempVI.house = Inn;
         System.Guid newGuid = System.Guid.NewGuid();
         tempVI.ID = newGuid.ToString();
         // 25 -- 75 odds for adult or young adult
@@ -193,9 +195,7 @@ public class VillagerManager : MonoBehaviour
             Villagers.Add(VC);
             ResourceManager.Instance.ResourceChange(Resource.Villagers, 1);
             VPAI.VillageInhabitant = true;
-            VPAI.VI.house = Inn;
             Inn.Inhabitants.Add(VPAI.VI);
-            VPAI.VI.job = Workhouse;
             Workhouse.Employees.Add(VPAI.VI);
         }
 

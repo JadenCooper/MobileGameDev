@@ -33,8 +33,36 @@ public class SaveManager : MonoBehaviour
     public void OnSave()
     {
         SaveCall?.Invoke();
+        string newSaveName = Application.persistentDataPath + "/saves/" + SaveName.text + ".save";
+        for (int i = 0; i < SaveFiles.Length; i++)
+        {
+            // Check For Overwrite
+            if (newSaveName == SaveFiles[i])
+            {
+                Debug.Log("Match");
+                // Save With Name Already Present
+                UIManager.Instance.ModelWindow.ShowAsDialog("Caution", "A Save File With That Name Already Exists. Would You Like To Overwrite It?", "Confirm",
+                    "Cancel", null, OnOverwrite);
+                return;
+            }
+        }
         SerializationManager.Save(SaveName.text, SaveData.current);
     }
+
+    public void OnOverwrite()
+    {
+        // Delete Present Save Then Create New Save File
+        string path = Application.persistentDataPath + "/saves/" + SaveName.text + ".save";
+        OnDelete(path);
+        SerializationManager.Save(SaveName.text, SaveData.current);
+    }
+
+    public void OnDelete(string saveName)
+    {
+        SerializationManager.delete(saveName);
+        ShowLoadScreen();
+    }
+
     public void OnLoad(string saveName)
     {
         SaveData.current = (SaveData)SerializationManager.load(saveName);
@@ -68,6 +96,8 @@ public class SaveManager : MonoBehaviour
             buttonObject.transform.SetParent(LoadArea, false);
 
             buttonObject.GetComponent<Button>().onClick.AddListener(() => OnLoad(SaveFiles[currentIndex]));
+            Button deleteButton = buttonObject.GetComponentsInChildren<Button>()[1];
+            deleteButton.onClick.AddListener(() => OnDelete(SaveFiles[currentIndex]));
 
             buttonObject.GetComponentInChildren<TextMeshProUGUI>().text = SaveFiles[i].Replace(Application.persistentDataPath + "/saves/", "");
         }

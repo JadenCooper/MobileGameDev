@@ -52,6 +52,16 @@ public class SerializationManager : MonoBehaviour
             return null;
         }
     }
+    public static void delete(string path)
+    {
+        if (!File.Exists(path))
+        {
+            Debug.Log("File Not Found");
+            return;
+        }
+        File.Delete(path);
+    }
+
     public static BinaryFormatter GetBinaryFormatter()
     {
         BinaryFormatter formatter = new BinaryFormatter();
@@ -59,10 +69,13 @@ public class SerializationManager : MonoBehaviour
         SurrogateSelector selector = new SurrogateSelector();
 
         Vector3SerializationSurrogate vector3Surrogate = new Vector3SerializationSurrogate();
+        Vector2SerializationSurrogate vector2Surrogate = new Vector2SerializationSurrogate();
         QuaternionSerializationSurrogate quaternionSurrogate = new QuaternionSerializationSurrogate();
         TransformSerializationSurrogate transformSurrogate = new TransformSerializationSurrogate();
 
+
         selector.AddSurrogate(typeof(Vector3), new StreamingContext(StreamingContextStates.All), vector3Surrogate);
+        selector.AddSurrogate(typeof(Vector2), new StreamingContext(StreamingContextStates.All), vector2Surrogate);
         selector.AddSurrogate(typeof(Quaternion), new StreamingContext(StreamingContextStates.All), quaternionSurrogate);
         selector.AddSurrogate(typeof(Transform), new StreamingContext(StreamingContextStates.All), transformSurrogate);
 
