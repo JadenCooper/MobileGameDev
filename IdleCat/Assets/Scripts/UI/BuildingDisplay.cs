@@ -17,10 +17,16 @@ public class BuildingDisplay : MonoBehaviour
     private Building currentBuilding;
     [SerializeField]
     private TMP_Text title;
+    [SerializeField]
+    private Image buildingIcon;
 
     [Header("House")]
     [SerializeField]
     private List<TMP_Text> houseDetails = new List<TMP_Text>();
+    [SerializeField]
+    private ScrollViewExtender inhabitantsGrid;
+    [SerializeField]
+    private ScrollViewExtender houseUserGrid;
 
     [Header("Job")]
     [SerializeField]
@@ -35,6 +41,8 @@ public class BuildingDisplay : MonoBehaviour
     [Header("Recreation")]
     [SerializeField]
     private List<TMP_Text> recreationDetails = new List<TMP_Text>();
+    [SerializeField]
+    private ScrollViewExtender recreationGrid;
     public void OpenWindow(Building building)
     {
         if (Time.timeScale == 0)
@@ -74,6 +82,15 @@ public class BuildingDisplay : MonoBehaviour
     private void SetBuildingDetails()
     {
         title.text = currentBuilding.Name;
+        if (currentBuilding.Icon != null)
+        {
+            buildingIcon.sprite = currentBuilding.Icon;
+            currentBuilding.gameObject.SetActive(true);
+        }
+        else
+        {
+            currentBuilding.gameObject.SetActive(false);
+        }
 
         switch (currentBuilding.buildingType)
         {
@@ -106,18 +123,29 @@ public class BuildingDisplay : MonoBehaviour
 
         jobDetails[2].text = "Employees Lose " + currentJob.happinessLoss + " Happiness Per Hour";
 
-        jobDetails[3].text = "Employees Lose " + currentJob.restLoss + " Rest Per Hour";
+        jobDetails[3].text = "Employees Lose " + currentJob.restLoss + " Energy Per Hour";
 
         pages[0].SetActive(true);
     }
 
     private void DisplayHouse(House currentHouse)
     {
+        FillGrid(inhabitantsGrid, currentHouse.Inhabitants);
+        FillGrid(houseUserGrid, currentHouse.users);
+
+        jobDetails[0].text = "Inhabitants Gain " + currentHouse.restValue + " Energy Per Hour";
+        jobDetails[1].text = "Inhabitant Capacity Is At " + currentHouse.Inhabitants.Count + "/" + currentHouse.Capacity;
+
         pages[1].SetActive(true);
     }
 
     private void DisplayRecreation(Recreation currentRecreation)
     {
+        FillGrid(recreationGrid, currentRecreation.users);
+
+        recreationDetails[0].text = "Users Gain " + currentRecreation.happinessGain + " Happiness Per Hour";
+        jobDetails[0].text = "User Capacity Is At " + currentRecreation.users.Count + "/" + currentRecreation.Capacity;
+
         pages[2].SetActive(true);
     }
 
