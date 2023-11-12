@@ -172,6 +172,6 @@ MonoBehaviour:
   ResourceCostToBuild: 15
   Employees: []
   resourceToGain: 1
-  resourceGain: 9
+  resourceGain: -9
   restLoss: 14
   happinessLoss: 14

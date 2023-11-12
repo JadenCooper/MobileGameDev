@@ -13,7 +13,7 @@ public class SceneChange : MonoBehaviour
                 break;
 
             case 1:
-                SceneManager.LoadScene("PlayMode");
+                GameManager.Instance.LoadGame();
                 break;
 
             case 2:

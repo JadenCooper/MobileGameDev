@@ -53,6 +53,9 @@ public class AgentMover : MonoBehaviour
     private void FixedUpdate()
     {
         rb2d.velocity = movement * Time.deltaTime;
-        //animator.SetBool("isMoving", isMoving);
+        if (animator != null)
+        {
+            animator.SetBool("isMoving", isMoving);
+        }
     }
 }

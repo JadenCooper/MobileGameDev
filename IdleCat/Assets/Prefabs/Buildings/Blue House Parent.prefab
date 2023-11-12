@@ -143,7 +143,7 @@ MonoBehaviour:
   buildingWidth: 2
   GridPos: {x: 0, y: 0, z: 0}
   ResourceToBuild: 0
-  ResourceCostToBuild: 15
+  ResourceCostToBuild: -15
   Inhabitants: []
   restValue: 10
 --- !u!61 &8507939535285513476

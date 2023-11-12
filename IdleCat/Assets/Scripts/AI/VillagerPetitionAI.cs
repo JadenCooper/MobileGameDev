@@ -53,7 +53,7 @@ public class VillagerPetitionAI : Intractable
             {
                 // Asking To Join Village
                 string fullName = VI.FirstName + " " + VI.LastName;
-                UIManager.Instance.ModelWindow.ShowAsPrompt(fullName, VI.Species.Sprite, "Test", "Yay", "Nay", "Postpone", JoinVillage, LeaveVillage, PostponeDecision);
+                UIManager.Instance.ModelWindow.ShowAsPrompt(fullName, VI.Species.Sprite, "Hello Mayor Please Allow Me To Join Your Town", "Yay", "Nay", "Postpone", JoinVillage, LeaveVillage, PostponeDecision);
             }
         }
     }

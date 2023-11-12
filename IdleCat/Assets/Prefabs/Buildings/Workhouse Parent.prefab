@@ -168,8 +168,10 @@ MonoBehaviour:
   ActionDescription: Sweating Away At The Workhouse
   buildingWidth: 3
   GridPos: {x: 3, y: 0, z: 0}
+  ResourceToBuild: 0
+  ResourceCostToBuild: 0
   Employees: []
   resourceToGain: 2
-  resourceGain: 15
+  resourceGain: -15
   restLoss: 8
   happinessLoss: 8

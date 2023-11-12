@@ -171,35 +171,35 @@ public class ResourceManager : MonoBehaviour
         switch (resourceToCheck)
         {
             case Resource.Wood:
-                if (CurrentResources.Wood >= requiredAmount)
+                if (CurrentResources.Wood >= -requiredAmount)
                 {
                     return true;
                 }
                 break;
 
             case Resource.Stone:
-                if (CurrentResources.Stone >= requiredAmount)
+                if (CurrentResources.Stone >= -requiredAmount)
                 {
                     return true;
                 }
                 break;
 
             case Resource.Food:
-                if (CurrentResources.Food >= requiredAmount)
+                if (CurrentResources.Food >= -requiredAmount)
                 {
                     return true;
                 }
                 break;
 
             case Resource.Gold:
-                if (CurrentResources.Gold >= requiredAmount)
+                if (CurrentResources.Gold >= -requiredAmount)
                 {
                     return true;
                 }
                 break;
 
             case Resource.Villagers:
-                if (CurrentResources.VillagerCount >= requiredAmount)
+                if (CurrentResources.VillagerCount >= -requiredAmount)
                 {
                     return true;
                 }

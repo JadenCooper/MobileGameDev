@@ -28,7 +28,14 @@ public class VillagerManager : MonoBehaviour
     public Job Workhouse;
 
     public PetitionManager petitionManager;
-    public Transform LeaveTrigger; 
+    public Transform LeaveTrigger;
+
+    [SerializeField]
+    private List<string> maleFirstNames = new List<string>();
+    [SerializeField]
+    private List<string> femaleFirstNames = new List<string>();
+    [SerializeField]
+    private List<string> lastNames = new List<string>();
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.
@@ -171,11 +178,15 @@ public class VillagerManager : MonoBehaviour
         if (RandomNumber == 0)
         {
             tempVI.Sex = "Male";
+            tempVI.FirstName = maleFirstNames[Random.Range(0, femaleFirstNames.Count)];
         }
         else
         {
             tempVI.Sex = "Female";
+            tempVI.FirstName = femaleFirstNames[Random.Range(0, femaleFirstNames.Count)];
         }
+
+        tempVI.LastName = lastNames[Random.Range(0, lastNames.Count)];
 
         VillagerPetitionAI VPAI = NewVillager.GetComponentInChildren<VillagerPetitionAI>();
         VPAI.Initialize(tempVI);

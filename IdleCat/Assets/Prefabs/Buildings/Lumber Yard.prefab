@@ -169,9 +169,9 @@ MonoBehaviour:
   buildingWidth: 2
   GridPos: {x: 0, y: 0, z: 0}
   ResourceToBuild: 0
-  ResourceCostToBuild: 10
+  ResourceCostToBuild: -10
   Employees: []
   resourceToGain: 0
   resourceGain: 5
   restLoss: 3
-  happinessLoss: 2
+  happinessLoss: 3
