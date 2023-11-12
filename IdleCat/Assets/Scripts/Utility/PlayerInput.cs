@@ -7,11 +7,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerInput : MonoBehaviour
 {
-    public UnityEvent<Vector2> OnMovementInput, OnBuildMovementInput, onPress;
+    public UnityEvent<Vector2> OnMovementInput, onPress;
     [SerializeField]
     private InputActionReference movement, Interact, Look;
 
-    public bool BuildMode;
 
     private Vector2 lastPosition;
 
@@ -19,14 +18,7 @@ public class PlayerInput : MonoBehaviour
     private LayerMask placementLayerMask;
     private void Update()
     {
-        if (BuildMode)
-        {
-            OnBuildMovementInput?.Invoke(movement.action.ReadValue<Vector2>().normalized);
-        }
-        else
-        {
-            OnMovementInput?.Invoke(movement.action.ReadValue<Vector2>().normalized);
-        }
+        OnMovementInput?.Invoke(movement.action.ReadValue<Vector2>().normalized);
     }
 
     private void Start()
@@ -62,7 +54,7 @@ public class PlayerInput : MonoBehaviour
     {
         if (!EventSystem.current.IsPointerOverGameObject())
         {
-            if (BuildMode)
+            if (BuildingManager.Instance.BuildMode)
             {
                 Vector2 pressPos = Look.action.ReadValue<Vector2>();
                 RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(pressPos), Vector2.zero, 100, placementLayerMask);

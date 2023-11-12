@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,10 +20,11 @@ public class PlacementSystem : MonoBehaviour
     private Color validPlacement;
     [SerializeField]
     private Color nonValidPlacement;
+    [SerializeField]
+    private GameObject constructionMenu;
 
     private void Start()
     {
-        StopPlacement();
         buildingData = new();
     }
 
@@ -30,9 +32,19 @@ public class PlacementSystem : MonoBehaviour
     {
         StopPlacement();
         selectedObjectIndex = ID;
-        gridVisulalizations.SetActive(true);
-        cellIndicator.SetActive(true);
-        grid.gameObject.SetActive(true);
+
+        Building building = BuildingManager.Instance.ListOfBuildingPrefabs[selectedObjectIndex].GetComponentInChildren<Building>();
+
+        if (ResourceManager.Instance.ResourceCheck(building.ResourceToBuild, building.ResourceCostToBuild))
+        {
+            Time.timeScale = 0;
+            BuildingManager.Instance.BuildMode = true;
+            ResourceManager.Instance.ResourceChange(building.ResourceToBuild, building.ResourceCostToBuild);
+            gridVisulalizations.SetActive(true);
+            cellIndicator.SetActive(true);
+            grid.gameObject.SetActive(true);
+            constructionMenu.SetActive(false);
+        }
     }
 
     private void PlaceStructure(Vector3Int gridPosition)
@@ -64,6 +76,15 @@ public class PlacementSystem : MonoBehaviour
         gridVisulalizations.SetActive(false);
         cellIndicator.SetActive(false);
         grid.gameObject.SetActive(false);
+        Time.timeScale = 1f;
+        StartCoroutine(Wait());
+    }
+
+    private IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(1f);
+        BuildingManager.Instance.BuildMode = true;
+        constructionMenu.SetActive(true);
     }
 
     public void MoveIndicator(Vector2 pos)

@@ -59,7 +59,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8802123967737461621}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.507, y: 0.589, z: 0}
+  m_LocalPosition: {x: 1.308, y: 0.717, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -107,8 +107,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 645331582a103764aa30e0c27ff22798, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -134,8 +134,8 @@ BoxCollider2D:
   m_Offset: {x: -0.0046321154, y: -0.15979093}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.28866667}
-    oldSize: {x: 1, y: 1}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.56, y: 2.56}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -164,14 +164,12 @@ MonoBehaviour:
   Location: {x: 3.36, y: 0}
   users: []
   Icon: {fileID: 21300000, guid: e9747883cd4879e43b38fbec10f3f714, type: 3}
-  Capacity: 4
+  Capacity: 6
   ActionDescription: Sweating Away At The Workhouse
-  buildingWidth: 1
+  buildingWidth: 3
   GridPos: {x: 3, y: 0, z: 0}
   Employees: []
   resourceToGain: 2
-  resourceGain: 10
-  resourceToCost: 6
-  resourceCost: 0
-  restLoss: 0
-  happinessLoss: 2
+  resourceGain: 15
+  restLoss: 8
+  happinessLoss: 8

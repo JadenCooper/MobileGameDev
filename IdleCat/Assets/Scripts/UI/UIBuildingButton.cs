@@ -23,5 +23,6 @@ public class UIBuildingButton : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         // Open Building Display \\
+        UIManager.Instance.BuildingDisplayWindow.OpenWindow(building);
     }
 }

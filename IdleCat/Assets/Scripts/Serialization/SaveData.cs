@@ -31,4 +31,7 @@ public class SaveData
     public DaySaveData DSD; 
     public BuildingManagerData BMD;
     public PlayerSaveData PSD;
+    public GameResources currentResources;
+    public GameResources dailyGains;
+    public GameResources dailyLosses;
 }

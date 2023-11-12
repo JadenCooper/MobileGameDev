@@ -15,6 +15,9 @@ public abstract class Building : Intractable
     public string ActionDescription;
     public int buildingWidth = 1;
     public Vector3Int GridPos;
+
+    public Resource ResourceToBuild;
+    public float ResourceCostToBuild;
     public abstract void OnTriggerEnter2D(Collider2D collision);
 
     public abstract void BuildingAction(VillagerInfo currentUser);
