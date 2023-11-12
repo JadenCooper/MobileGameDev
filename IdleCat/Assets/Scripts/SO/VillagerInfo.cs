@@ -19,8 +19,8 @@ public class VillagerInfo : ScriptableObject
 
     public SpeciesData Species;
 
-    public float happiness;
-    public float rest;
+    public float happiness = 100;
+    public float rest = 100;
 
     public Vector2 CurrentGoal;
     public Elevator currentElevatorGoal;

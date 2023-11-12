@@ -6,7 +6,10 @@ public class ResourceManager : MonoBehaviour
 {
     public static ResourceManager Instance { get; private set; }
 
+    // Wood, Stone, Food, Gold, Happiness, VillagerCount
     public List<float> Resources = new List<float>(); // Wood, Stone, Food, Gold, Happiness, VillagerCount
+    public List<Vector2> dailyResourceChange = new List<Vector2>(); // X Is Gain Y Is Loss
+
     [SerializeReference]
     private List<Sprite> resourceSprites = new List<Sprite>();
 
@@ -25,8 +28,21 @@ public class ResourceManager : MonoBehaviour
             Instance = this;
         }
     }
+
+    private void Start()
+    {
+        // Reset Daily losses And Gain At Start Of New Day
+        DayNightManager.Instance.NewDay += ResetDailyResources;
+    }
+
+    private void ResetDailyResources()
+    {
+        dailyResourceChange.Clear();
+    }
+
     public void ResourceChange(Resource resourceToChange, float amountToChange)
     {
+        // Change Resource Based On Its Type
         int ResourceIndex;
         switch (resourceToChange)
         {
@@ -57,9 +73,18 @@ public class ResourceManager : MonoBehaviour
                 Debug.Log("Resource Manager Broke In Resource Change Method");
                 return;
         }
-
+        amountToChange = Mathf.Ceil(amountToChange);
         Resources[ResourceIndex] += amountToChange;
-        Resources[ResourceIndex] = Mathf.Ceil(Resources[ResourceIndex]);
+
+        if (amountToChange < 0)
+        {
+            // So Lose Resource
+            dailyResourceChange[ResourceIndex] += new Vector2(0, amountToChange);
+        }
+        else
+        {
+            dailyResourceChange[ResourceIndex] += new Vector2(amountToChange, 0);
+        }
 
         uiManager.UpdateResources(Resources);
     }
@@ -73,6 +98,7 @@ public class ResourceManager : MonoBehaviour
 
     public bool ResourceCheck(Resource resourceToCheck, float requiredAmount)
     {
+        // This Method Checks To See If Player Has Enough Of A Certain Resource
         switch (resourceToCheck)
         {
             case Resource.Wood:
@@ -124,6 +150,7 @@ public class ResourceManager : MonoBehaviour
 
     public Sprite GetResourceSprite(Resource resourceToGet)
     {
+        // Spits Out Resource Sprite
         switch (resourceToGet)
         {
             case Resource.Wood:

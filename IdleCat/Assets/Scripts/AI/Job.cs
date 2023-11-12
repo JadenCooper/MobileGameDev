@@ -8,8 +8,6 @@ public class Job : Building
 
     public Resource resourceToGain;
     public float resourceGain;
-    public Resource resourceToCost;
-    public float resourceCost;
     public float restLoss;
     public float happinessLoss;
     public override void OnTriggerEnter2D(Collider2D collision)
@@ -26,17 +24,19 @@ public class Job : Building
 
     public override void BuildingAction(VillagerInfo currentUser)
     {
-        if (resourceToCost == Resource.None || ResourceManager.Instance.ResourceCheck(resourceToCost, resourceCost)) // If Can Afford The Cost
+        // Villager Cant Work If Not Happy Enough Or Too Tired
+        if (currentUser.happiness >= happinessLoss && currentUser.rest >= restLoss)
         {
             currentUser.happiness -= happinessLoss;
             currentUser.happiness = Mathf.Clamp(currentUser.happiness, 0, 100);
-
+            currentUser.rest -= restLoss;
+            currentUser.rest = Mathf.Clamp(currentUser.rest, 0, 100);
 
             VillagerManager.Instance.CalculateVillageHappiness();
             Happiness currentUserHappiness = Data.CalculateHappinessState(currentUser.happiness);
 
+            // Villager Gets A Output Multiplier Based On Their Happiness
             float ResourceMultiplier = 1;
-
             switch (currentUserHappiness)
             {
                 case Happiness.Ecstatic:
@@ -48,27 +48,29 @@ public class Job : Building
                     break;
 
                 case Happiness.Miserable:
-                    ResourceMultiplier = 0;
+                    ResourceMultiplier = 0.25f;
                     break;
             }
 
             ResourceManager.Instance.ResourceChange(resourceToGain, resourceGain * ResourceMultiplier);
-
-            if (resourceToCost != Resource.None)
-            {
-                ResourceManager.Instance.ResourceChange(resourceToCost, resourceCost);
-            }
         }
     }
 
     public void AssignEmployee(VillagerInfo VI)
     {
+        // Remove From Current Job If Exists Before Employing At This Job
+        if (VI.job != null)
+        {
+            VI.job.RemoveEmployee(VI);
+        }
+
         Employees.Add(VI);
         VI.job = this;
     }
 
     public void RemoveEmployee(VillagerInfo VI)
     {
+        // Fire Employee From Job
         Employees.Remove(VI);
         VI.job = null;
     }

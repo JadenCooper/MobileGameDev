@@ -210,6 +210,7 @@ public class VillagerManager : MonoBehaviour
 
     public void CalculateVillageHappiness()
     {
+        // Get The Town's Happiness By Averaging The Happiness Of All Villagers
         float happinessTotal = 0;
 
         foreach (VillagerController vc in Villagers)
