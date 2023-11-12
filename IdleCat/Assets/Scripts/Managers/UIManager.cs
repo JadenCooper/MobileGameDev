@@ -71,7 +71,7 @@ public class UIManager : MonoBehaviour
         longHourTime = !longHourTime;
         UpdateClock();
     }
-    public void UpdateResources(List<float> Resources)
+    public void UpdateResources(GameResources resources)
     {
         // Change Resource Displays
 

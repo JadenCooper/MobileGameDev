@@ -12,10 +12,13 @@ public class UIVillagerButton : MonoBehaviour, IPointerClickHandler
     private Image icon;
     [SerializeField]
     private TMP_Text name;
-    private VillagerInfo VI;
-
-    public void Initialize(VillagerInfo villagerInfo = null, Sprite givenSprite = null)
+    public VillagerInfo VI;
+    public Button button;
+    private Building building;
+    public void Initialize(VillagerInfo villagerInfo = null, Sprite givenSprite = null, Building building = null)
     {
+        this.building = building;
+
         if (villagerInfo == null)
         {
             icon.sprite = givenSprite;
@@ -35,6 +38,23 @@ public class UIVillagerButton : MonoBehaviour, IPointerClickHandler
         if (VI != null)
         {
             UIManager.Instance.VillagerDisplayWindow.OpenWindow(VI);
+        }
+    }
+
+    public void assign()
+    {
+        switch (building.buildingType)
+        {
+            case BuildingType.Job:
+                building.GetComponent<Job>().AssignEmployee(VI);
+                break;
+
+            case BuildingType.House:
+                building.GetComponent<House>().AssignInhabitant(VI);
+                break;
+
+            default:
+                break;
         }
     }
 }

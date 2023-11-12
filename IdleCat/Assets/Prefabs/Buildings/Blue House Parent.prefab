@@ -134,12 +134,12 @@ MonoBehaviour:
   ID: 0
   BuildingTypeID: 3
   buildingType: 1
-  Name: Fox Den Hotel
+  Name: Blue House
   Location: {x: -5.92, y: 1}
   users: []
   Icon: {fileID: 21300000, guid: b1bd684bdbe2f0940b61916f838ebfc5, type: 3}
-  Capacity: 5
-  ActionDescription: Resting At The Fox Den Inn
+  Capacity: 3
+  ActionDescription: Chilling Being Blue
   buildingWidth: 2
   GridPos: {x: 0, y: 0, z: 0}
   Inhabitants: []

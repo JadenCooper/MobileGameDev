@@ -20,6 +20,15 @@ public class BuildingDisplay : MonoBehaviour
     [SerializeField]
     private Image buildingIcon;
 
+    [SerializeField]
+    private GameObject assignmentPannel;
+    [SerializeField]
+    private GameObject assignVillagerPrefab;
+    [SerializeField]
+    private ScrollViewExtender assignmentScroll;
+
+    private BuildingType currentType;
+    
     [Header("House")]
     [SerializeField]
     private List<TMP_Text> houseDetails = new List<TMP_Text>();
@@ -53,10 +62,9 @@ public class BuildingDisplay : MonoBehaviour
         {
             alreadyInMenu = false;
         }
-
+        currentBuilding = building;
         CloseWindow();
         Time.timeScale = 0f;
-        currentBuilding = building;
     }
 
     public void CloseWindow()
@@ -70,7 +78,6 @@ public class BuildingDisplay : MonoBehaviour
         {
             page.SetActive(false);
         }
-
         tweenScale.ScaleDown(null, SetBuildingScreen);
     }
 
@@ -85,24 +92,27 @@ public class BuildingDisplay : MonoBehaviour
         if (currentBuilding.Icon != null)
         {
             buildingIcon.sprite = currentBuilding.Icon;
-            currentBuilding.gameObject.SetActive(true);
+            buildingIcon.gameObject.SetActive(true);
         }
         else
         {
-            currentBuilding.gameObject.SetActive(false);
+            buildingIcon.gameObject.SetActive(false);
         }
-
+        Debug.Log(currentBuilding.buildingType);
         switch (currentBuilding.buildingType)
         {
             case BuildingType.Job:
+                currentType = BuildingType.Job;
                 DisplayJob(currentBuilding.GetComponent<Job>());
                 break;
 
             case BuildingType.House:
+                currentType = BuildingType.House;
                 DisplayHouse(currentBuilding.GetComponent<House>());
                 break;
 
             case BuildingType.Recreation:
+                currentType = BuildingType.Recreation;
                 DisplayRecreation(currentBuilding.GetComponent<Recreation>());
                 break;
 
@@ -163,12 +173,75 @@ public class BuildingDisplay : MonoBehaviour
             GameObject newVillager = Instantiate(scrollViewExtender.GridObjectPrefab);
             newVillager.transform.parent = scrollViewExtender.GridParent.transform;
 
-            newVillager.GetComponent<UIVillagerButton>().Initialize(newVillagers[i]);
+            newVillager.GetComponent<UIVillagerButton>().Initialize(newVillagers[i], null, currentBuilding);
 
             scrollViewExtender.ObjectsInGrid.Add(newVillager);
             newVillager.transform.localScale = scrollViewExtender.GridObjectPrefab.transform.localScale;
         }
     }
 
+    public void AlterAssignment(bool opening)
+    {
+        if (opening)
+        {
+            assignmentPannel.SetActive(true);
 
+            for (int i = 0; i < pages.Count; i++)
+            {
+                // Close All Pages
+                pages[i].SetActive(false);
+            }
+
+            List<VillagerController> villagers = VillagerManager.Instance.Villagers;
+            List<VillagerInfo> villagerVIs = new List<VillagerInfo>();
+
+            for (int i = 0; i < villagers.Count; i++)
+            {
+                switch (currentType)
+                {
+                    case BuildingType.Job:
+                        if (villagers[i].VI.job != currentBuilding.GetComponent<Job>())
+                        {
+                            villagerVIs.Add(villagers[i].VI);
+                        }
+                        break;
+
+                    case BuildingType.House:
+                        if (villagers[i].VI.house != currentBuilding.GetComponent<House>())
+                        {
+                            villagerVIs.Add(villagers[i].VI);
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+            FillGrid(assignmentScroll, villagerVIs);
+        }
+        else
+        {
+            // Close Assignment Window Then Open Previous Display
+            assignmentPannel.SetActive(false);
+
+            switch (currentType)
+            {
+                case BuildingType.Job:
+                    DisplayJob(currentBuilding.GetComponent<Job>());
+                    break;
+
+                case BuildingType.House:
+                    DisplayHouse(currentBuilding.GetComponent<House>());
+                    break;
+
+                case BuildingType.Recreation:
+                    DisplayRecreation(currentBuilding.GetComponent<Recreation>());
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
 }

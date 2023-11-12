@@ -7,8 +7,9 @@ public class ResourceManager : MonoBehaviour
     public static ResourceManager Instance { get; private set; }
 
     // Wood, Stone, Food, Gold, Happiness, VillagerCount
-    public List<float> Resources = new List<float>(); // Wood, Stone, Food, Gold, Happiness, VillagerCount
-    public List<Vector2> dailyResourceChange = new List<Vector2>(); // X Is Gain Y Is Loss
+    public GameResources Resources;
+    public GameResources DailyLosses;
+    public GameResources DailyGains;
 
     [SerializeReference]
     private List<Sprite> resourceSprites = new List<Sprite>();
@@ -33,37 +34,102 @@ public class ResourceManager : MonoBehaviour
     {
         // Reset Daily losses And Gain At Start Of New Day
         DayNightManager.Instance.NewDay += ResetDailyResources;
+        Resources = new();
+        DailyLosses = new();
+        DailyGains = new();
     }
 
     private void ResetDailyResources()
     {
-        dailyResourceChange.Clear();
+        DailyLosses.Clear();
+        DailyGains.Clear();
     }
 
     public void ResourceChange(Resource resourceToChange, float amountToChange)
     {
         // Change Resource Based On Its Type
-        int ResourceIndex;
+        amountToChange = Mathf.Ceil(amountToChange);
+        bool loss;
+        if (amountToChange < 0)
+        {
+            // So Lose Resource
+            loss = true;
+        }
+        else
+        {
+            loss = false;
+        }
+
         switch (resourceToChange)
         {
             case Resource.Wood:
-                ResourceIndex = 0;
+                Resources.Wood += amountToChange;
+
+                if (loss)
+                {
+                    DailyLosses.Wood += amountToChange;
+                }
+                else
+                {
+                    DailyGains.Wood += amountToChange;
+                }
+
                 break;
 
             case Resource.Stone:
-                ResourceIndex = 1;
+                Resources.Stone += amountToChange;
+
+                if (loss)
+                {
+                    DailyLosses.Stone += amountToChange;
+                }
+                else
+                {
+                    DailyGains.Stone += amountToChange;
+                }
+
                 break;
 
             case Resource.Food:
-                ResourceIndex = 2;
+                Resources.Food += amountToChange;
+
+                if (loss)
+                {
+                    DailyLosses.Food += amountToChange;
+                }
+                else
+                {
+                    DailyGains.Food += amountToChange;
+                }
+
                 break;
 
             case Resource.Gold:
-                ResourceIndex = 3;
+                Resources.Gold += amountToChange;
+
+                if (loss)
+                {
+                    DailyLosses.Gold += amountToChange;
+                }
+                else
+                {
+                    DailyGains.Gold += amountToChange;
+                }
+
                 break;
 
             case Resource.Villagers:
-                ResourceIndex = 4;
+                Resources.VillagerCount += amountToChange;
+
+                if (loss)
+                {
+                    DailyLosses.VillagerCount += amountToChange;
+                }
+                else
+                {
+                    DailyGains.VillagerCount += amountToChange;
+                }
+
                 break;
 
             case Resource.None:
@@ -73,18 +139,6 @@ public class ResourceManager : MonoBehaviour
                 Debug.Log("Resource Manager Broke In Resource Change Method");
                 return;
         }
-        amountToChange = Mathf.Ceil(amountToChange);
-        Resources[ResourceIndex] += amountToChange;
-
-        if (amountToChange < 0)
-        {
-            // So Lose Resource
-            dailyResourceChange[ResourceIndex] += new Vector2(0, amountToChange);
-        }
-        else
-        {
-            dailyResourceChange[ResourceIndex] += new Vector2(amountToChange, 0);
-        }
 
         uiManager.UpdateResources(Resources);
     }
@@ -92,7 +146,7 @@ public class ResourceManager : MonoBehaviour
     public void UpdateVillageHappiness(float VillageHappiness)
     {
         // Given And Activated By VillagerManager
-        Resources[0] = VillageHappiness;
+        Resources.TownHappiness = VillageHappiness;
         uiManager.UpdateResources(Resources);
     }
 
@@ -102,35 +156,35 @@ public class ResourceManager : MonoBehaviour
         switch (resourceToCheck)
         {
             case Resource.Wood:
-                if (Resources[1] >= requiredAmount)
+                if (Resources.Wood >= requiredAmount)
                 {
                     return true;
                 }
                 break;
 
             case Resource.Stone:
-                if (Resources[2] >= requiredAmount)
+                if (Resources.Stone >= requiredAmount)
                 {
                     return true;
                 }
                 break;
 
             case Resource.Food:
-                if (Resources[3] >= requiredAmount)
+                if (Resources.Food >= requiredAmount)
                 {
                     return true;
                 }
                 break;
 
             case Resource.Gold:
-                if (Resources[4] >= requiredAmount)
+                if (Resources.Gold >= requiredAmount)
                 {
                     return true;
                 }
                 break;
 
             case Resource.Villagers:
-                if (Resources[5] >= requiredAmount)
+                if (Resources.VillagerCount >= requiredAmount)
                 {
                     return true;
                 }
@@ -171,5 +225,31 @@ public class ResourceManager : MonoBehaviour
             default:
                 return null;
         }
+    }
+}
+
+[System.Serializable]
+public class GameResources
+{
+    [field: SerializeField]
+    public float Food;
+    [field: SerializeField]
+    public float Stone;
+    [field: SerializeField]
+    public float Wood;
+    [field: SerializeField]
+    public float TownHappiness;
+    [field: SerializeField]
+    public float Gold;
+    [field: SerializeField]
+    public float VillagerCount;
+
+    public void Clear()
+    {
+        Food = 0;
+        Stone = 0;
+        Wood = 0;
+        Gold = 0;
+        VillagerCount = 0;
     }
 }
