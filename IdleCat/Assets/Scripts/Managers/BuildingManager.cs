@@ -13,6 +13,8 @@ public class BuildingManager : MonoBehaviour
     public List<GameObject> ListOfBuildingPrefabs = new List<GameObject>();
 
     public int PetitionSlots = 4;
+
+    public bool BuildMode = false;
     private void Awake()
     {
         // If there is an instance, and it's not me, delete myself.

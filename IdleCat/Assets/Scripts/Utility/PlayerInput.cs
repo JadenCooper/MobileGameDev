@@ -7,12 +7,26 @@ using UnityEngine.InputSystem;
 
 public class PlayerInput : MonoBehaviour
 {
-    public UnityEvent<Vector2> OnMovementInput;
+    public UnityEvent<Vector2> OnMovementInput, OnBuildMovementInput, onPress;
     [SerializeField]
     private InputActionReference movement, Interact, Look;
+
+    public bool BuildMode;
+
+    private Vector2 lastPosition;
+
+    [SerializeField]
+    private LayerMask placementLayerMask;
     private void Update()
     {
-        OnMovementInput?.Invoke(movement.action.ReadValue<Vector2>().normalized);
+        if (BuildMode)
+        {
+            OnBuildMovementInput?.Invoke(movement.action.ReadValue<Vector2>().normalized);
+        }
+        else
+        {
+            OnMovementInput?.Invoke(movement.action.ReadValue<Vector2>().normalized);
+        }
     }
 
     private void Start()
@@ -48,18 +62,33 @@ public class PlayerInput : MonoBehaviour
     {
         if (!EventSystem.current.IsPointerOverGameObject())
         {
-            Vector2 WorldPoint = Camera.main.ScreenToWorldPoint(Look.action.ReadValue<Vector2>());
-            RaycastHit2D raycastHit = Physics2D.Raycast(WorldPoint, Vector2.zero);
-
-            Collider2D collider = raycastHit.collider;
-            if (collider != null && collider.CompareTag("Intractable"))
+            if (BuildMode)
             {
-                Intractable[] hits =  raycastHit.collider.GetComponents<Intractable>();
-                for (int i = 0; i < hits.Length; i++)
+                Vector2 pressPos = Look.action.ReadValue<Vector2>();
+                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(pressPos), Vector2.zero, 100, placementLayerMask);
+                if (hit.collider != null)
                 {
-                    if (hits[i].enabled == true)
+                    Debug.Log("IN");
+                    lastPosition = hit.point;
+                    onPress?.Invoke(lastPosition);
+                }
+                //return lastPosition;
+            }
+            else
+            {
+                Vector2 WorldPoint = Camera.main.ScreenToWorldPoint(Look.action.ReadValue<Vector2>());
+                RaycastHit2D raycastHit = Physics2D.Raycast(WorldPoint, Vector2.zero);
+
+                Collider2D collider = raycastHit.collider;
+                if (collider != null && collider.CompareTag("Intractable"))
+                {
+                    Intractable[] hits = raycastHit.collider.GetComponents<Intractable>();
+                    for (int i = 0; i < hits.Length; i++)
                     {
-                        hits[i].Interact(gameObject.transform); // Activates Object's Interaction
+                        if (hits[i].enabled == true)
+                        {
+                            hits[i].Interact(gameObject.transform); // Activates Object's Interaction
+                        }
                     }
                 }
             }
