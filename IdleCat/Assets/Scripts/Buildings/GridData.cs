@@ -45,6 +45,11 @@ public class GridData : MonoBehaviour
         }
         return true;
     }
+
+    public void ClearData()
+    {
+        placedObjects.Clear();
+    }
 }
 
 public class PlacementData

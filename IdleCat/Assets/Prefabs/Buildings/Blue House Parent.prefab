@@ -132,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InteractionDistance: 2.3
   ID: 0
-  BuildingTypeID: 0
+  BuildingTypeID: 3
   buildingType: 1
   Name: Fox Den Hotel
   Location: {x: -5.92, y: 1}
@@ -141,6 +141,7 @@ MonoBehaviour:
   Capacity: 5
   ActionDescription: Resting At The Fox Den Inn
   buildingWidth: 2
+  GridPos: {x: 0, y: 0, z: 0}
   Inhabitants: []
   restValue: 10
 --- !u!61 &8507939535285513476

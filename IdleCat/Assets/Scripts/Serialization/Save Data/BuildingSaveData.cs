@@ -9,4 +9,6 @@ public class BuildingSaveData
     public int BuildingTypeID;
     public BuildingType buildingType;
     public Vector3 location;
+    public int level;
+    public Vector3Int gridPos;
 }

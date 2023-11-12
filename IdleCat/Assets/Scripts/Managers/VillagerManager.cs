@@ -289,6 +289,8 @@ public class VillagerManager : MonoBehaviour
 
         NonVillagers.Clear();
 
+
+
         VillagerManagerSaveDate VMSD = SaveData.current.VMSD;
 
         for (int i = 0; i < VMSD.Villagers.Count; i++)
