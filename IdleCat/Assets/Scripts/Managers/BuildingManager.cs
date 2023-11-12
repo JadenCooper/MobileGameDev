@@ -53,7 +53,7 @@ public class BuildingManager : MonoBehaviour
             newSaveData.BuildingID = JobBuildings[i].ID;
             newSaveData.BuildingTypeID = JobBuildings[i].BuildingTypeID;
             newSaveData.buildingType = BuildingType.Job;
-            newSaveData.location = JobBuildings[i].Location;
+            newSaveData.location = JobBuildings[i].gameObject.transform.position;
 
             BMD.Buildings.Add(newSaveData);
         }
@@ -64,7 +64,7 @@ public class BuildingManager : MonoBehaviour
             newSaveData.BuildingID = HouseBuildings[i].ID;
             newSaveData.BuildingTypeID = HouseBuildings[i].BuildingTypeID;
             newSaveData.buildingType = BuildingType.House;
-            newSaveData.location = HouseBuildings[i].Location;
+            newSaveData.location = HouseBuildings[i].gameObject.transform.position;
 
             BMD.Buildings.Add(newSaveData);
         }
@@ -75,7 +75,7 @@ public class BuildingManager : MonoBehaviour
             newSaveData.BuildingID = RecreationBuildings[i].ID;
             newSaveData.BuildingTypeID = RecreationBuildings[i].BuildingTypeID;
             newSaveData.buildingType = BuildingType.Recreation;
-            newSaveData.location = RecreationBuildings[i].Location;
+            newSaveData.location = RecreationBuildings[i].gameObject.transform.position;
 
             BMD.Buildings.Add(newSaveData);
         }

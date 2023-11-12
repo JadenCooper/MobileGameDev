@@ -13,6 +13,7 @@ public abstract class Building : Intractable
     public Sprite Icon;
     public int Capacity;
     public string ActionDescription;
+    public int buildingWidth = 1;
     public abstract void OnTriggerEnter2D(Collider2D collision);
 
     public abstract void BuildingAction(VillagerInfo currentUser);

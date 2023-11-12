@@ -68,11 +68,9 @@ public class PlayerInput : MonoBehaviour
                 RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(pressPos), Vector2.zero, 100, placementLayerMask);
                 if (hit.collider != null)
                 {
-                    Debug.Log("IN");
                     lastPosition = hit.point;
                     onPress?.Invoke(lastPosition);
                 }
-                //return lastPosition;
             }
             else
             {
